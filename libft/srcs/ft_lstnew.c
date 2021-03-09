@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rvernon <kasimbaybikov@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/11/03 16:03:52 by rvernon           #+#    #+#             */
+/*   Updated: 2020/11/09 17:30:05 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+t_list	*ft_lstnew(void *content)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	t_list *new;
 
+	if (!(new = malloc(sizeof(t_list))))
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

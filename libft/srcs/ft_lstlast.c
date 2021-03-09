@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/11/05 11:00:40 by rvernon           #+#    #+#             */
+/*   Updated: 2020/11/09 12:52:54 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+t_list		*ft_lstlast(t_list *lst)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
-
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
+	return (lst);
 }

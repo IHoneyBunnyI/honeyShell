@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/31 15:49:02 by rvernon           #+#    #+#             */
+/*   Updated: 2021/02/20 19:27:52 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strdup(const char *src)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	int		j;
+	int		len;
+	char	*str;
 
+	len = 0;
+	j = 0;
+	while (src[len])
+		len++;
+	str = (char *)malloc(sizeof(*str) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (j < len)
+	{
+		str[j] = src[j];
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
 }

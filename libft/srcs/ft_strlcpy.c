@@ -1,20 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/30 18:12:37 by rvernon           #+#    #+#             */
+/*   Updated: 2020/11/01 20:52:26 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	size_t i;
+	size_t len;
 
+	i = 0;
+	len = 0;
+	if (!dst || !src)
+		return (0);
+	while (src[len] != '\0')
+	{
+		++len;
+	}
+	if (dstsize == 0)
+		return (len);
+	while (*src && (i < (dstsize - 1)))
+	{
+		*dst = *src;
+		dst++;
+		src++;
+		++i;
+	}
+	*dst = '\0';
+	return (len);
 }

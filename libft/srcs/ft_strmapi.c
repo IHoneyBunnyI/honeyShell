@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/11/03 14:54:40 by rvernon           #+#    #+#             */
+/*   Updated: 2020/11/03 14:56:33 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	char	*news;
+	int		i;
 
+	if (!s)
+		return (NULL);
+	news = (char *)s;
+	i = 0;
+	if (!(news = malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (NULL);
+	while (s[i])
+	{
+		news[i] = f(i, s[i]);
+		i++;
+	}
+	news[i] = '\0';
+	return (news);
 }

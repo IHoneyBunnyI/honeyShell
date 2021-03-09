@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/30 17:24:15 by rvernon           #+#    #+#             */
+/*   Updated: 2020/10/31 13:34:01 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	unsigned char *str;
+	unsigned char chr;
 
+	str = (unsigned char *)s;
+	chr = (unsigned char)c;
+	while (n--)
+	{
+		if (*str == chr)
+			return (str);
+		str++;
+	}
+	return (NULL);
 }

@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/11/09 16:35:41 by rvernon           #+#    #+#             */
+/*   Updated: 2021/02/22 17:49:08 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	t_list *plist;
+	t_list *ptmp;
 
+	if (!*lst)
+		return ;
+	plist = *lst;
+	ptmp = *lst;
+	while (plist)
+	{
+		if (del != NULL)
+			del(plist->content);
+		ptmp = plist->next;
+		free(plist);
+		plist = ptmp;
+	}
+	*lst = NULL;
 }

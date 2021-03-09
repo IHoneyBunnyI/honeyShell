@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/30 21:44:56 by rvernon           #+#    #+#             */
+/*   Updated: 2020/10/31 13:37:47 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strchr(const char *s, int c)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	unsigned char *pc;
 
+	pc = (unsigned char *)s;
+	while (*pc != '\0' && *pc != (unsigned char)c)
+	{
+		pc++;
+	}
+	if (*pc == (unsigned char)c)
+	{
+		return ((char*)pc);
+	}
+	else
+		return (NULL);
 }

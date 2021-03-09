@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/30 12:44:14 by rvernon           #+#    #+#             */
+/*   Updated: 2020/10/31 13:37:20 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	unsigned char *a;
 
+	a = (unsigned char*)b;
+	while (len > 0)
+	{
+		*a = (unsigned char)c;
+		len--;
+		a++;
+	}
+	return (b);
 }

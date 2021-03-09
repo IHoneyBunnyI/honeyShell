@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:29:37 by rvernon          ###   ########.fr       */
+/*   Created: 2020/11/12 17:48:01 by rvernon           #+#    #+#             */
+/*   Updated: 2021/02/19 13:05:16 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFFER_SIZE 10
+# include <stdlib.h>
+# include <unistd.h>
 # include <stdio.h>
 # include "libft.h"
 
-# endif
+
+int				get_next_line(int fd, char **line);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strjoin(char *s1, char *s2);
+int				find_n(char *cache);
+char			*ft_before_dup(int len, char *cache);
+char			*before_n(char *cache);
+char			*after_n(char *cache);
+
+#endif

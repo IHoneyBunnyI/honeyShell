@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:20 by rvernon          ###   ########.fr       */
+/*   Created: 2020/10/30 17:48:50 by rvernon           #+#    #+#             */
+/*   Updated: 2020/10/31 13:34:16 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(void)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	//printf("%d\n", ft_atoi("100500"));
-	ft_printf("!@#");
+	unsigned char *str1;
+	unsigned char *str2;
 
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (n)
+	{
+		if (*str1 != *str2)
+		{
+			return (*str1 - *str2);
+		}
+		if (n)
+		{
+			str1++;
+			str2++;
+			n--;
+		}
+	}
+	return (0);
 }
