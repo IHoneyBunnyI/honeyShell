@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 19:43:12 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/23 20:12:35 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		env(char **s)
 	return (0);
 }
 
-void	loop(char **e)
+void	loop(t_all *all)
 {
 	int read;
 	char *line = 0;
@@ -36,9 +36,23 @@ void	loop(char **e)
 		read = get_next_line(0, &line);
 		printf("%s\n", line);
 		if ((ft_strcmp(line, "env")) == 0)
-			env(e);
+			env(all->env);
 		free(line);
 	}
+}
+
+void	env_copy(t_all *all, char **from)
+{
+	int i;
+	
+	i = 0;
+	while (from[i])
+		i++;
+	if (!(all->env = malloc(sizeof(char *) * (i + 1))))
+		error(1);
+	all->env[i] = 0;
+	while (i--)
+		all->env[i] = ft_strdup(from[i]);
 }
 
 int		main(int ac, char **av, char **env)
@@ -47,6 +61,8 @@ int		main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	(void)env;
 	init_all(&all);
-	loop(env);
+	env_copy(&all, env);
+	loop(&all);
 }

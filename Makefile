@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/23 19:40:21 by rvernon          ###   ########.fr        #
+#    Updated: 2021/03/23 20:03:07 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/
 
 FILES = main.c\
 		init_all.c\
+		error.c\
 
 LIBFT_D = libft/
 
