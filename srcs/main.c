@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 19:07:37 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/23 19:43:12 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	loop(char **e)
 		read = get_next_line(0, &line);
 		printf("%s\n", line);
 		if ((ft_strcmp(line, "env")) == 0)
-		{
 			env(e);
-		}
 		free(line);
 	}
 }
 
 int		main(int ac, char **av, char **env)
 {
+	t_all all;
+
 	(void)ac;
 	(void)av;
-	(void)env;
+	init_all(&all);
 	loop(env);
 }

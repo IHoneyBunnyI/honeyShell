@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   init_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 19:41:08 by rvernon          ###   ########.fr       */
+/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
+/*   Updated: 2021/03/23 19:41:09 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <termios.h>
-# include "libft.h"
-
-typedef struct	s_all
+void	init_all(t_all *all)
 {
-	char 		**env;
-}				t_all;
-
-void	init_all(t_all *all);
-# endif
+	all->env = 0;
+}
