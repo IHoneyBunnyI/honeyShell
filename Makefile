@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/23 20:03:07 by rvernon          ###   ########.fr        #
+#    Updated: 2021/03/23 21:08:06 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,12 @@ LIBFT = $(LIBFT_D)libft.a
 
 SRCS = $(addprefix srcs/, $(FILES))
 
-OBJS = $(SRCS:.c=.o)
+FILES_O = $(addprefix objs/, $(FILES))
+
+OBJS = $(FILES_O:.c=.o)
+
+objs/%.o: srcs/%.c
+	$(CC) $(CFLAGS) -c $<  -o $@
 
 all: $(NAME)
 
