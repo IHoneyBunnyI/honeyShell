@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 19:59:13 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 20:03:10 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/24 12:25:47 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	error(int id)
 	if (id == 0)
 		printf("OK\n");
 	else if (id == 1)
-		printf("ERROR\n");
+		printf("ERROR: invalid argument\n");
 	exit(1);
 }

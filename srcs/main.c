@@ -6,23 +6,11 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 20:12:35 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/24 13:01:29 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		env(char **s)
-{
-	int i;
-
-	i = -1;
-	while (s[++i])
-	{
-		printf("%s\n", s[i]);
-	}
-	return (0);
-}
 
 void	loop(t_all *all)
 {
@@ -34,7 +22,6 @@ void	loop(t_all *all)
 	{
 		write(2, "Баш коронный, шел похоронный $: ", ft_strlen("Баш коронный, шел похоронный $: "));
 		read = get_next_line(0, &line);
-		printf("%s\n", line);
 		if ((ft_strcmp(line, "env")) == 0)
 			env(all->env);
 		free(line);
@@ -59,10 +46,11 @@ int		main(int ac, char **av, char **env)
 {
 	t_all all;
 
-	(void)ac;
 	(void)av;
 	(void)env;
 	init_all(&all);
-	env_copy(&all, env);
-	loop(&all);
+	if (ac == 1)
+		start(&all, env);
+	else
+		error(1);
 }

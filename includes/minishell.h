@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/23 20:03:08 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/24 13:02:01 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,8 @@ typedef struct	s_all
 
 void	init_all(t_all *all);
 void	error(int id);
+void	start(t_all *all, char **env);
+void	env_copy(t_all *all, char **from);
+void	loop(t_all *all);
+int		env(char **s);
 # endif
