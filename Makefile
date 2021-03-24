@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/24 13:02:01 by rvernon          ###   ########.fr        #
+#    Updated: 2021/03/24 16:42:35 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ FILES = main.c\
 		error.c\
 		start.c\
 		env.c\
+		echo.c\
 
 LIBFT_D = libft/
 
