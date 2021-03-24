@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 19:09:45 by rvernon          ###   ########.fr       */
+/*   Created: 2021/03/24 19:01:00 by rvernon           #+#    #+#             */
+/*   Updated: 2021/03/24 19:03:39 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <termios.h>
-# include "libft.h"
-
-typedef struct	s_all
+void	export(char **s)
 {
-	char 		**env;
-	char		*start_line;
-}				t_all;
-
-void			init_all(t_all *all);
-void			error(int id);
-void			start(t_all *all, char **env);
-void			env_copy(t_all *all, char **from);
-int				env(char **s);
-void			echo(char **s);
-void			write_start_line(char *line);
-void			pwd();
-# endif
+	(void)s;
+}

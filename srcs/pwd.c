@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 19:09:45 by rvernon          ###   ########.fr       */
+/*   Created: 2021/03/24 19:03:49 by rvernon           #+#    #+#             */
+/*   Updated: 2021/03/24 19:11:58 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <termios.h>
-# include "libft.h"
-
-typedef struct	s_all
+void	pwd()
 {
-	char 		**env;
-	char		*start_line;
-}				t_all;
+	char *pwd;
+	int len;
 
-void			init_all(t_all *all);
-void			error(int id);
-void			start(t_all *all, char **env);
-void			env_copy(t_all *all, char **from);
-int				env(char **s);
-void			echo(char **s);
-void			write_start_line(char *line);
-void			pwd();
-# endif
+	pwd = getcwd(0, 0);
+	len = ft_strlen(pwd);
+	write(1, pwd, len);
+	write(1, "\n", 1);
+}

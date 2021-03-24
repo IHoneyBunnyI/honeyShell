@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/24 17:18:46 by rvernon          ###   ########.fr        #
+#    Updated: 2021/03/24 19:07:58 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ FILES = main.c\
 		env.c\
 		echo.c\
 		util.c\
+		pwd.c\
 
 LIBFT_D = libft/
 

@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:19:44 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/24 19:11:05 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	loop(t_all *all)
 			line = line + 4;
 			split = ft_split(line, ' ');
 			echo(split);
+		}
+		else if (line[0] == 'p' && line[1] == 'w' && line[2] == 'd')
+		{
+			pwd();
 		}
 	}
 }
