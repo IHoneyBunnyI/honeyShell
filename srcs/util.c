@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:14:34 by rvernon          ###   ########.fr       */
+/*   Created: 2021/03/24 17:09:41 by rvernon           #+#    #+#             */
+/*   Updated: 2021/03/24 17:19:53 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_all(t_all *all)
+void	write_start_line(char *line)
 {
-	all->env = 0;
-	all->start_line = 0;
+	int len;
+
+	len = ft_strlen(line);
+	write(2, line, len);
 }
