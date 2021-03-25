@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:46:25 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 18:56:12 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/03/25 12:50:07 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		is_n(char *line)
 	return (0);
 }
 
-void	echo(char **s)
+void	my_echo(char **s)
 {
 	int i;
 	char n;

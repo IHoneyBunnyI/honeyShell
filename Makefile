@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/24 19:07:58 by rvernon          ###   ########.fr        #
+#    Updated: 2021/03/25 12:55:00 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ objs/%.o: srcs/%.c
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) 
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft/ -lft
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft/ -lft -ltermcap
 
 $(LIBFT): $(LIBFT_D)
 	@$(MAKE) -C $(LIBFT_D)
