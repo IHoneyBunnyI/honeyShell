@@ -6,12 +6,35 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/03/25 13:16:55 by rvernon          ###   ########.fr       */
+=======
+/*   Updated: 2021/03/24 14:07:32 by rvernon          ###   ########.fr       */
+>>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+<<<<<<< HEAD
+=======
+void	loop(t_all *all)
+{
+	int read;
+	char *line = 0;
+
+	read = 1;
+	while (read)
+	{
+		write(2, "\033[36m\033[1m🗿🗿🗿🗿🗿 $ \033[0m", ft_strlen("\033[36m\033[1m🗿🗿🗿🗿🗿 $: \033[0m"));
+		read = get_next_line(0, &line);
+		if ((ft_strcmp(line, "env")) == 0)
+			env(all->env);
+		free(line);
+	}
+}
+
+>>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
 void	env_copy(t_all *all, char **from)
 {
 	int i;
