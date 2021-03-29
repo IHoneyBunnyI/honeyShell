@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/03/27 16:58:57 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/03/29 19:22:35 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,18 @@ int main()
 	char *buf;
 	int i;
 	int n;
+	int size;
 
 	i = 0;
 	n = 0;
+	size = 0;
 	tcgetattr(0, &old);
 	new = old;
 	new.c_lflag &= ~(ECHO);
 	new.c_lflag &= ~(ICANON);
 	tcsetattr(0, TCSANOW, &new);
 	tgetent(0, getenv("TERM"));
-	setvbuf(stdout,NULL,_IONBF,0);
+	setvbuf(stdout, NULL, _IONBF, 0);
 	printf("%s", tgetstr("ks", 0));
 //	tputs(restore_cursor, 1, ft_putint);
 //	tputs(tigetstr("ed"), 1, ft_putint);
@@ -67,22 +69,28 @@ int main()
 			l = n;
 			if (!ft_strcmp(c, tgetstr("ku", 0)))
 			{
-				tputs(restore_cursor, 1, ft_putint);
-				tputs(tgetstr("dl", 0), 1, ft_putint);
+			//	tputs(restore_cursor, 1, ft_putint);
 				if (i)
 				{
+					tputs(restore_cursor, 1, ft_putint);
+					tputs(tgetstr("dl", 0), 1, ft_putint);
 					i--;
-					write(1, buf + i * 4000, ft_strlen(buf + i * 4000));
-					n = ft_strlen(buf + i * 4000);
+					ft_strlcpy(buf + size * 4000, buf + i * 4000, ft_strlen
+					(buf + i * 4000));
+					write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
+					n = ft_strlen(buf + size * 4000);
 				}
 			}
 			else if (!ft_strcmp(c, tgetstr("kd", 0)))
 			{
-				tputs(restore_cursor, 1, ft_putint);
-				tputs(tgetstr("dl", 0), 1, ft_putint);
-				i++;
-				write(1, buf + i * 4000, ft_strlen(buf + i * 4000));
-				n = 4;
+				if (buf[i * 4000])
+				{
+					tputs(restore_cursor, 1, ft_putint);
+					tputs(tgetstr("dl", 0), 1, ft_putint);
+					i++;
+					write(1, buf + i * 4000, ft_strlen(buf + i * 4000));
+					n = 4;
+				}
 			}
 			else if (!ft_strcmp(c, "\177"))
 			{
@@ -95,7 +103,7 @@ int main()
 			}
 			else if (!ft_strcmp(c, tgetstr("kl", 0)))
 			{
-				while (n)
+				if (n)
 				{
 					tputs(cursor_left, 1, ft_putint);
 					n--;
@@ -104,10 +112,10 @@ int main()
 			else if (!ft_strcmp(c, tgetstr("kr", 0)))
 			{
 				int k = n;
-				 (k != n)
+				if (k != n)
 				{
 					tputs(cursor_right, 1, ft_putint);
-					k++;
+					n++;
 				}
 			}
 			else
@@ -120,14 +128,17 @@ int main()
 			{
 				buf[i * 4000 + n] = 0;
 				if (ft_strcmp(buf + (i * 4000), "\n"))
+				{
 					i++;
+					size++;
+					buf[i * 4000] = 0;
+				}
 				n = 0;
-				buf[i * 4000] = 0;
 				break;
 			}
 		}
 	}
-//	printf("%s", tgetstr("ke", 0));
+	printf("%s", tgetstr("ke", 0));
 	tcsetattr(0, TCSANOW, &old);
 	printf("\n");
 	return 0;
