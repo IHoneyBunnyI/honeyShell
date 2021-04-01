@@ -6,11 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/25 13:20:43 by rvernon          ###   ########.fr       */
-=======
-/*   Updated: 2021/03/24 13:16:31 by rvernon          ###   ########.fr       */
->>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
+/*   Updated: 2021/04/01 20:22:04 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +17,56 @@ void	init_const(t_all *all)
 	all->start_line = ft_strdup("🚀 $ ");
 }
 
+int		is_echo(char *l)
+{
+	if (l[0] == 'e' && l[1] == 'c' && l[2] == 'h' && l[3] == 'o')
+		return 1;
+	return 0;
+}
+
+void	my_execve(t_all *all, char *line)
+{
+	char *bin;
+	pid_t i;
+
+	bin = ft_strdup("/bin/");
+	bin = ft_strjoin(bin, line);
+	i = fork();
+	if (i == 0)
+	{
+		write(1, "\n", 1);
+		execve(bin, all->av, all->env);
+	}
+}
+
+void	easy_parser(t_all *all, char *l)
+{
+	char **split;
+
+	split = ft_split(l, ' ');
+	if (is_echo(l))
+		my_echo(split + 1);
+	else if (l[0] == 'e' && l[1] == 'n' && l[2] == 'v')
+		env(all->env);
+	else if (l[0] == 'p' && l[1] == 'w' && l[2] == 'd')
+		pwd();
+	else
+		my_execve(all, split[0]);
+}
+
 void	loop(t_all *all)
 {
 	int read;
 	char *line = 0;
-	char **split;
 
 	read = 1;
 	while (read)
 	{
 		write_start_line(all->start_line);
 		read = get_next_line(0, &line);
-		if ((ft_strcmp(line, "env")) == 0)
-			env(all->env);
-		if (line[0] == 'e' && line[1] == 'c' && line[2] == 'h' && line[3] == 'o')
-		{
-			line = line + 4;
-			split = ft_split(line, ' ');
-			my_echo(split);
-		}
-		else if (line[0] == 'p' && line[1] == 'w' && line[2] == 'd')
-		{
-			pwd();
-		}
-		//free(line);
+		//parser(all, line);
+		easy_parser(all, line);
+		free(line);
 	}
 }
 
@@ -52,14 +74,17 @@ void	termcap(t_all *all)
 {
 	char *term;
 	(void)all;
+	struct termios new;
+	struct termios old;
+	(void)new;
+	(void)old;
 
 	term = getenv("TERM");
-	printf("%s\n", term);
 }
 
-void	start(t_all *all, char **env)
+void	start(t_all *all, char **av, char **env)
 {
-	env_copy(all, env);
+	av_env_copy(all, av, env);
 	init_const(all);
 	termcap(all);
 	loop(all);

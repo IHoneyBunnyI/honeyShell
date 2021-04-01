@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:47:26 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 14:31:08 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/01 20:05:03 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				get_next_line(int fd, char **line)
 			return (-1);
 		}
 		buffer[readed] = '\0';
-		cache = ft_strjoin(cache, buffer);
+		cache = ft_join(cache, buffer);
 	}
 	free(buffer);
 	*line = before_n(cache);

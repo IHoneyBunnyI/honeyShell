@@ -6,47 +6,32 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/25 13:16:55 by rvernon          ###   ########.fr       */
-=======
-/*   Updated: 2021/03/24 14:07:32 by rvernon          ###   ########.fr       */
->>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
+/*   Updated: 2021/04/01 20:00:25 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-=======
-void	loop(t_all *all)
-{
-	int read;
-	char *line = 0;
-
-	read = 1;
-	while (read)
-	{
-		write(2, "\033[36m\033[1m🗿🗿🗿🗿🗿 $ \033[0m", ft_strlen("\033[36m\033[1m🗿🗿🗿🗿🗿 $: \033[0m"));
-		read = get_next_line(0, &line);
-		if ((ft_strcmp(line, "env")) == 0)
-			env(all->env);
-		free(line);
-	}
-}
-
->>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
-void	env_copy(t_all *all, char **from)
+void	av_env_copy(t_all *all, char **av, char **env)
 {
 	int i;
 	
 	i = 0;
-	while (from[i])
+	while (env[i])
 		i++;
 	if (!(all->env = malloc(sizeof(char *) * (i + 1))))
 		error(1);
 	all->env[i] = 0;
 	while (i--)
-		all->env[i] = ft_strdup(from[i]);
+		all->env[i] = ft_strdup(env[i]);
+	i = 0;
+	while (av[i])
+		i++;
+	if (!(all->av = malloc(sizeof(char *) * (i + 1))))
+		error(1);
+	all->av[i] = 0;
+	while (i--)
+		all->av[i] = ft_strdup(av[i]);
 }
 
 int		main(int ac, char **av, char **env)
@@ -54,10 +39,9 @@ int		main(int ac, char **av, char **env)
 	t_all all;
 
 	(void)av;
-	(void)env;
 	init_all(&all);
 	if (ac == 1)
-		start(&all, env);
+		start(&all, av, env);
 	else
 		error(1);
 }

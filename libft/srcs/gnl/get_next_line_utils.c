@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:52:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/19 13:07:33 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/01 20:05:06 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char		*ft_strchr(const char *s, int c)
 
 
 
-char		*ft_strjoin(char *s1, char *s2)
+char		*ft_join(char *s1, char *s2)
 {
 	char	*news;
 	int		i;

@@ -6,11 +6,8 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/03/25 12:55:00 by rvernon          ###   ########.fr        #
-=======
+#    Updated: 2021/03/31 17:46:15 by rvernon          ###   ########.fr        #
 #    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
->>>>>>> ccae4186e7f7b8817e295161d090c49b7c5fd171
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +25,8 @@ FILES = main.c\
 		echo.c\
 		util.c\
 		pwd.c\
+		parser.c\
+		arrow.c\
 
 LIBFT_D = libft/
 
