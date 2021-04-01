@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/03/29 19:22:35 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/01 13:30:12 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	exit_terminal(void)
 	printf("%s", tgetstr("ke", 0));
 	printf("%s", tgetstr("ei", 0));
 }
+
+
 
 int main() 
 {
@@ -69,14 +71,13 @@ int main()
 			l = n;
 			if (!ft_strcmp(c, tgetstr("ku", 0)))
 			{
-			//	tputs(restore_cursor, 1, ft_putint);
 				if (i)
 				{
 					tputs(restore_cursor, 1, ft_putint);
 					tputs(tgetstr("dl", 0), 1, ft_putint);
 					i--;
 					ft_strlcpy(buf + size * 4000, buf + i * 4000, ft_strlen
-					(buf + i * 4000));
+					(buf + i * 4000) + 1);
 					write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
 					n = ft_strlen(buf + size * 4000);
 				}
@@ -88,8 +89,12 @@ int main()
 					tputs(restore_cursor, 1, ft_putint);
 					tputs(tgetstr("dl", 0), 1, ft_putint);
 					i++;
-					write(1, buf + i * 4000, ft_strlen(buf + i * 4000));
-					n = 4;
+					if (i == size)
+						buf[i * 4000] = 0;
+					ft_strlcpy(buf + size * 4000, buf + i * 4000,ft_strlen
+					(buf + i * 4000) + 1);
+					write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
+					n = ft_strlen(buf + size * 4000);
 				}
 			}
 			else if (!ft_strcmp(c, "\177"))
@@ -111,8 +116,7 @@ int main()
 			}
 			else if (!ft_strcmp(c, tgetstr("kr", 0)))
 			{
-				int k = n;
-				if (k != n)
+				if (n < ft_strlen(buf + i * 4000))
 				{
 					tputs(cursor_right, 1, ft_putint);
 					n++;
@@ -122,15 +126,15 @@ int main()
 			{
 				write(1, c, r);
 				if (ft_strcmp(c, "\n"))
-					buf[i * 4000 + n++] = *c;
+					buf[size * 4000 + n++] = *c;
 			}
 			if (!ft_strcmp(c, "\n") || !ft_strcmp(c, "\4"))
 			{
 				buf[i * 4000 + n] = 0;
 				if (ft_strcmp(buf + (i * 4000), "\n"))
 				{
-					i++;
 					size++;
+					i = size;
 					buf[i * 4000] = 0;
 				}
 				n = 0;
