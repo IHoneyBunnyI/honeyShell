@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/31 17:46:15 by rvernon          ###   ########.fr        #
+#    Updated: 2021/04/02 15:20:37 by rvernon          ###   ########.fr        #
 #    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -27,6 +27,7 @@ FILES = main.c\
 		pwd.c\
 		parser.c\
 		arrow.c\
+		av_env_copy.c\
 
 LIBFT_D = libft/
 

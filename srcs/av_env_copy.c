@@ -1,20 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   av_env_copy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 15:18:27 by rvernon          ###   ########.fr       */
+/*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
+/*   Updated: 2021/04/02 15:29:19 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_all(t_all *all)
+void	param_copy(char **to, char **from)
 {
-	all->env = 0;
-	all->av = 0;
-	all->start_line = 0;
+	int i;
+	
+	i = 0;
+	(void)to;
+	while (from[i])
+	{
+		printf("%s\n", from[i]);
+		i++;
+	}
+	/*while (from[i])*/
+		/*i++;*/
+	/*if (!(to = malloc(sizeof(char *) * (i + 1))))*/
+		/*error(1);*/
+	/*to[i] = 0;*/
+	/*while (i--)*/
+		/*to[i] = ft_strdup(from[i]);*/
+}
+
+void	av_env_copy(t_all *all, char **av, char **env)
+{
+	param_copy(all->env, env);
+	param_copy(all->av, av);
 }

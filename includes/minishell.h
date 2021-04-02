@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/01 20:15:56 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:27:30 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <term.h>
 # include <curses.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
 # include "libft.h"
 
 typedef struct	s_all
 {
 	char 		**env;
+	char 		**sort_env;
 	char		*start_line;
 	char		*command;
 	char		**av;

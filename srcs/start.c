@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/01 20:22:04 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:12:44 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ int		is_echo(char *l)
 void	my_execve(t_all *all, char *line)
 {
 	char *bin;
-	pid_t i;
+	pid_t pid;
 
 	bin = ft_strdup("/bin/");
 	bin = ft_strjoin(bin, line);
-	i = fork();
-	if (i == 0)
+	pid = fork();
+	waitpid(pid, 0, 0);
+	if (pid == 0)
 	{
-		write(1, "\n", 1);
 		execve(bin, all->av, all->env);
+		exit(0);
 	}
 }
 
