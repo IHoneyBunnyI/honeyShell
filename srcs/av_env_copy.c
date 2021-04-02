@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 22:58:10 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/02 23:18:15 by kasimbayb        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,43 @@ void	param_copy(t_all *all, char **av, char **env)
 		i++;
 	if (!(all->env = malloc(sizeof(char *) * (i + 1))))
 		error(1);
+	if (!(all->sort_env = malloc(sizeof(char *) * (i + 1))))
+		error(1);
 	all->env[i] = 0;
+	all->sort_env[i] = 0;
 	while (i--)
+	{
 		all->env[i] = ft_strdup(env[i]);
+		all->sort_env[i] = ft_strdup(env[i]);
+	}
+}
+
+void	sort_env(t_all *all)
+{
+	int i;
+	int j;
+	char *tmp;
+
+	i = 0;
+	while(all->sort_env[i])
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (ft_strcmp(all->sort_env[i], all->sort_env[j]) < 0)
+			{
+				tmp = all->sort_env[i];
+				all->sort_env[i] = all->sort_env[j];
+				all->sort_env[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 void	av_env_copy(t_all *all, char **av, char **env)
 {
 	param_copy(all, av, env);
+	sort_env(all);
 }

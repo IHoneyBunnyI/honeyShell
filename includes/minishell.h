@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 15:27:30 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/02 23:21:48 by kasimbayb        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void			my_echo(char **s);
 void			write_start_line(char *line);
 void			pwd();
 void			parser(t_all *all, char *line);
+void			export(char **s);
 # endif
