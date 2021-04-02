@@ -6,12 +6,13 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 23:18:15 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/02 23:39:10 by kasimbayb        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void	param_copy(t_all *all, char **av, char **env)
+
+void	av_copy(t_all *all, char **av)
 {
 	int i;
 	
@@ -23,6 +24,19 @@ void	param_copy(t_all *all, char **av, char **env)
 	all->av[i] = 0;
 	while (i--)
 		all->av[i] = ft_strdup(av[i]);
+}
+
+int		find_oldpwd(char *line)
+{
+	if (line[0] == 'O' && line[1] == 'L' && line[2] == 'D' && line[3] == 'P' && line[4] == 'W' && line[5] == 'D')
+		return (1);
+	return (0);
+}
+
+void	env_copy(t_all *all, char **env)
+{
+	int i;
+
 	i = 0;
 	while (env[i])
 		i++;
@@ -34,8 +48,13 @@ void	param_copy(t_all *all, char **av, char **env)
 	all->sort_env[i] = 0;
 	while (i--)
 	{
-		all->env[i] = ft_strdup(env[i]);
-		all->sort_env[i] = ft_strdup(env[i]);
+		if (find_oldpwd(env[i]))
+			all->sort_env[i] = ft_strdup("OLDPWD");
+		else
+		{
+			all->env[i] = ft_strdup(env[i]);
+			all->sort_env[i] = ft_strdup(env[i]);
+		}
 	}
 }
 
@@ -65,6 +84,7 @@ void	sort_env(t_all *all)
 
 void	av_env_copy(t_all *all, char **av, char **env)
 {
-	param_copy(all, av, env);
+	env_copy(all, env);
+	av_copy(all, av);
 	sort_env(all);
 }
