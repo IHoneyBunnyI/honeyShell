@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 22:31:50 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/19 11:37:06 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 17:33:14 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char			**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		i;
-	int		j;
 	int		len;
 	int		count;
 
@@ -81,7 +80,6 @@ char			**ft_split(char const *s, char c)
 	if (!(split = malloc(sizeof(char *) * (count + 1))))
 		return (NULL);
 	i = -1;
-	j = 0;
 	while (++i < count)
 	{
 		while (*s == c && *s != '\0')

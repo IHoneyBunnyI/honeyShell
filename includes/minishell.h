@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 23:21:48 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/03 16:22:15 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 typedef struct	s_all
 {
 	char 		**env;
+	char		**av;
 	char 		**sort_env;
 	char		*start_line;
 	char		*command;
-	char		**av;
+	char		**args;
 }				t_all;
 
 void			init_all(t_all *all);
@@ -42,5 +43,5 @@ void			my_echo(char **s);
 void			write_start_line(char *line);
 void			pwd();
 void			parser(t_all *all, char *line);
-void			export(char **s);
+void			export(t_all *all, char **env, char **args);
 # endif

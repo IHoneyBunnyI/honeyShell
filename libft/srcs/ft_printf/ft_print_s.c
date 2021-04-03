@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 17:28:00 by rvernon           #+#    #+#             */
-/*   Updated: 2020/12/11 21:27:19 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 17:36:15 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ static void		print_s_minus(t_format *flags, char *s)
 
 static void		print_s_without(t_format *flags, char *s)
 {
-	int i;
-
-	i = -1;
 	if (flags->isaccuracy && flags->accuracy <= ft_strlen(s))
 	{
 		ft_write(" ", flags->width - flags->accuracy, flags);

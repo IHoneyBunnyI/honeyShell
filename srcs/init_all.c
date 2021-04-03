@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 15:18:27 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 16:04:22 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,7 @@ void	init_all(t_all *all)
 	all->env = 0;
 	all->av = 0;
 	all->start_line = 0;
+	all->sort_env = 0;
+	all->command = 0;
+	all->args = 0;
 }

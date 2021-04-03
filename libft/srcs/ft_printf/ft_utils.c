@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:51:51 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/14 13:30:29 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 17:34:33 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ t_format			ft_initial_flags(t_format *flags)
 
 char				*ft_print_all(char *format, t_format *flags)
 {
-	int i;
-
-	i = 0;
 	if (format && *format != '%')
 	{
 		write(1, format, 1);

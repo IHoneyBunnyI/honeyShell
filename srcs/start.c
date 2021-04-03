@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/02 23:20:16 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/03 17:36:17 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,17 @@ void	my_execve(t_all *all, char *line)
 
 void	easy_parser(t_all *all, char *l)
 {
-	char **split;
-
-	split = ft_split(l, ' ');
+	all->args = ft_split(l, ' ');
 	if (is_echo(l))
-		my_echo(split + 1);
+		my_echo(all->args + 1);
 	else if (l[0] == 'e' && l[1] == 'n' && l[2] == 'v')
 		env(all->env);
 	else if (l[0] == 'p' && l[1] == 'w' && l[2] == 'd')
 		pwd();
 	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'p' && l[3] == 'o' && l[4] == 'r'&& l[5] == 't' )
-		export(all->sort_env);
+		export(all, all->sort_env, all->args);
 	else
-		my_execve(all, split[0]);
+		my_execve(all, all->args[0]);
 }
 
 void	loop(t_all *all)
