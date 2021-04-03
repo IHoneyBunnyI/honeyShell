@@ -30,12 +30,6 @@ int ft_putstr(char *c)
 	return (write(1, c, ft_strlen(c)));
 }
 
-void	exit_terminal(void)
-{
-	printf("%s", tgetstr("ke", 0));
-	printf("%s", tgetstr("ei", 0));
-}
-
 int	make_keyup(char *sbuf, char *ibuf)
 {
 	tputs(restore_cursor, 1, ft_putint);
@@ -77,26 +71,25 @@ void	make_lr(char *c, int *n, char *buf, int i)
 	}
 }
 
-void exit_shell(char *buf, int *n, int *size, int *i)
+void next_command(char *buf, int *n, int *size, int *i)
 {
 	buf[*size * 4000 + *n] = 0;
-	if (ft_strcmp(buf + (*size * 4000), "\n"))
+	if (buf[*size * 4000])
 	{
 		if (*size < 1000)
 			(*size)++;
 		*i = *size;
-		buf[*i * 4000] = 0;
+		buf[*size * 4000] = 0;
 	}
 	*n = 0;
 }
 
-void	init_term()
+void	init_term(struct termios *old)
 {
 	struct termios new;
-	struct termios old;
 
-	tcgetattr(0, &old);
-	new = old;
+	tcgetattr(0, old);
+	new = *old;
 	new.c_lflag &= ~(ECHO);
 	new.c_lflag &= ~(ICANON);
 	tcsetattr(0, TCSANOW, &new);
@@ -104,9 +97,25 @@ void	init_term()
 	ft_putstr(tgetstr("ks", 0));
 }
 
-int main() 
+void make_bs(int *n)
 {
+	tputs(cursor_left, 1, ft_putint);
+	tputs(tgetstr("dc", 0), 1, ft_putint);
+	(*n)--;
+}
 
+int	exit_term(struct termios *old, char *buf)
+{
+	ft_putstr(tgetstr("ke", 0));
+	tcsetattr(0, TCSANOW, old);
+	printf("\n");
+	free(buf);
+	return (0);
+}
+
+int main()
+{
+	struct termios old;
 	char c[5];
 	char *buf;
 	int i;
@@ -117,7 +126,7 @@ int main()
 	i = 0;
 	n = 0;
 	size = 0;
-	init_term();
+	init_term(&old);
 	buf = malloc(4000 * 1000);
 	while (ft_strcmp(c, "\4"))
 	{
@@ -133,17 +142,13 @@ int main()
 			}
 			else if (!ft_strcmp(c, tgetstr("kd", 0)))
 			{
-				if (buf[i * 4000])
+				if (i < size)
 					n = make_keydown(buf, size, ++i);
 			}
 			else if (!ft_strcmp(c, "\177"))
 			{
 				if (n)
-				{
-					tputs(cursor_left, 1, ft_putint);
-					tputs(tgetstr("dc", 0), 1, ft_putint);
-					n--;
-				}
+					make_bs(&n);
 			}
 			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c, tgetstr("kr", 0)))
 				make_lr(c, &n, buf, i);
@@ -155,12 +160,10 @@ int main()
 			}
 			if (!ft_strcmp(c, "\n") || !ft_strcmp(c, "\4"))
 			{
-				exit_shell(buf, &n, &size, &i);
+				next_command(buf, &n, &size, &i);
 				break;
 			}
 		}
 	}
-	ft_putstr(tgetstr("ke", 0));
-	printf("\n");
-	return 0;
+	return (exit_term(&old, buf));
 }
