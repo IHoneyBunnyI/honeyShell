@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 19:01:00 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/03 17:37:11 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 18:41:55 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,41 @@ int		find_equal(char *line)
 	return (0);
 }
 
-void	add_sort_env(t_all *all, char *line)
+int		num_of_split(char **split)
 {
-	(void)all;
-	(void)line;
+	int i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}
+
+void	free_split(char **split)
+{
+	int i;
+	
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+void	add_sort_env(t_all *all, char **args)
+{
+	int i;
+	int j;
+
+	i = num_of_split(all->sort_env);
+	j = num_of_split(args);
+	free_split(all->sort_env);
+	if (!(all->sort_env = malloc(sizeof(char *) * (i + j + 1))))
+		error(1);
+	all->sort_env[i + j] = 0;
+	while (j--) ///////////////////////////////////////////////////// kosyak
+		all->sort_env[i + j] = args[j];
+	while (i--)
+		all->sort_env[i] = all->env[i];
 }
 
 void	export(t_all *all, char **env, char **args)
@@ -54,7 +85,6 @@ void	export(t_all *all, char **env, char **args)
 		print_export(env);
 	else
 	{
-		if ((find_equal(args[i])) == 0)
-			add_sort_env(all, args[i]);
+		add_sort_env(all, args + 1);
 	}
 }

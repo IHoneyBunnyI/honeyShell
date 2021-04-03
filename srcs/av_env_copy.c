@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/03 16:03:08 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/03 18:36:35 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		find_oldpwd(char *line)
 	return (0);
 }
 
-void	env_copy(t_all *all, char **env)
+void	first_env_copy(t_all *all, char **env)
 {
 	int i;
 
@@ -84,7 +84,7 @@ void	sort_env(t_all *all)
 
 void	av_env_copy(t_all *all, char **av, char **env)
 {
-	env_copy(all, env);
+	first_env_copy(all, env);
 	av_copy(all, av);
 	sort_env(all);
 }
