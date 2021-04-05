@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/03 18:14:59 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/05 20:27:15 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	easy_parser(t_all *all, char *l)
 		export(all, all->sort_env, all->args);
 	else
 		my_execve(all, all->args[0]);
+	free_split(all->args);
 }
 
 void	loop(t_all *all)
