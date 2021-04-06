@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/06 16:24:54 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/06 16:25:59 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	init_term(struct termios *old)
 	tcsetattr(0, TCSANOW, &new);
 	tgetent(0, getenv("TERM"));
 	ft_putstr(tgetstr("ks", 0));
-	ft_putstr(tgetstr("im", 0));
 }
 
 void make_bs(int *n)
@@ -86,7 +85,6 @@ int	exit_term(struct termios *old, char *buf)
 {
 	ft_putstr("exit");
 	ft_putstr(tgetstr("ke", 0));
-	ft_putstr(tgetstr("ei", 0));
 	tcsetattr(0, TCSANOW, old);
 	printf("\n");
 	free(buf);
