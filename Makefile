@@ -14,9 +14,9 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -g -I$(LIBFT_D)includes/
+CFLAGS = -g -I$(LIBFT_D)includes/ -Iincludes/
 
-FILES = arrow.c
+FILES = arrow.c arrow_utils.c
 
 LIBFT_D = libft/
 

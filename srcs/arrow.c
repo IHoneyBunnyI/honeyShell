@@ -6,34 +6,18 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/03 11:31:22 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/06 16:24:54 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <termios.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <term.h>
-#include <curses.h>
-#include <sys/ioctl.h>
-#include <stdlib.h>
-#include "libft.h"
+#include "../includes/minishell.h"
 
-int ft_putint(int c)
-{
-	return (write(1, &c, 1));
-}
-
-int ft_putstr(char *c)
-{
-	return (write(1, c, ft_strlen(c)));
-}
 
 int	make_keyup(char *sbuf, char *ibuf)
 {
 	tputs(restore_cursor, 1, ft_putint);
 	tputs(tgetstr("dl", 0), 1, ft_putint);
+	ft_putstr("🚀 $ ");
 	ft_strlcpy(sbuf, ibuf, ft_strlen(ibuf) + 1);
 	write(1, sbuf, ft_strlen(sbuf));
 	return (ft_strlen(sbuf));
@@ -41,34 +25,27 @@ int	make_keyup(char *sbuf, char *ibuf)
 
 int	make_keydown(char *buf, int size, int i)
 {
+/*	int n;
+	int k;
+
+	k = tgetnum("co");
+	n = k / ft_strlen(buf + i * 4000);
+	ft_putint(n);*/
 	tputs(restore_cursor, 1, ft_putint);
 	tputs(tgetstr("dl", 0), 1, ft_putint);
+/*	n--;
+	if (n > 1)
+	{
+		tputs(tgetstr("dl", 0), 1, ft_putint);
+		tputs(cursor_up, 1, ft_putint);
+	}*/
 	if (i == size)
 		buf[i * 4000] = 0;
+	ft_putstr("🚀 $ ");
 	ft_strlcpy(buf + size * 4000, buf + i * 4000,ft_strlen
 	(buf + i * 4000) + 1);
 	write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
 	return (ft_strlen(buf + size * 4000));
-}
-
-void	make_lr(char *c, int *n, char *buf, int i)
-{
-	if (!ft_strcmp(c, tgetstr("kl", 0)))
-	{
-		if (*n)
-		{
-			tputs(cursor_left, 1, ft_putint);
-			(*n)--;
-		}
-	}
-	else if (!ft_strcmp(c, tgetstr("kr", 0)))
-	{
-		if (*n < ft_strlen(buf + i * 4000))
-		{
-			tputs(cursor_right, 1, ft_putint);
-			(*n)++;
-		}
-	}
 }
 
 void next_command(char *buf, int *n, int *size, int *i)
@@ -95,6 +72,7 @@ void	init_term(struct termios *old)
 	tcsetattr(0, TCSANOW, &new);
 	tgetent(0, getenv("TERM"));
 	ft_putstr(tgetstr("ks", 0));
+	ft_putstr(tgetstr("im", 0));
 }
 
 void make_bs(int *n)
@@ -106,7 +84,9 @@ void make_bs(int *n)
 
 int	exit_term(struct termios *old, char *buf)
 {
+	ft_putstr("exit");
 	ft_putstr(tgetstr("ke", 0));
+	ft_putstr(tgetstr("ei", 0));
 	tcsetattr(0, TCSANOW, old);
 	printf("\n");
 	free(buf);
@@ -131,6 +111,7 @@ int main()
 	while (ft_strcmp(c, "\4"))
 	{
 		tputs(save_cursor, 1, ft_putint);
+		ft_putstr("🚀 $ ");
 		while (1)
 		{
 			r = read(0, c, 10);
@@ -151,7 +132,7 @@ int main()
 					make_bs(&n);
 			}
 			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c, tgetstr("kr", 0)))
-				make_lr(c, &n, buf, i);
+				make_lr(c, &n, buf, size);
 			else
 			{
 				write(1, c, r);

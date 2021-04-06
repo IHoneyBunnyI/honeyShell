@@ -6,22 +6,31 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 14:31:08 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/06 11:32:39 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <termios.h>
-# include "libft.h"
+#include <termios.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <term.h>
+#include <curses.h>
+#include <sys/ioctl.h>
+#include <stdlib.h>
+#include "libft.h"
 
 typedef struct	s_all
 {
 	char 		**env;
 }				t_all;
 
+void	make_lr(char *c, int *n, char *buf, int size);
+int		ft_putstr(char *c);
+int		ft_putint(int c);
 void	init_all(t_all *all);
 void	error(int id);
 void	start(t_all *all, char **env);
