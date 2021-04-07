@@ -13,9 +13,20 @@
 #include "../includes/minishell.h"
 
 
-int	make_keyup(char *sbuf, char *ibuf)
+int	make_keyup(char *sbuf, char *ibuf, int id)
 {
+	int n;
+	int k;
+
+	k = tgetnum("co");
+	n = ft_strlen(ibuf + 4000) / k;
 	tputs(restore_cursor, 1, ft_putint);
+	while (n >= 1)
+	{
+		tputs(tgetstr("dl", 0), 1, ft_putint);
+		tputs(tgetstr("up", 0), 1, ft_putint);
+		n--;
+	}
 	tputs(tgetstr("dl", 0), 1, ft_putint);
 	ft_putstr("🚀 $ ");
 	ft_strlcpy(sbuf, ibuf, ft_strlen(ibuf) + 1);
@@ -23,22 +34,21 @@ int	make_keyup(char *sbuf, char *ibuf)
 	return (ft_strlen(sbuf));
 }
 
-int	make_keydown(char *buf, int size, int i)
+int	make_keydown(char *buf, int size, int i, int id)
 {
-/*	int n;
+	int n;
 	int k;
 
 	k = tgetnum("co");
-	n = k / ft_strlen(buf + i * 4000);
-	ft_putint(n);*/
+	n = ft_strlen(buf + (i - 1) * 4000) / k;
 	tputs(restore_cursor, 1, ft_putint);
-	tputs(tgetstr("dl", 0), 1, ft_putint);
-/*	n--;
-	if (n > 1)
+	while (n >= 1)
 	{
 		tputs(tgetstr("dl", 0), 1, ft_putint);
-		tputs(cursor_up, 1, ft_putint);
-	}*/
+		tputs(tgetstr("up", 0), 1, ft_putint);
+		n--;
+	}
+	tputs(tgetstr("dl", 0), 1, ft_putint);
 	if (i == size)
 		buf[i * 4000] = 0;
 	ft_putstr("🚀 $ ");
@@ -100,9 +110,11 @@ int main()
 	int n;
 	int size;
 	int r;
+	int id;
 
 	i = 0;
 	n = 0;
+	id = 1;
 	size = 0;
 	init_term(&old);
 	buf = malloc(4000 * 1000);
@@ -117,12 +129,12 @@ int main()
 			if (!ft_strcmp(c, tgetstr("ku", 0)))
 			{
 				if (i)
-					n = make_keyup(buf + size * 4000, buf + --i * 4000);
+					n = make_keyup(buf + size * 4000, buf + --i * 4000, id);
 			}
 			else if (!ft_strcmp(c, tgetstr("kd", 0)))
 			{
 				if (i < size)
-					n = make_keydown(buf, size, ++i);
+					n = make_keydown(buf, size, ++i, id);
 			}
 			else if (!ft_strcmp(c, "\177"))
 			{
