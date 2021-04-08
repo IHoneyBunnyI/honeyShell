@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 18:57:56 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/08 20:48:50 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void			export(t_all *all, char **env, char **args);
 void			free_split(char **split);
 void			unset(char **args);
 void			print_export(char **env);
+int				is_empty(char *s);
 # endif
