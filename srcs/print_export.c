@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:44:17 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 19:40:26 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/08 19:47:42 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char **copy_env(char **env)
 	for_sort[i] = 0;
 	while (i--)
 	{
-		for_sort[i] = env[i];
+		for_sort[i] = ft_strdup(env[i]);
 	}
 	return (for_sort);
 }
@@ -68,4 +68,5 @@ void	print_export(char **env)
 		printf("declare -x %s\"\n", print_env[i]);
 		i++;
 	}
+	free_split(print_env);
 }
