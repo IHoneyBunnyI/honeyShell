@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/07 14:57:55 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/08 18:58:35 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	easy_parser(t_all *all, char *l)
 	else if (l[0] == 'p' && l[1] == 'w' && l[2] == 'd')
 		pwd();
 	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'p' && l[3] == 'o' && l[4] == 'r'&& l[5] == 't' )
-		export(all, all->sort_env, all->args);
+		export(all, all->env, all->args);
+	else if (l[0] == 'u' && l[1] == 'n' && l[2] == 's' && l[3] == 'e' && l[4] == 't')
+		unset(all->args + 1);
 	else
 		my_execve(all, all->args[0]);
 	free_split(all->args);

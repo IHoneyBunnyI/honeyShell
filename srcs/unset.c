@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 19:01:46 by rvernon          ###   ########.fr       */
+/*   Created: 2021/04/08 17:57:21 by rvernon           #+#    #+#             */
+/*   Updated: 2021/04/08 18:30:43 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_all(t_all *all)
+void	unset(char **args)
 {
-	all->env = 0;
-	all->av = 0;
-	all->start_line = 0;
-	all->command = 0;
-	all->args = 0;
+	int i;
+
+	i = 0;
+	while (args[i])
+	{
+		;
+	}
 }

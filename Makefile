@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/02 23:22:04 by kasimbayb        ###   ########.fr        #
+#    Updated: 2021/04/08 18:45:43 by rvernon          ###   ########.fr        #
 #    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -29,6 +29,8 @@ FILES = main.c\
 		arrow.c\
 		av_env_copy.c\
 		export.c\
+		unset.c\
+		print_export.c\
 
 LIBFT_D = libft/
 

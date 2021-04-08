@@ -1,22 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
+/*   print_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 19:01:46 by rvernon          ###   ########.fr       */
+/*   Created: 2021/04/08 18:44:17 by rvernon           #+#    #+#             */
+/*   Updated: 2021/04/08 19:04:40 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_all(t_all *all)
+char **sort_env(char **env)
 {
-	all->env = 0;
-	all->av = 0;
-	all->start_line = 0;
-	all->command = 0;
-	all->args = 0;
+	int i;
+	int j;
+	char *tmp;
+
+	i = 0;
+	while(env[i])
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (ft_strcmp(env[i], env[j]) < 0)
+			{
+				tmp = env[i];
+				env[i] = env[j];
+				env[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (env);
+}
+
+void	print_export(char **env)
+{
+	int i;
+	char **print_env;
+
+	i = 0;
+	print_env = sort_env(env);
+	while (env[i])
+	{
+		printf("declare -x %s\"\n", env[i]);
+		i++;
+	}
 }

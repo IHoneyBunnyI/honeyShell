@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/05 19:51:33 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/08 18:59:03 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		find_oldpwd(char *line)
 	return (0);
 }
 
-void	first_env_copy(t_all *all, char **env)
+void	env_copy(t_all *all, char **env)
 {
 	int i;
 
@@ -42,49 +42,23 @@ void	first_env_copy(t_all *all, char **env)
 		i++;
 	if (!(all->env = malloc(sizeof(char *) * (i + 1))))
 		error(1);
-	if (!(all->sort_env = malloc(sizeof(char *) * (i + 1))))
-		error(1);
 	all->env[i] = 0;
-	all->sort_env[i] = 0;
 	while (i--)
 	{
 		if (find_oldpwd(env[i]))
-			all->sort_env[i] = ft_strdup("OLDPWD");
+		{
+			all->env[i] = ft_strdup("OLDPWD=");
+		}
 		else
 		{
 			all->env[i] = ft_strdup(env[i]);
-			all->sort_env[i] = ft_strdup(env[i]);
 		}
 	}
 }
 
-void	sort_env(t_all *all)
-{
-	int i;
-	int j;
-	char *tmp;
-
-	i = 0;
-	while(all->sort_env[i])
-	{
-		j = 0;
-		while (j < i)
-		{
-			if (ft_strcmp(all->sort_env[i], all->sort_env[j]) < 0)
-			{
-				tmp = all->sort_env[i];
-				all->sort_env[i] = all->sort_env[j];
-				all->sort_env[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
 
 void	av_env_copy(t_all *all, char **av, char **env)
 {
-	first_env_copy(all, env);
+	env_copy(all, env);
 	av_copy(all, av);
-	sort_env(all);
 }
