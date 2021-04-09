@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/09 17:12:08 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/09 17:20:15 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ int	exit_term(struct termios *old, char *buf)
 	return (0);
 }
 
-int main(void)
+int	main(void)
 {
-	struct termios old;
-	char c[5];
-	char *buf;
-	int i;
-	int n;
-	int size;
-	int r;
+	struct termios	old;
+	char			c[5];
+	char			*buf;
+	int				i;
+	int				n;
+	int				size;
+	int				r;
 
 	i = 0;
 	n = 0;
@@ -116,7 +116,8 @@ int main(void)
 				if (n)
 					make_bs(&n);
 			}
-			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c, tgetstr("kr", 0)))
+			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c,
+					tgetstr("kr", 0)))
 				make_lr(c, &n, buf, size);
 			else
 			{
@@ -127,7 +128,7 @@ int main(void)
 			if (!ft_strcmp(c, "\n") || !ft_strcmp(c, "\4"))
 			{
 				next_command(buf, &n, &size, &i);
-				break;
+				break ;
 			}
 		}
 	}
