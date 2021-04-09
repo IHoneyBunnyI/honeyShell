@@ -6,25 +6,23 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/06 16:25:59 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/09 16:58:41 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-int	make_keyup(char *sbuf, char *ibuf, int id)
+int	make_keyup(char *sbuf, char *ibuf)
 {
-	int n;
-	int k;
+	int	n;
+	int	k;
 
 	k = tgetnum("co");
 	n = ft_strlen(ibuf + 4000) / k;
 	tputs(restore_cursor, 1, ft_putint);
-	while (n >= 1)
+	while (n > 0)
 	{
 		tputs(tgetstr("dl", 0), 1, ft_putint);
-		tputs(tgetstr("up", 0), 1, ft_putint);
 		n--;
 	}
 	tputs(tgetstr("dl", 0), 1, ft_putint);
@@ -34,10 +32,10 @@ int	make_keyup(char *sbuf, char *ibuf, int id)
 	return (ft_strlen(sbuf));
 }
 
-int	make_keydown(char *buf, int size, int i, int id)
+int	make_keydown(char *buf, int size, int i)
 {
-	int n;
-	int k;
+	int	n;
+	int	k;
 
 	k = tgetnum("co");
 	n = ft_strlen(buf + (i - 1) * 4000) / k;
@@ -45,20 +43,19 @@ int	make_keydown(char *buf, int size, int i, int id)
 	while (n >= 1)
 	{
 		tputs(tgetstr("dl", 0), 1, ft_putint);
-		tputs(tgetstr("up", 0), 1, ft_putint);
 		n--;
 	}
 	tputs(tgetstr("dl", 0), 1, ft_putint);
 	if (i == size)
 		buf[i * 4000] = 0;
 	ft_putstr("🚀 $ ");
-	ft_strlcpy(buf + size * 4000, buf + i * 4000,ft_strlen
-	(buf + i * 4000) + 1);
+	ft_strlcpy(buf + size * 4000, buf + i * 4000,
+		ft_strlen(buf + i * 4000) + 1);
 	write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
 	return (ft_strlen(buf + size * 4000));
 }
 
-void next_command(char *buf, int *n, int *size, int *i)
+void	next_command(char *buf, int *n, int *size, int *i)
 {
 	buf[*size * 4000 + *n] = 0;
 	if (buf[*size * 4000])
@@ -73,7 +70,7 @@ void next_command(char *buf, int *n, int *size, int *i)
 
 void	init_term(struct termios *old)
 {
-	struct termios new;
+	struct termios	new;
 
 	tcgetattr(0, old);
 	new = *old;
@@ -84,7 +81,7 @@ void	init_term(struct termios *old)
 	ft_putstr(tgetstr("ks", 0));
 }
 
-void make_bs(int *n)
+void	make_bs(int *n)
 {
 	tputs(cursor_left, 1, ft_putint);
 	tputs(tgetstr("dc", 0), 1, ft_putint);
@@ -101,7 +98,7 @@ int	exit_term(struct termios *old, char *buf)
 	return (0);
 }
 
-int main()
+int main(void)
 {
 	struct termios old;
 	char c[5];
@@ -129,12 +126,12 @@ int main()
 			if (!ft_strcmp(c, tgetstr("ku", 0)))
 			{
 				if (i)
-					n = make_keyup(buf + size * 4000, buf + --i * 4000, id);
+					n = make_keyup(buf + size * 4000, buf + --i * 4000);
 			}
 			else if (!ft_strcmp(c, tgetstr("kd", 0)))
 			{
 				if (i < size)
-					n = make_keydown(buf, size, ++i, id);
+					n = make_keydown(buf, size, ++i);
 			}
 			else if (!ft_strcmp(c, "\177"))
 			{
