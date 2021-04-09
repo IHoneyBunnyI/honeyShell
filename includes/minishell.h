@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/09 17:26:01 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/09 19:34:07 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@
 
 typedef struct s_tokens
 {
-	struct tokens	prev;
-	struct tokens	next;
+	struct s_tokens	*next;
 	char			*token;
 }				t_tokens;
 
