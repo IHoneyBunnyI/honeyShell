@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/09 16:58:41 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/09 17:12:08 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,6 @@ void	next_command(char *buf, int *n, int *size, int *i)
 	*n = 0;
 }
 
-void	init_term(struct termios *old)
-{
-	struct termios	new;
-
-	tcgetattr(0, old);
-	new = *old;
-	new.c_lflag &= ~(ECHO);
-	new.c_lflag &= ~(ICANON);
-	tcsetattr(0, TCSANOW, &new);
-	tgetent(0, getenv("TERM"));
-	ft_putstr(tgetstr("ks", 0));
-}
-
-void	make_bs(int *n)
-{
-	tputs(cursor_left, 1, ft_putint);
-	tputs(tgetstr("dc", 0), 1, ft_putint);
-	(*n)--;
-}
-
 int	exit_term(struct termios *old, char *buf)
 {
 	ft_putstr("exit");
@@ -107,11 +87,9 @@ int main(void)
 	int n;
 	int size;
 	int r;
-	int id;
 
 	i = 0;
 	n = 0;
-	id = 1;
 	size = 0;
 	init_term(&old);
 	buf = malloc(4000 * 1000);

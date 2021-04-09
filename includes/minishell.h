@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/06 11:32:39 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/09 17:10:43 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	s_all
 void	make_lr(char *c, int *n, char *buf, int size);
 int		ft_putstr(char *c);
 int		ft_putint(int c);
+void	make_bs(int *n);
+void	init_term(struct termios *old);
 void	init_all(t_all *all);
 void	error(int id);
 void	start(t_all *all, char **env);
