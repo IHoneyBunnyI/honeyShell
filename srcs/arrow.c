@@ -127,6 +127,7 @@ int	main(void)
 			}
 			if (!ft_strcmp(c, "\n") || !ft_strcmp(c, "\4"))
 			{
+
 				next_command(buf, &n, &size, &i);
 				break ;
 			}

@@ -25,8 +25,9 @@
 
 typedef struct s_tokens
 {
-	struct s_tokens	*next;
+	int				is_oprt;
 	char			*token;
+	struct s_tokens	*next;
 }				t_tokens;
 
 typedef struct s_all
