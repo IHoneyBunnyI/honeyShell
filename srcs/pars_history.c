@@ -57,7 +57,34 @@ int	not_operator(char cmnd)
 	return (1);
 }
 
-t_tokens	*flexer(char *cmnd)
+char	*make_cpy(char *src)
+{
+	char	*res;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(src);
+	if (!(res = malloc(len + 1)))
+		return (0);
+	while (src[i])
+	{
+		res[i] = src[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+char	*check_env(char *cmnd, char **env)
+{
+	char	*res;
+	int		i;
+
+	while ()
+}
+
+t_tokens	*flexer(char *cmnd, char **env)
 {
 	t_tokens	*tkn;
 	t_tokens	*tmp;
@@ -131,8 +158,17 @@ t_tokens	*flexer(char *cmnd)
 					if (*cmnd)
 						cmnd++;
 				}
+				else if (*cmnd == '$')
+				{
+					char *res;
+
+					cmnd++;
+					res = check_env(cmnd, env);
+				}
 					/*
-					 * TODO Доделать двойные кавычки и переменные
+					 * TODO Доделать двойные кавычки и переменные (обработка
+					 * TODO и подстановка)
+					 *
 					 */
 				else
 				{
@@ -155,7 +191,7 @@ t_tokens	*flexer(char *cmnd)
 
 int main()
 {
-	char *str = " 'e''c''h''o'>2; 'h''e''l''l''o'";
+	char *str = " echo dddd              dddd";
 	t_tokens	*tkn;
 
 	tkn = flexer(str);
