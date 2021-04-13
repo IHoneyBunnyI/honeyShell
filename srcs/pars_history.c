@@ -6,12 +6,12 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:18 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/10 15:46:34 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/13 15:33:24 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "libft.h"
+#include "../libft/includes/libft.h"
 
 char	*ft_angelina(char *p1, char *p2)
 {
@@ -76,12 +76,44 @@ char	*make_cpy(char *src)
 	return (res);
 }
 
+int	skip_env(char s)
+{
+	if (ft_isalnum(s) || s == '_')
+		return (0);
+	return (1);
+}
+
 char	*check_env(char *cmnd, char **env)
 {
-	char	*res;
+	char	*cmnd_cpy;
+	char	*env_cpy;
 	int		i;
+	int		k;
 
-	while ()
+	i = 0;
+	k = 0;
+	cmnd_cpy = make_cpy(cmnd);
+	while (skip_env(*cmnd_cpy + i))
+		i++;
+	cmnd_cpy[i] = '\0';
+	i = 0;
+	while (env[i])
+	{
+		env_cpy = make_cpy(*env[i][0]);
+		while (env_cpy[k] != '=')
+			k++;
+		res[k] = '\0';
+		if (!ft_strcmp(env_cpy, cmnd_cpy))
+		{
+			free(cmnd_cpy);
+			cmnd_cpy = ft_strjoin(cmnd_cpy, env_cpy + (++k));
+			free(env_cpy);
+			return (cmnd_cpy);
+		}
+		free(env_cpy);
+		i++;
+	}
+	return (0);
 }
 
 t_tokens	*flexer(char *cmnd, char **env)
