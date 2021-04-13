@@ -6,30 +6,78 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:57:21 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/13 20:58:31 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/13 22:48:35 by kasimbayb        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		find_name(t_all *all, char *arg)
-{
-	return (1);
-}
-
-void	del_arg(t_all *all, char *arg)
-{
-	;
-}
-
-void	unset(t_all *all, char **args)
+int		find_arg(char *s1, char *s2)
 {
 	int i;
 
 	i = 0;
-	while (args[i])
+	while (s1[i] != '=' && s1[i])
 	{
-		if (find_name(all, args[i]))
-			del_arg(all, args[i]);
+		if (s1[i] != s2[i])
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
+int		find_name(t_all *all, char *arg)
+{
+	(void)all;
+	(void)arg;
+	int i;
+
+	i = 0;
+	while (all->env[i])
+	{
+		if (find_arg(all->env[i], arg))
+			return i + 1;
+		i++;
+	}
+	return (0);
+}
+
+char	**del_arg(t_all *all, int index)
+{
+	char **ret;
+	int i;
+	int j;
+
+	i = -1;
+	j = 0;
+	while (all->env[i])
+		i++;
+	ret = malloc(sizeof(char *) * i);
+	ret[--i] = 0;
+	i = -1;
+	while (all->env[++i])
+	{
+		if (i != index)
+		{
+			ret[j++] = all->env[i];
+		}
+		else
+			free(all->env[i]);
+	}
+	free(all->env);
+	return (ret);
+}
+
+void	my_unset(t_all *all, char **args)
+{
+	int i;
+
+	i = -1;
+	while (args[++i])
+	{
+		int index = find_name(all, args[i]);
+		if (index != 0)
+			printf("FIND = %d\n", --index);
+			all->env = del_arg(all, index);
 	}
 }
