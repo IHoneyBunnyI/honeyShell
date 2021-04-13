@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:57:21 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/13 22:48:35 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/13 23:04:55 by kasimbayb        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**del_arg(t_all *all, int index)
 	int i;
 	int j;
 
-	i = -1;
+	i = 0;
 	j = 0;
 	while (all->env[i])
 		i++;
