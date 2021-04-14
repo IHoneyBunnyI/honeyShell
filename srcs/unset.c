@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:57:21 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/13 23:04:55 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/14 17:37:14 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void	my_unset(t_all *all, char **args)
 	while (args[++i])
 	{
 		int index = find_name(all, args[i]);
-		if (index != 0)
-			printf("FIND = %d\n", --index);
+		if (index-- != 0)
+		{
+			/*printf("FIND = %d\n", index);*/
 			all->env = del_arg(all, index);
+		}//вероятно это услови не нужно
 	}
 }

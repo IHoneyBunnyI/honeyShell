@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:48:01 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/01 20:04:31 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:42:47 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include "libft.h"
-
 
 int				get_next_line(int fd, char **line);
 char			*ft_strchr(const char *s, int c);

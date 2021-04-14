@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:37:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/14 14:52:34 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/14 16:43:29 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define LIBFTPRINTF_H
 # include <stdarg.h>
 # include <stdio.h>
+# include "libft.h"
 
-#include "libft.h"
-
-typedef struct	s_format
+typedef struct s_format
 {
 	int		minus;
 	int		null;

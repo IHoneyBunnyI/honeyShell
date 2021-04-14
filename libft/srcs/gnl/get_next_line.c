@@ -6,19 +6,20 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:47:26 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/01 20:05:03 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/14 17:05:38 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char			*ft_before_dup(int len, char *cache)
+char	*ft_before_dup(int len, char *cache)
 {
 	char	*res;
 	int		i;
 
 	i = 0;
-	if (!(res = malloc(len + 1)))
+	res = malloc(len + 1);
+	if (!res)
 		return (0);
 	while (i < len)
 	{
@@ -29,7 +30,7 @@ char			*ft_before_dup(int len, char *cache)
 	return (res);
 }
 
-char			*before_n(char *cache)
+char	*before_n(char *cache)
 {
 	int		i;
 	char	*res;
@@ -41,7 +42,7 @@ char			*before_n(char *cache)
 	return (res);
 }
 
-char			*after_n(char *cache)
+char	*after_n(char *cache)
 {
 	int		i;
 	char	*res;
@@ -62,7 +63,7 @@ char			*after_n(char *cache)
 	return (res);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*cache;
 	char		*buffer;
@@ -71,7 +72,8 @@ int				get_next_line(int fd, char **line)
 	readed = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
 		return (-1);
 	while (!find_n(cache) && (readed = read(fd, buffer, BUFFER_SIZE)))
 	{
