@@ -6,76 +6,11 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 14:21:58 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 16:31:20 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char *get_env(t_all *all, char *line)
-{
-	(void)line;
-	int index;
-	int i;
-	char *ret;
-
-	i = -1;
-	index = find_name(all, line) - 1;
-	ret = all->env[index];
-	while (all->env[index][++i] != '=')
-		ret++;
-	return ++ret;
-}
-
-char *search_path(char **path)
-{
-	int i;
-	struct stat buf;
-	char *ret;
-
-	i = -1;
-	while (path[++i])
-	{
-		if (stat(path[i], &buf) == 0)
-			ret = ft_strdup(path[i]);
-	}
-	return (ret);
-}
-
-char *find_in_path(t_all *all, char *command)
-{
-	(void)command;
-	char **path;
-	int i;
-	char *ret;
-
-	i = -1;
-	path = ft_split(get_env(all, "PATH"), ':');
-	while (path[++i])
-	{
-		path[i] = ft_strjoin(path[i], "/");
-		path[i] = ft_strjoin(path[i], command);
-	}
-	ret = search_path(path);	
-	free_split(path);
-	return (ret);
-}
-
-void	my_execve(t_all *all, char **args)
-{
-	char	*bin;
-	pid_t	pid;
-
-	bin = find_in_path(all, args[0]);
-	pid = fork();
-	waitpid(pid, 0, 0);
-	if (pid == 0)
-	{
-		execve(bin, all->args, all->env);
-		exit(0);
-	}
-	//free(bin);
-}
 
 void	easy_parser(t_all *all, char *l)
 {

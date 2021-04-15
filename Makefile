@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/15 13:41:07 by rvernon          ###   ########.fr        #
+#    Updated: 2021/04/15 16:58:11 by rvernon          ###   ########.fr        #
 #    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -15,7 +15,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/  
+CFLAGS = -g -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/  
 
 FILES = main.c\
 		init_all.c\
@@ -34,6 +34,7 @@ FILES = main.c\
 		count_dot.c\
 		cd.c\
 		ft_exit.c\
+		my_execve.c\
 
 LIBFT_D = libft/
 

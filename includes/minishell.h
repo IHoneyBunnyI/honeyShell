@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 14:19:12 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 16:25:12 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ int		find_name(t_all *all, char *arg);
 void	ft_exit(char **args);
 int		is_echo(char *l);
 void	init_const(t_all *all);
+void	my_execve(t_all *all, char **args);
 #endif
