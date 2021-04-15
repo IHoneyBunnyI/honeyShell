@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 14:07:24 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 08:05:45 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 13:41:25 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	get_command(t_all *all, char *line)
 {
 	int	len;
 
-	(void)all;
 	len = find_len_command(line);
 	get_line_command(all, line, len);
 }
