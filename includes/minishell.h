@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 09:43:25 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 10:01:35 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ int		is_empty(char *s);
 void	count_dot(t_all *all, char *line);
 void	cd(t_all *all, char **args);
 int		find_name(t_all *all, char *arg);
+void	ft_exit(char **args);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 09:41:39 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 10:12:55 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	easy_parser(t_all *all, char *l)
 		my_unset(all, all->args + 1);
 	else if (l[0] == 'c' && l[1] == 'd')
 		cd(all, all->args);
+	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'i' && l[3] == 't')
+		ft_exit(all->args);
 	else
 		my_execve(all, all->args);
 	free_split(all->args);

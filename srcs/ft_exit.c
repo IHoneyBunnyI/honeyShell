@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 19:03:49 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 09:57:50 by rvernon          ###   ########.fr       */
+/*   Created: 2021/04/15 09:59:46 by rvernon           #+#    #+#             */
+/*   Updated: 2021/04/15 10:12:56 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+void	ft_exit(char **args)
 {
-	char	*pwd;
-	int		len;
-
-	pwd = getcwd(0, 0);
-	len = ft_strlen(pwd);
-	write(1, pwd, len);
-	write(1, "\n", 1);
-	free(pwd);
+	(void)args;
+	exit(0);
 }
