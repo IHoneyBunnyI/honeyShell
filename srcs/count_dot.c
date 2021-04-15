@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   count_dot.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 08:04:50 by rvernon          ###   ########.fr       */
+/*   Created: 2021/04/15 08:20:05 by rvernon           #+#    #+#             */
+/*   Updated: 2021/04/15 08:41:12 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+void	count_dot(t_all *all, char *line)
 {
-	t_all	all;
+	int	i;
 
-	init_all(&all);
-	if (ac == 1)
-		start(&all, av, env);
-	else
-		error(1);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ';')
+			all->dots++;
+		i++;
+	}
 }

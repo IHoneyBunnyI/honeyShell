@@ -6,15 +6,15 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:46:25 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/01 19:54:48 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 08:01:59 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_n(char *line)
+int	is_n(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (line[i] == '-' && line[i + 1] == 'n')
@@ -32,8 +32,8 @@ int		is_n(char *line)
 
 void	my_echo(char **s)
 {
-	int i;
-	char n;
+	int		i;
+	char	n;
 
 	n = '\n';
 	i = 0;

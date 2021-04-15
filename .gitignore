@@ -1,6 +1,7 @@
 *.o
 *.a
 .DS*
+.i*
 minishell
 *.out
 *.dSYM

@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:52:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 07:47:54 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 09:17:53 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_join(char *s1, char *s2)
 	i = 0;
 	if (!s2)
 		return (NULL);
-	news = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	news = malloc(sizeof(char) * (!s1 ? 0 : ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!news)
 		return (NULL);
 	while (s1 && s1[i])

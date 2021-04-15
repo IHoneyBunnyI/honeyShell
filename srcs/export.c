@@ -6,15 +6,15 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 19:01:00 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 19:43:01 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 08:04:30 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		find_equal(char *line)
+int	find_equal(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -25,9 +25,9 @@ int		find_equal(char *line)
 	return (0);
 }
 
-int		num_of_split(char **split)
+int	num_of_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i])
@@ -37,8 +37,8 @@ int		num_of_split(char **split)
 
 void	free_split(char **split)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (split[i])
 		free(split[i++]);
@@ -53,9 +53,9 @@ void	copy_args(t_all *all, char **new_env, char **arg)
 
 void	add_sort_env(t_all *all, char **args)
 {
-	int i;
-	int j;
-	char **new_env;
+	int		i;
+	int		j;
+	char	**new_env;
 
 	i = num_of_split(all->env);
 	j = num_of_split(args);
@@ -73,7 +73,7 @@ void	add_sort_env(t_all *all, char **args)
 
 void	export(t_all *all, char **env, char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	(void)env;

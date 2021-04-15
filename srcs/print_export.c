@@ -6,20 +6,20 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:44:17 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 20:29:04 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 08:06:56 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **sort_env(char **env)
+char	**sort_env(char **env)
 {
-	int i;
-	int j;
-	char *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		j = 0;
 		while (j < i)
@@ -37,15 +37,16 @@ char **sort_env(char **env)
 	return (env);
 }
 
-char **copy_env(char **env)
+char	**copy_env(char **env)
 {
-	int i;
-	char **for_sort;
+	int		i;
+	char	**for_sort;
 
 	i = 0;
 	while (env[i])
 		i++;
-	if (!(for_sort = malloc(sizeof(char *) * (i + 1))))
+	for_sort = malloc(sizeof(char *) * (i + 1));
+	if (!for_sort)
 		exit(0);
 	for_sort[i] = 0;
 	while (i--)
@@ -57,8 +58,8 @@ char **copy_env(char **env)
 
 void	print_export(char **env)
 {
-	int i;
-	char **print_env;
+	int		i;
+	char	**print_env;
 
 	i = 0;
 	print_env = copy_env(env);

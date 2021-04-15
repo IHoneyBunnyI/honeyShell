@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:09:41 by rvernon           #+#    #+#             */
-/*   Updated: 2021/03/24 17:51:56 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 08:40:31 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	write_start_line(char *line)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(line);
 	write(2, line, len);

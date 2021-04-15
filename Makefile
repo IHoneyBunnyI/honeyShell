@@ -6,7 +6,7 @@
 #    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/15 07:09:08 by rvernon          ###   ########.fr        #
+#    Updated: 2021/04/15 08:56:13 by rvernon          ###   ########.fr        #
 #    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -31,6 +31,8 @@ FILES = main.c\
 		export.c\
 		unset.c\
 		print_export.c\
+		count_dot.c\
+		cd.c\
 
 LIBFT_D = libft/
 

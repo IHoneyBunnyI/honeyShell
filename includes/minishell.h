@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/14 16:14:28 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 09:43:25 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include "libft.h"
+# include <sys/errno.h>
 
 typedef struct s_all
 {
@@ -31,6 +32,7 @@ typedef struct s_all
 	char	*start_line;
 	char	*command;
 	char	**args;
+	int		dots;
 }	t_all;
 
 void	init_all(t_all *all);
@@ -47,4 +49,7 @@ void	free_split(char **split);
 void	my_unset(t_all *all, char **args);
 void	print_export(char **env);
 int		is_empty(char *s);
+void	count_dot(t_all *all, char *line);
+void	cd(t_all *all, char **args);
+int		find_name(t_all *all, char *arg);
 #endif

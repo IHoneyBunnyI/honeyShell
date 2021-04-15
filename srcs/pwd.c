@@ -6,16 +6,16 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 19:03:49 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/08 18:27:22 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 09:41:41 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd()
+void	pwd(void)
 {
-	char *pwd;
-	int len;
+	char	*pwd;
+	int		len;
 
 	pwd = getcwd(0, 0);
 	len = ft_strlen(pwd);
