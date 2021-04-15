@@ -79,41 +79,65 @@ char	*make_cpy(char *src)
 int	skip_env(char s)
 {
 	if (ft_isalnum(s) || s == '_')
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 char	*check_env(char *cmnd, char **env)
 {
 	char	*cmnd_cpy;
 	char	*env_cpy;
+	char	*res;
 	int		i;
 	int		k;
 
 	i = 0;
-	k = 0;
 	cmnd_cpy = make_cpy(cmnd);
-	while (skip_env(*cmnd_cpy + i))
+	while (skip_env(cmnd_cpy[i]))
 		i++;
 	cmnd_cpy[i] = '\0';
 	i = 0;
 	while (env[i])
 	{
-		env_cpy = make_cpy(*env[i][0]);
+		k = 0;
+		env_cpy = make_cpy(env[i]);
 		while (env_cpy[k] != '=')
 			k++;
-		res[k] = '\0';
+		env_cpy[k] = '\0';
 		if (!ft_strcmp(env_cpy, cmnd_cpy))
 		{
 			free(cmnd_cpy);
-			cmnd_cpy = ft_strjoin(cmnd_cpy, env_cpy + (++k));
+			res = make_cpy(env_cpy + (++k));
 			free(env_cpy);
-			return (cmnd_cpy);
+			return (res);
 		}
 		free(env_cpy);
 		i++;
 	}
-	return (0);
+	return ("");
+}
+
+void	exp_env(char **cmnd, int *is_set, char **env, char **tk)
+{
+	char *res;
+
+	(*cmnd)++;
+	if (ft_isdigit(**cmnd))
+		(*cmnd)++;
+	else if (!ft_isalpha(**cmnd) || **cmnd == '_')
+	{
+		*tk = ft_strjoin(*tk, "$");
+		*is_set = 1;
+	}
+	else
+	{
+		res = check_env(*cmnd, env);
+		*tk = ft_strjoin(*tk, res);
+		while (skip_env(**cmnd))
+			(*cmnd)++;
+		if (ft_strcmp(res, ""))
+			*is_set = 1;
+	}
 }
 
 t_tokens	*flexer(char *cmnd, char **env)
@@ -122,10 +146,12 @@ t_tokens	*flexer(char *cmnd, char **env)
 	t_tokens	*tmp;
 	char		*tk;
 	char		*str;
+	int			is_set;
 
 	tkn = NULL;
 	while (*cmnd)
 	{
+		is_set = 0;
 		tmp = malloc(sizeof(t_tokens));
 		while (*cmnd == ' ' && *cmnd)
 			cmnd++;
@@ -139,6 +165,7 @@ t_tokens	*flexer(char *cmnd, char **env)
 			tmp->token[1] = '\0';
 			tmp->next = NULL;
 			cmnd++;
+			is_set = 1;
 		}
 		else if (*cmnd == '>')
 		{
@@ -158,14 +185,14 @@ t_tokens	*flexer(char *cmnd, char **env)
 			tmp->token[0] = '>';
 			tmp->next = NULL;
 			cmnd++;
+			is_set = 1;
 		}
 		else
 		{
 			tk = malloc(1);
-			tk[0] = '\0';   //tk = "";
+			tk[0] = '\0';
 			while (not_operator(*cmnd) && *cmnd != ' ' && *cmnd != '\0')
 			{
-
 				if (*cmnd == '\'')
 				{
 					char *p1;
@@ -176,9 +203,15 @@ t_tokens	*flexer(char *cmnd, char **env)
 					p2++;
 					while (*p2 && *p2 != '\'')
 						p2++;
+					if (!(*p2))
+					{
+						printf("Error: unclosed quotation\n");
+						exit(0);
+					}
 					str = ft_angelina(p1, p2);
 					tk = ft_strjoin(tk, str);
 					cmnd = p2 + 1;
+					is_set = 1;
 				}
 				else if (*cmnd == '\\')
 				{
@@ -189,19 +222,52 @@ t_tokens	*flexer(char *cmnd, char **env)
 					tk = ft_strjoin(tk, t);
 					if (*cmnd)
 						cmnd++;
+					is_set = 1;
 				}
 				else if (*cmnd == '$')
+					exp_env(&cmnd, &is_set, env, &tk);
+				else if (*cmnd == '\"')
 				{
-					char *res;
-
+					char	t[3];
+					is_set = 1;
 					cmnd++;
-					res = check_env(cmnd, env);
+					while (*cmnd != '\"' && *cmnd != '\0')
+					{
+						if (*cmnd == '$')
+							exp_env(&cmnd, &is_set, env, &tk);
+						else if (*cmnd == '\\')
+						{
+							cmnd++;
+							if (*cmnd == '$' || *cmnd == '`' || *cmnd == '\\'
+							|| *cmnd == '\"')
+							{
+								t[0] = *cmnd;
+								t[1] = '\0';
+							}
+							else
+							{
+								t[0] = '\\';
+								t[1] = *cmnd;
+								t[2] = '\0';
+							}
+							tk = ft_strjoin(tk, t);
+							cmnd++;
+						}
+						else
+						{
+							t[0] = *cmnd;
+							t[1] = '\0';
+							tk = ft_strjoin(tk, t);
+							cmnd++;
+						}
+					}
+					if (!(*cmnd))
+					{
+						printf("Error: unclosed quotation\n");
+						exit(1);
+					}
+					cmnd++;
 				}
-					/*
-					 * TODO Доделать двойные кавычки и переменные (обработка
-					 * TODO и подстановка)
-					 *
-					 */
 				else
 				{
 					char t[2];
@@ -210,23 +276,25 @@ t_tokens	*flexer(char *cmnd, char **env)
 					tk = ft_strjoin(tk, t);
 					if (*cmnd)
 						cmnd++;
+					is_set = 1;
 				}
 			}
 			tmp->token = tk;
 			tmp->next = NULL;
 			tmp->is_oprt = 0;
 		}
-		add_elem(&tkn, tmp);
+		if (is_set)
+			add_elem(&tkn, tmp);
 	}
 	return (tkn);
 }
 
-int main()
+int main(int argc, char **argv, char **envp)
 {
-	char *str = " echo dddd              dddd";
+	char *str = "echo hello '\\' ';' \"  '\\' \\\" \" \\\" \"$PWD\\\\\\\"\\~\\;\"\\; >> t1 \\' \\ \\ \\\\";
 	t_tokens	*tkn;
 
-	tkn = flexer(str);
+	tkn = flexer(str, envp);
 	while (tkn)
 	{
 		printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
