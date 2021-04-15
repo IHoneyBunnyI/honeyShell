@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 07:07:16 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 07:39:47 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	my_execve(t_all *all, char **args)
 		execve(bin, all->args, all->env);
 		exit(0);
 	}
+	free(bin);
 }
 
 void	easy_parser(t_all *all, char *l)
@@ -68,7 +69,6 @@ void	loop(t_all *all)
 	{
 		write_start_line(all->start_line);
 		read = get_next_line(0, &line);
-		//parser(all, line);
 		easy_parser(all, line);
 		free(line);
 	}
@@ -82,7 +82,6 @@ void	termcap(t_all *all)
 	struct termios old;
 	(void)new;
 	(void)old;
-
 	term = getenv("TERM");
 }
 

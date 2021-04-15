@@ -6,16 +6,16 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 22:31:50 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/03 17:33:14 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 07:28:38 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		wlen(const char *s, char c)
+static int	wlen(const char *s, char c)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
@@ -31,7 +31,7 @@ static int		wlen(const char *s, char c)
 	return (len);
 }
 
-static int		wcount(const char *s, char c)
+static int	wcount(const char *s, char c)
 {
 	int		count;
 	int		i;
@@ -47,12 +47,13 @@ static int		wcount(const char *s, char c)
 	return (count);
 }
 
-static char		*get_split(const char *s, int i, char **split, int len)
+static char	*get_split(const char *s, int i, char **split, int len)
 {
 	int		j;
 	char	*line;
 
-	if (!(line = malloc(sizeof(char) * (len + 1))))
+	line = malloc(sizeof(char) * (len + 1));
+	if (!line)
 	{
 		i = 0;
 		while (split[i])
@@ -67,7 +68,7 @@ static char		*get_split(const char *s, int i, char **split, int len)
 	return (line);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		i;
@@ -77,7 +78,8 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	count = wcount(s, c);
-	if (!(split = malloc(sizeof(char *) * (count + 1))))
+	split = malloc(sizeof(char *) * (count + 1));
+	if (!split)
 		return (NULL);
 	i = -1;
 	while (++i < count)
@@ -85,7 +87,8 @@ char			**ft_split(char const *s, char c)
 		while (*s == c && *s != '\0')
 			s++;
 		len = wlen(s, c);
-		if (!(split[i] = get_split(s, i, split, len)))
+		split[i] = get_split(s, i, split, len);
+		if (!split[i])
 			return (NULL);
 		s += len;
 	}

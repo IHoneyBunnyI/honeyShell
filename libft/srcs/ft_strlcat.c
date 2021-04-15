@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 20:18:24 by rvernon           #+#    #+#             */
-/*   Updated: 2020/10/31 13:40:44 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 07:40:22 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t i;
-	size_t len1;
-	size_t j;
+	size_t	i;
+	size_t	len1;
+	size_t	j;
 
 	i = 0;
 	len1 = 0;

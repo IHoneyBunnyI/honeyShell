@@ -6,7 +6,7 @@
 /*   By: rvernon <rvernon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:40:13 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/20 19:17:49 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 07:45:14 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ftstrchr(const char *s, int c)
 {
-	unsigned char *pc;
+	unsigned char	*pc;
 
 	pc = (unsigned char *)s;
 	while (*pc != '\0' && *pc != (unsigned char)c)
@@ -29,7 +29,7 @@ static int	ftstrchr(const char *s, int c)
 		return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*nstr;
 	int		j;
@@ -47,8 +47,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	while (ftstrchr(set, s1[j]) == 1)
 		j--;
-	if (!(nstr = malloc(sizeof(char) * (j - i + 2))))
-		return (NULL);
+	nstr = malloc(sizeof(char) * (j - i + 2));
 	while (i <= j)
 	{
 		nstr[k++] = s1[i];

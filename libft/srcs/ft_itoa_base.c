@@ -6,13 +6,13 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 14:43:16 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/14 14:54:41 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/15 07:16:53 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		conv_ex(unsigned long long nb)
+static int	conv_ex(unsigned long long nb)
 {
 	if (nb >= 10)
 		return (nb - 10 + 'a');
@@ -20,7 +20,7 @@ static int		conv_ex(unsigned long long nb)
 		return (nb + '0');
 }
 
-char			*ft_itoa_base(unsigned long long value, unsigned long long base)
+char	*ft_itoa_base(unsigned long long value, unsigned long long base)
 {
 	int					i;
 	char				*str;
@@ -33,7 +33,8 @@ char			*ft_itoa_base(unsigned long long value, unsigned long long base)
 		tmp = tmp / base;
 		i++;
 	}
-	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (!str)
 		return (NULL);
 	str[i] = '\0';
 	while (i--)
