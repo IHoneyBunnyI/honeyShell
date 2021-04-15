@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/13 21:05:12 by kasimbayb        ###   ########.fr       */
+/*   Updated: 2021/04/15 07:07:16 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ int		is_echo(char *l)
 	return 0;
 }
 
-void	my_execve(t_all *all, char *line)
+void	my_execve(t_all *all, char **args)
 {
 	char *bin;
 	pid_t pid;
 
 	bin = ft_strdup("/bin/");
-	bin = ft_strjoin(bin, line);
+	bin = ft_strjoin(bin, args[0]);
 	pid = fork();
 	waitpid(pid, 0, 0);
 	if (pid == 0)
 	{
-		execve(bin, all->av, all->env);
+		execve(bin, all->args, all->env);
 		exit(0);
 	}
 }
@@ -54,7 +54,7 @@ void	easy_parser(t_all *all, char *l)
 	else if (l[0] == 'u' && l[1] == 'n' && l[2] == 's' && l[3] == 'e' && l[4] == 't')
 		my_unset(all, all->args + 1);
 	else
-		my_execve(all, all->args[0]);
+		my_execve(all, all->args);
 	free_split(all->args);
 }
 
