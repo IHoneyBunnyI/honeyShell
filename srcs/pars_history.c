@@ -218,6 +218,11 @@ t_tokens	*flexer(char *cmnd, char **env)
 					char t[2];
 					t[1] = 0;
 					cmnd++;
+					if (!(*cmnd))
+					{
+						printf("Error: escaped newline\n");
+						exit(1);
+					}
 					t[0] = *cmnd;
 					tk = ft_strjoin(tk, t);
 					if (*cmnd)
@@ -291,7 +296,7 @@ t_tokens	*flexer(char *cmnd, char **env)
 
 int main(int argc, char **argv, char **envp)
 {
-	char *str = "echo hello '\\' ';' \"  '\\' \\\" \" \\\" \"$PWD\\\\\\\"\\~\\;\"\\; >> t1 \\' \\ \\ \\\\";
+	char *str = "echo $dlkld \\";
 	t_tokens	*tkn;
 
 	tkn = flexer(str, envp);
