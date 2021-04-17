@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/includes/libft.h"
+#include "minishell.h"
 
 char	*ft_angelina(char *p1, char *p2)
 {

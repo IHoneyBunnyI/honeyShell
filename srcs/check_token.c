@@ -6,18 +6,16 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:35:15 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/16 20:17:57 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:29:48 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/includes/libft.h"
+#include "minishell.h"
 
 char	*check_env(char *cmnd, char **env)
 {
 	char	*cmnd_cpy;
 	char	*env_cpy;
-	char	*res;
 	int		i;
 	int		k;
 
@@ -35,12 +33,7 @@ char	*check_env(char *cmnd, char **env)
 			k++;
 		env_cpy[k] = '\0';
 		if (!ft_strcmp(env_cpy, cmnd_cpy))
-		{
-			free(cmnd_cpy);
-			res = make_cpy(env_cpy + (++k));
-			free(env_cpy);
-			return (res);
-		}
+			return (exit_env(cmnd_cpy, env_cpy, k));
 		free(env_cpy);
 		i++;
 	}
@@ -74,7 +67,7 @@ void	check_operator(t_tokens *tmp, char **cmnd, int *is_set)
 	}
 }
 
-void	check_sing_quot(char **cmnd, int *is_set, char **tk)
+int	check_sing_quot(char **cmnd, int *is_set, char **tk)
 {
 	char	*p1;
 	char	*p2;
@@ -86,35 +79,31 @@ void	check_sing_quot(char **cmnd, int *is_set, char **tk)
 	while (*p2 && *p2 != '\'')
 		p2++;
 	if (!(*p2))
-	{
-		printf("parse error: unclosed quotation\n");
-		exit(0);
-	}
+		return (exit_error("parse error: unclosed quotation"));
 	str = ft_angelina(p1, p2);
 	*tk = ft_strjoin(*tk, str);
 	*cmnd = p2 + 1;
 	*is_set = 1;
+	return (1);
 }
 
-void	check_bs(char **cmnd, char **tk, int *is_set)
+int	check_bs(char **cmnd, char **tk, int *is_set)
 {
 	char	t[2];
 
 	t[1] = 0;
 	(*cmnd)++;
 	if (!(**cmnd))
-	{
-		printf("parse error: escaped newline\n");
-		exit(1);
-	}
+		return (exit_error("parse error: escaped newline"));
 	t[0] = **cmnd;
 	*tk = ft_strjoin(*tk, t);
 	if (*cmnd)
 		(*cmnd)++;
 	*is_set = 1;
+	return (1);
 }
 
-void	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
+int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 {
 	char	t[2];
 
@@ -135,9 +124,7 @@ void	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 		}
 	}
 	if (!(**cmnd))
-	{
-		printf("parse error: unclosed quotation\n");
-		exit(1);
-	}
+		return (exit_error("parse error: unclosed quotation"));
 	(*cmnd)++;
+	return (1);
 }

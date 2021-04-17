@@ -6,12 +6,11 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:18 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/16 20:18:47 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:49:01 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/includes/libft.h"
+#include "minishell.h"
 
 void	exp_env(char **cmnd, int *is_set, char **env, char **tk)
 {
@@ -48,7 +47,31 @@ void	check_symb(char **cmnd, char **tk, int *is_set)
 	*is_set = 1;
 }
 
-void	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
+int	check_all(char **cmnd, char **env, char *tk, int *is_set)
+{
+	if (**cmnd == '\'')
+	{
+		if (!check_sing_quot(cmnd, is_set, &tk))
+			return (0);
+	}
+	else if (**cmnd == '\\')
+	{
+		if (!check_bs(cmnd, &tk, is_set))
+			return (0);
+	}
+	else if (**cmnd == '$')
+		exp_env(cmnd, is_set, env, &tk);
+	else if (**cmnd == '\"')
+	{
+		if (!check_dbl_quot(cmnd, &tk, is_set, env))
+			return (0);
+	}
+	else
+		check_symb(cmnd, &tk, is_set);
+	return (1);
+}
+
+int	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
 {
 	char	*tk;
 
@@ -56,20 +79,13 @@ void	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (**cmnd == '\'')
-			check_sing_quot(cmnd, is_set, &tk);
-		else if (**cmnd == '\\')
-			check_bs(cmnd, &tk, is_set);
-		else if (**cmnd == '$')
-			exp_env(cmnd, is_set, env, &tk);
-		else if (**cmnd == '\"')
-			check_dbl_quot(cmnd, &tk, is_set, env);
-		else
-			check_symb(cmnd, &tk, is_set);
+		if (!check_all(cmnd, env, tk, is_set))
+			return (0);
 	}
 	tmp->token = tk;
 	tmp->next = NULL;
 	tmp->is_oprt = 0;
+	return (1);
 }
 
 t_tokens	*flexer(char *cmnd, char **env)
@@ -90,23 +106,12 @@ t_tokens	*flexer(char *cmnd, char **env)
 		if (!not_operator(*cmnd))
 			check_operator(tmp, &cmnd, &is_set);
 		else
-			check_else(&cmnd, tmp, env, &is_set);
+		{
+			if (!check_else(&cmnd, tmp, env, &is_set))
+				return (0);
+		}
 		if (is_set)
 			add_elem(&tkn, tmp);
 	}
 	return (tkn);
-}
-
-int main(int argc, char **argv, char **envp)
-{
-	char *str = "echo lkfjkdl:<<>>><wldkfj|\\a$HOME fkjvjfvnjfk";
-	t_tokens	*tkn;
-
-	tkn = flexer(str, envp);
-	while (tkn)
-	{
-		printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
-		tkn = tkn->next;
-	}
-	return (0);
 }

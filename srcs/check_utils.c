@@ -6,12 +6,27 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:48:41 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/16 20:02:07 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:14:27 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/includes/libft.h"
+#include "minishell.h"
+
+int	exit_error(char *str)
+{
+	printf("%s\n", str);
+	return (0);
+}
+
+char	*exit_env(char *cmnd_cpy, char *env_cpy, int k)
+{
+	char	*res;
+
+	free(cmnd_cpy);
+	res = make_cpy(env_cpy + (++k));
+	free(env_cpy);
+	return (res);
+}
 
 void	operator_utils(t_tokens *tmp, char **cmnd, int *is_set)
 {

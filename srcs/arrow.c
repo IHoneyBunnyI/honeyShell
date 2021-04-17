@@ -6,11 +6,11 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/09 17:20:15 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:42:13 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int	make_keyup(char *sbuf, char *ibuf)
 {
@@ -55,9 +55,12 @@ int	make_keydown(char *buf, int size, int i)
 	return (ft_strlen(buf + size * 4000));
 }
 
-void	next_command(char *buf, int *n, int *size, int *i)
+t_tokens	*next_command(char *buf, int *n, int *size, int *i, char **env)
 {
+	t_tokens	*tkn;
+
 	buf[*size * 4000 + *n] = 0;
+	tkn = flexer(buf + (*size * 4000), env);
 	if (buf[*size * 4000])
 	{
 		if (*size < 1000)
@@ -66,6 +69,7 @@ void	next_command(char *buf, int *n, int *size, int *i)
 		buf[*size * 4000] = 0;
 	}
 	*n = 0;
+	return (tkn);
 }
 
 int	exit_term(struct termios *old, char *buf)
@@ -78,7 +82,7 @@ int	exit_term(struct termios *old, char *buf)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	struct termios	old;
 	char			c[5];
@@ -87,6 +91,7 @@ int	main(void)
 	int				n;
 	int				size;
 	int				r;
+	t_tokens		*tkn;
 
 	i = 0;
 	n = 0;
@@ -119,16 +124,22 @@ int	main(void)
 			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c,
 					tgetstr("kr", 0)))
 				make_lr(c, &n, buf, size);
+			else if (!ft_strcmp(c, "\4") && !n)
+				break ;
 			else
 			{
 				write(1, c, r);
-				if (ft_strcmp(c, "\n"))
+				if (ft_strcmp(c, "\n") && ft_strcmp(c, "\4"))
 					buf[size * 4000 + n++] = *c;
 			}
-			if (!ft_strcmp(c, "\n") || !ft_strcmp(c, "\4"))
+			if (!ft_strcmp(c, "\n"))
 			{
-
-				next_command(buf, &n, &size, &i);
+				tkn = next_command(buf, &n, &size, &i, env);
+				while (tkn)
+				{
+					printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
+					tkn = tkn->next;
+				}
 				break ;
 			}
 		}
