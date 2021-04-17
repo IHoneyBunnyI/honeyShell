@@ -75,7 +75,7 @@ SRCS = $(addprefix srcs/, $(FILE))
 HEADER = includes/ 
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I ${HEADER}
+CFLAGS = -Wall -Wextra -Werror -g -I ${HEADER}
 
 all:    ${NAME}
 

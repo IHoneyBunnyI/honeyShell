@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/17 15:42:13 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 16:38:12 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	exit_term(struct termios *old, char *buf)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	struct termios	old;
 	char			c[5];
@@ -134,12 +134,14 @@ int	main(int argc, char **argv, char **env)
 			}
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, &n, &size, &i, env);
-				while (tkn)
+				tkn = next_command(buf, &n, &size, &i, envp);
+				/*while (tkn)
 				{
 					printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
 					tkn = tkn->next;
-				}
+				}*/
+				if (!ft_strcmp(tkn->token, "env"))
+					env(envp);
 				break ;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:30:18 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/17 15:49:01 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 17:28:25 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,27 @@ void	check_symb(char **cmnd, char **tk, int *is_set)
 	*is_set = 1;
 }
 
-int	check_all(char **cmnd, char **env, char *tk, int *is_set)
+int	check_all(char **cmnd, char **env, char **tk, int *is_set)
 {
 	if (**cmnd == '\'')
 	{
-		if (!check_sing_quot(cmnd, is_set, &tk))
+		if (!check_sing_quot(cmnd, is_set, tk))
 			return (0);
 	}
 	else if (**cmnd == '\\')
 	{
-		if (!check_bs(cmnd, &tk, is_set))
+		if (!check_bs(cmnd, tk, is_set))
 			return (0);
 	}
 	else if (**cmnd == '$')
-		exp_env(cmnd, is_set, env, &tk);
+		exp_env(cmnd, is_set, env, tk);
 	else if (**cmnd == '\"')
 	{
-		if (!check_dbl_quot(cmnd, &tk, is_set, env))
+		if (!check_dbl_quot(cmnd, tk, is_set, env))
 			return (0);
 	}
 	else
-		check_symb(cmnd, &tk, is_set);
+		check_symb(cmnd, tk, is_set);
 	return (1);
 }
 
@@ -79,7 +79,7 @@ int	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (!check_all(cmnd, env, tk, is_set))
+		if (!check_all(cmnd, env, &tk, is_set))
 			return (0);
 	}
 	tmp->token = tk;

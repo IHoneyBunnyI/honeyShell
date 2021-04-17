@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/17 15:28:05 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:30:16 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_tokens
 }				t_tokens;
 
 char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
+int			env(char **s);
 t_tokens	*flexer(char *cmnd, char **env);
 int			exit_error(char *str);
 void		check_operator(t_tokens *tmp, char **cmnd, int *is_set);
