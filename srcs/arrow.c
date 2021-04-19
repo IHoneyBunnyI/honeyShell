@@ -6,53 +6,26 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/17 16:38:12 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/19 12:24:44 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	make_keyup(char *sbuf, char *ibuf)
+
+
+int	check_space(char *str)
 {
-	int	n;
-	int	k;
+	int	i;
 
-	k = tgetnum("co");
-	n = ft_strlen(ibuf + 4000) / k;
-	tputs(restore_cursor, 1, ft_putint);
-	while (n > 0)
+	i = 0;
+	while (str[i])
 	{
-		tputs(tgetstr("dl", 0), 1, ft_putint);
-		n--;
+		if (str[i] != ' ')
+			return (1);
+		i++;
 	}
-	tputs(tgetstr("dl", 0), 1, ft_putint);
-	ft_putstr("🚀 $ ");
-	ft_strlcpy(sbuf, ibuf, ft_strlen(ibuf) + 1);
-	write(1, sbuf, ft_strlen(sbuf));
-	return (ft_strlen(sbuf));
-}
-
-int	make_keydown(char *buf, int size, int i)
-{
-	int	n;
-	int	k;
-
-	k = tgetnum("co");
-	n = ft_strlen(buf + (i - 1) * 4000) / k;
-	tputs(restore_cursor, 1, ft_putint);
-	while (n >= 1)
-	{
-		tputs(tgetstr("dl", 0), 1, ft_putint);
-		n--;
-	}
-	tputs(tgetstr("dl", 0), 1, ft_putint);
-	if (i == size)
-		buf[i * 4000] = 0;
-	ft_putstr("🚀 $ ");
-	ft_strlcpy(buf + size * 4000, buf + i * 4000,
-		ft_strlen(buf + i * 4000) + 1);
-	write(1, buf + size * 4000, ft_strlen(buf + size * 4000));
-	return (ft_strlen(buf + size * 4000));
+	return (0);
 }
 
 t_tokens	*next_command(char *buf, int *n, int *size, int *i, char **env)
@@ -134,14 +107,15 @@ int	main(int argc, char **argv, char **envp)
 			}
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, &n, &size, &i, envp);
-				/*while (tkn)
+				if (check_space(buf + (size * 4000)))
+					tkn = next_command(buf, &n, &size, &i, envp);
+				while (tkn)
 				{
 					printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
 					tkn = tkn->next;
-				}*/
-				if (!ft_strcmp(tkn->token, "env"))
-					env(envp);
+				}
+//				if (!ft_strcmp(tkn->token, "env"))
+//					env(envp);
 				break ;
 			}
 		}

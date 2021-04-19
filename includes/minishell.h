@@ -30,6 +30,8 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }				t_tokens;
 
+int			make_keydown(char *buf, int size, int i);
+int			make_keyup(char *sbuf, char *ibuf);
 char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
 int			env(char **s);
 t_tokens	*flexer(char *cmnd, char **env);
