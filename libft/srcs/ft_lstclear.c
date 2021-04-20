@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:35:41 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/22 17:49:08 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list *plist;
-	t_list *ptmp;
+	t_list	*plist;
+	t_list	*ptmp;
 
 	if (!*lst)
 		return ;

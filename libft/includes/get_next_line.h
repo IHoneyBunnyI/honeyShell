@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 17:48:01 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/19 13:05:16 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 # include <stdio.h>
 # include "libft.h"
 
-
 int				get_next_line(int fd, char **line);
 char			*ft_strchr(const char *s, int c);
-char			*ft_strjoin(char *s1, char *s2);
+char			*ft_join(char *s1, char *s2);
 int				find_n(char *cache);
 char			*ft_before_dup(int len, char *cache);
 char			*before_n(char *cache);

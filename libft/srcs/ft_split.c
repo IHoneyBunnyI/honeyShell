@@ -6,16 +6,16 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 22:31:50 by rvernon           #+#    #+#             */
-/*   Updated: 2021/02/19 11:37:06 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		wlen(const char *s, char c)
+static int	wlen(const char *s, char c)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
@@ -31,7 +31,7 @@ static int		wlen(const char *s, char c)
 	return (len);
 }
 
-static int		wcount(const char *s, char c)
+static int	wcount(const char *s, char c)
 {
 	int		count;
 	int		i;
@@ -47,12 +47,13 @@ static int		wcount(const char *s, char c)
 	return (count);
 }
 
-static char		*get_split(const char *s, int i, char **split, int len)
+static char	*get_split(const char *s, int i, char **split, int len)
 {
 	int		j;
 	char	*line;
 
-	if (!(line = malloc(sizeof(char) * (len + 1))))
+	line = malloc(sizeof(char) * (len + 1));
+	if (!line)
 	{
 		i = 0;
 		while (split[i])
@@ -67,27 +68,27 @@ static char		*get_split(const char *s, int i, char **split, int len)
 	return (line);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		i;
-	int		j;
 	int		len;
 	int		count;
 
 	if (!s)
 		return (NULL);
 	count = wcount(s, c);
-	if (!(split = malloc(sizeof(char *) * (count + 1))))
+	split = malloc(sizeof(char *) * (count + 1));
+	if (!split)
 		return (NULL);
 	i = -1;
-	j = 0;
 	while (++i < count)
 	{
 		while (*s == c && *s != '\0')
 			s++;
 		len = wlen(s, c);
-		if (!(split[i] = get_split(s, i, split, len)))
+		split[i] = get_split(s, i, split, len);
+		if (!split[i])
 			return (NULL);
 		s += len;
 	}

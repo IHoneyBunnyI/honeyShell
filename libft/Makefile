@@ -6,7 +6,7 @@
 #    By: rvernon <rvernon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 13:32:12 by rvernon           #+#    #+#              #
-#    Updated: 2021/03/09 14:29:50 by rvernon          ###   ########.fr        #
+#    Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,24 +58,12 @@ FILE = ft_memset.c\
 			   ft_lstmap.c\
 			gnl/get_next_line.c\
 			gnl/get_next_line_utils.c\
-				ft_printf/ft_flags.c\
-				ft_printf/ft_utils.c\
-				ft_printf/ft_printf.c\
-				ft_printf/ft_print_c.c\
-				ft_printf/ft_print_d.c\
-				ft_printf/ft_print_p.c\
-				ft_printf/ft_print_s.c\
-				ft_printf/ft_print_u.c\
-				ft_printf/ft_print_x.c\
-				ft_printf/ft_print_bx.c\
-				ft_printf/ft_print_d2.c\
-				ft_printf/ft_print_percent.c\
 
 SRCS = $(addprefix srcs/, $(FILE))
 HEADER = includes/ 
 OBJS = ${SRCS:.c=.o}
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -I ${HEADER}
+CFLAGS = -Wall -Wextra -Werror -I ${HEADER}
 
 all:    ${NAME}
 

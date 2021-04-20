@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 12:01:24 by rvernon           #+#    #+#             */
-/*   Updated: 2020/11/09 13:05:00 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list *plst;
+	t_list	*plst;
 
 	if (!lst)
 		return ;

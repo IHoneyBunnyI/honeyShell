@@ -6,7 +6,7 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:35:15 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/17 15:29:48 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/19 15:27:46 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ int	check_sing_quot(char **cmnd, int *is_set, char **tk)
 	p1 = *cmnd;
 	p2 = *cmnd;
 	p2++;
+	*tk = ft_strjoin(*tk, "\'");
 	while (*p2 && *p2 != '\'')
 		p2++;
 	if (!(*p2))
 		return (exit_error("parse error: unclosed quotation"));
 	str = ft_angelina(p1, p2);
 	*tk = ft_strjoin(*tk, str);
+	*tk = ft_strjoin(*tk, "\'");
 	*cmnd = p2 + 1;
 	*is_set = 1;
 	return (1);
@@ -108,12 +110,13 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 	char	t[2];
 
 	*is_set = 1;
+	*tk = ft_strjoin(*tk, "\"");
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
-		if (**cmnd == '$')
-			exp_env(cmnd, is_set, env, tk);
-		else if (**cmnd == '\\')
+//		if (**cmnd == '$')
+//			exp_env(cmnd, is_set, env, tk);
+		if (**cmnd == '\\')
 			dbl_quot_bs(cmnd, tk);
 		else
 		{
@@ -125,6 +128,7 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 	}
 	if (!(**cmnd))
 		return (exit_error("parse error: unclosed quotation"));
+	*tk = ft_strjoin(*tk, "\"");
 	(*cmnd)++;
 	return (1);
 }

@@ -59,8 +59,8 @@ int	check_all(char **cmnd, char **env, char **tk, int *is_set)
 		if (!check_bs(cmnd, tk, is_set))
 			return (0);
 	}
-	else if (**cmnd == '$')
-		exp_env(cmnd, is_set, env, tk);
+//	else if (**cmnd == '$')
+//		exp_env(cmnd, is_set, env, tk);
 	else if (**cmnd == '\"')
 	{
 		if (!check_dbl_quot(cmnd, tk, is_set, env))

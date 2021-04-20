@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:15:02 by rvernon           #+#    #+#             */
-/*   Updated: 2020/10/31 13:31:56 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char *a;
+	unsigned char	*a;
 
-	a = (unsigned char*)s;
+	a = (unsigned char *)s;
 	while (n > 0)
 	{
 		*a = '\0';

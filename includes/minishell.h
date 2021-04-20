@@ -34,6 +34,7 @@ int			make_keydown(char *buf, int size, int i);
 int			make_keyup(char *sbuf, char *ibuf);
 char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
 int			env(char **s);
+char		**convert_tkn(t_tokens *tkn);
 t_tokens	*flexer(char *cmnd, char **env);
 int			exit_error(char *str);
 void		check_operator(t_tokens *tmp, char **cmnd, int *is_set);

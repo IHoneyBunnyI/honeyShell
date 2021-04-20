@@ -6,17 +6,15 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/19 12:24:44 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/20 14:40:03 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 int	check_space(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -53,6 +51,25 @@ int	exit_term(struct termios *old, char *buf)
 	printf("\n");
 	free(buf);
 	return (0);
+}
+
+int	check_key(char *c)
+{
+	if (!ft_strcmp(c, tgetstr("ku", 0)))
+		return (1);
+	else if (!ft_strcmp(c, tgetstr("kd", 0)))
+		return (1);
+	else if (!ft_strcmp(c, "\177"))
+		return (1);
+	else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c,
+			tgetstr("kr", 0)))
+		return (1);
+	return (0);
+}
+
+void	make_key(char *c)
+{
+
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -107,13 +124,25 @@ int	main(int argc, char **argv, char **envp)
 			}
 			if (!ft_strcmp(c, "\n"))
 			{
+				char **res;
+				int b;
+				b = 0;
 				if (check_space(buf + (size * 4000)))
+				{
 					tkn = next_command(buf, &n, &size, &i, envp);
+					res = convert_tkn(tkn);
+				}
 				while (tkn)
 				{
 					printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
 					tkn = tkn->next;
 				}
+				while (res[b])
+				{
+					printf("%s\n", *res);
+					b++;
+				}
+				free(res);
 //				if (!ft_strcmp(tkn->token, "env"))
 //					env(envp);
 				break ;
