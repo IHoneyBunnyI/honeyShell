@@ -17,7 +17,7 @@ CC = gcc
 CFLAGS = -g -I$(LIBFT_D)includes/ -Iincludes/
 
 FILES = arrow.c arrow_utils.c check_token.c check_utils.c pars_history.c \
-pars_utils.c env.c term_utils.c token_work.c
+pars_utils.c env.c term_utils.c token_work.c main_utils.c
 
 LIBFT_D = libft/
 

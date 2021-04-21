@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/17 15:30:16 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/21 14:12:37 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,22 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 }				t_tokens;
 
+typedef struct s_ar
+{
+	int			size;
+	int			i;
+	int			n;
+	int			r;
+}				t_ar;
+
+void		init_ar(t_ar *ar);
+void		init_all(t_ar *ar, struct termios *old, char **buf);
+void		write_buf(char *buf, t_ar *ar, char *c);
 int			make_keydown(char *buf, int size, int i);
 int			make_keyup(char *sbuf, char *ibuf);
+int			check_key(char *c);
+int			exit_term(struct termios *old, char *buf);
+void		make_key(char *c, t_ar *ar, char **buf);
 char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
 int			env(char **s);
 char		**convert_tkn(t_tokens *tkn);

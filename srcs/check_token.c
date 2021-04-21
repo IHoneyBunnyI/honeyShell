@@ -114,8 +114,6 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
-//		if (**cmnd == '$')
-//			exp_env(cmnd, is_set, env, tk);
 		if (**cmnd == '\\')
 			dbl_quot_bs(cmnd, tk);
 		else

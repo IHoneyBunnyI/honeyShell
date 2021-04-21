@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_work.c                                       :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 12:48:00 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/21 14:30:30 by mchaya           ###   ########.fr       */
+/*   Created: 2021/04/21 16:39:15 by mchaya            #+#    #+#             */
+/*   Updated: 2021/04/21 16:39:15 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	tkn_size(t_tokens *lst)
+void	init_ar(t_ar *ar)
 {
-	int	count;
-
-	count = 0;
-	while (lst && !lst->is_oprt)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
+	ar->size = 0;
+	ar->i = 0;
+	ar->n = 0;
 }
 
-char	**convert_tkn(t_tokens *tkn)
+void	init_all(t_ar *ar, struct termios *old, char **buf)
 {
-	int		n;
-	char	**conv;
-	int		i;
+	init_ar(ar);
+	init_term(old);
+	*buf = malloc(4000 * 1000);
+}
 
-	i = 0;
-	n = tkn_size(tkn);
-	conv = malloc(sizeof(char *) * (n + 1));
-	while (tkn && !tkn->is_oprt)
-	{
-		conv[i++] = make_cpy(tkn->token);
-		tkn = tkn->next;
-	}
-	conv[i] = NULL;
-	return (conv);
+void	write_buf(char *buf, t_ar *ar, char *c)
+{
+	write(1, c, ar->r);
+	if (ft_strcmp(c, "\n") && ft_strcmp(c, "\4"))
+		buf[ar->size * 4000 + ar->n++] = *c;
 }

@@ -6,148 +6,64 @@
 /*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:33:09 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/20 14:40:03 by mchaya           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:34:23 by mchaya           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_space(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-t_tokens	*next_command(char *buf, int *n, int *size, int *i, char **env)
+t_tokens	*next_command(char *buf, t_ar *ar, char **env)
 {
 	t_tokens	*tkn;
 
-	buf[*size * 4000 + *n] = 0;
-	tkn = flexer(buf + (*size * 4000), env);
-	if (buf[*size * 4000])
+	buf[ar->size * 4000 + ar->n] = 0;
+	tkn = flexer(buf + (ar->size * 4000), env);
+	if (buf[ar->size * 4000])
 	{
-		if (*size < 1000)
-			(*size)++;
-		*i = *size;
-		buf[*size * 4000] = 0;
+		if (ar->size < 1000)
+			(ar->size)++;
+		ar->i = ar->size;
+		buf[ar->size * 4000] = 0;
 	}
-	*n = 0;
+	ar->n = 0;
 	return (tkn);
 }
 
-int	exit_term(struct termios *old, char *buf)
+void	start(t_ar *ar, char *buf, char **envp)
 {
-	ft_putstr("exit");
-	ft_putstr(tgetstr("ke", 0));
-	tcsetattr(0, TCSANOW, old);
-	printf("\n");
-	free(buf);
-	return (0);
-}
-
-int	check_key(char *c)
-{
-	if (!ft_strcmp(c, tgetstr("ku", 0)))
-		return (1);
-	else if (!ft_strcmp(c, tgetstr("kd", 0)))
-		return (1);
-	else if (!ft_strcmp(c, "\177"))
-		return (1);
-	else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c,
-			tgetstr("kr", 0)))
-		return (1);
-	return (0);
-}
-
-void	make_key(char *c)
-{
-
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	struct termios	old;
 	char			c[5];
-	char			*buf;
-	int				i;
-	int				n;
-	int				size;
-	int				r;
 	t_tokens		*tkn;
 
-	i = 0;
-	n = 0;
-	size = 0;
-	init_term(&old);
-	buf = malloc(4000 * 1000);
 	while (ft_strcmp(c, "\4"))
 	{
 		tputs(save_cursor, 1, ft_putint);
 		ft_putstr("🚀 $ ");
 		while (1)
 		{
-			r = read(0, c, 10);
-			c[r] = 0;
-			if (!ft_strcmp(c, tgetstr("ku", 0)))
-			{
-				if (i)
-					n = make_keyup(buf + size * 4000, buf + --i * 4000);
-			}
-			else if (!ft_strcmp(c, tgetstr("kd", 0)))
-			{
-				if (i < size)
-					n = make_keydown(buf, size, ++i);
-			}
-			else if (!ft_strcmp(c, "\177"))
-			{
-				if (n)
-					make_bs(&n);
-			}
-			else if (!ft_strcmp(c, tgetstr("kl", 0)) || !ft_strcmp(c,
-					tgetstr("kr", 0)))
-				make_lr(c, &n, buf, size);
-			else if (!ft_strcmp(c, "\4") && !n)
+			ar->r = read(0, c, 10);
+			c[ar->r] = 0;
+			if (check_key(c))
+				make_key(c, ar, &buf);
+			else if (!ft_strcmp(c, "\4") && !ar->n)
 				break ;
 			else
-			{
-				write(1, c, r);
-				if (ft_strcmp(c, "\n") && ft_strcmp(c, "\4"))
-					buf[size * 4000 + n++] = *c;
-			}
+				write_buf(buf, ar, c);
 			if (!ft_strcmp(c, "\n"))
 			{
-				char **res;
-				int b;
-				b = 0;
-				if (check_space(buf + (size * 4000)))
-				{
-					tkn = next_command(buf, &n, &size, &i, envp);
-					res = convert_tkn(tkn);
-				}
-				while (tkn)
-				{
-					printf("tk = %s, oprt = %d\n", tkn->token, tkn->is_oprt);
-					tkn = tkn->next;
-				}
-				while (res[b])
-				{
-					printf("%s\n", *res);
-					b++;
-				}
-				free(res);
-//				if (!ft_strcmp(tkn->token, "env"))
-//					env(envp);
+				tkn = next_command(buf, ar, envp);
 				break ;
 			}
 		}
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	struct termios	old;
+	t_ar			ar;
+	char			*buf;
+
+	init_all(&ar, &old, &buf);
+	start(&ar, buf, envp);
 	return (exit_term(&old, buf));
 }
