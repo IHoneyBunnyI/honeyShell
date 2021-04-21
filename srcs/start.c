@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 16:31:20 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/21 12:35:25 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	easy_parser(t_all *all, char *l)
 		cd(all, all->args);
 	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'i' && l[3] == 't')
 		ft_exit(all->args);
-	else
+	else if (ft_strcmp(l, "") != 0)
 		my_execve(all, all->args);
 	free_split(all->args);
 }
