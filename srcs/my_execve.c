@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 16:24:12 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/21 13:14:40 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:26:40 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ char *find_in_path(t_all *all, char *command)
 	return (ret);
 }
 
-void	my_execve(t_all *all, char **args)
+void	my_execve(t_all *all, char **args, int fd)
 {
+	(void)fd;
 	char	*bin;
 	pid_t	pid;
 
@@ -87,8 +88,11 @@ void	my_execve(t_all *all, char **args)
 		return ;
 	}
 	pid = fork();
-	waitpid(pid, 0, 0);
 	if (pid == 0)
+	{
+		dup2(fd, 1);
 		execve(bin, all->args, all->env);
+	}
+	waitpid(pid, 0, 0);
 	free(bin);
 }

@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:44:17 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/21 12:35:19 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:39:57 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**copy_env(char **env)
 	return (for_sort);
 }
 
-void	print_export(char **env)
+void	print_export(char **env, int fd)
 {
 	int		i;
 	char	**print_env;
@@ -66,7 +66,9 @@ void	print_export(char **env)
 	print_env = sort_env(print_env);
 	while (print_env[i])
 	{
-		printf("declare -x %s\"\n", print_env[i]);
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(print_env[i], fd);
+		ft_putendl_fd("\"", fd);
 		i++;
 	}
 	free_split(print_env);

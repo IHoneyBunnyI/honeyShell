@@ -6,20 +6,20 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 19:03:49 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/16 15:09:41 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/21 16:19:08 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+void	pwd(int fd)
 {
 	char	*pwd;
 	int		len;
 
 	pwd = getcwd(0, 0);
 	len = ft_strlen(pwd);
-	write(1, pwd, len);
-	write(1, "\n", 1);
+	write(fd, pwd, len);
+	write(fd, "\n", 1);
 	free(pwd);
 }

@@ -6,7 +6,7 @@
 /*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 19:01:00 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/21 12:35:31 by rvernon          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:41:25 by rvernon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,15 @@ void	add_sort_env(t_all *all, char **args)
 	all->env = new_env;
 }
 
-void	export(t_all *all, char **env, char **args)
+void	export(t_all *all, char **args, int fd)
 {
 	int	i;
 
 	i = 0;
-	(void)env;
 	while (args[i])
 		i++;
 	if (i == 1)
-		print_export(all->env);
+		print_export(all->env, fd);
 	else
 		add_sort_env(all, args + 1);
 }
