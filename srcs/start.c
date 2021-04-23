@@ -46,6 +46,8 @@ void	start(t_ar *ar, char *buf, t_all *all)
 			if (!ft_strcmp(c, "\n"))
 			{
 				tkn = next_command(buf, ar);
+				if (!tkn)
+					break ;
 				work_command(all, tkn);
 				break ;
 			}

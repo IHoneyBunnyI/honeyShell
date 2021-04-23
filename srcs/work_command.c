@@ -6,6 +6,9 @@ void	work_command(t_all *all, t_tokens *tkn)
 
 	fd = 1;
 	all->args = convert_tkn(tkn);
+	/*int i = -1;*/
+	/*while (all->args[++i])*/
+		/*printf("%s\n", all->args[i]);*/
 	if (is_echo(all->args[0]))
 		my_echo(all->args + 1);
 	else if (all->args[0][0] == 'e' && all->args[0][1] == 'n' && all->args[0][2] == 'v')
