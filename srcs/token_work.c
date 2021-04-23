@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_work.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 12:48:00 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/21 14:30:30 by mchaya           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	tkn_size(t_tokens *lst)
@@ -34,11 +22,11 @@ char	**convert_tkn(t_tokens *tkn)
 	i = 0;
 	n = tkn_size(tkn);
 	conv = malloc(sizeof(char *) * (n + 1));
+	conv[n] = 0;
 	while (tkn && !tkn->is_oprt)
 	{
 		conv[i++] = make_cpy(tkn->token);
 		tkn = tkn->next;
 	}
-	conv[i] = NULL;
 	return (conv);
 }

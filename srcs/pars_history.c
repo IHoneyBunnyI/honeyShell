@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pars_history.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 16:30:18 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/17 17:28:25 by mchaya           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	exp_env(char **cmnd, int *is_set, char **env, char **tk)
@@ -47,7 +35,7 @@ void	check_symb(char **cmnd, char **tk, int *is_set)
 	*is_set = 1;
 }
 
-int	check_all(char **cmnd, char **env, char **tk, int *is_set)
+int	check_all(char **cmnd, char **tk, int *is_set)
 {
 	if (**cmnd == '\'')
 	{
@@ -61,7 +49,7 @@ int	check_all(char **cmnd, char **env, char **tk, int *is_set)
 	}
 	else if (**cmnd == '\"')
 	{
-		if (!check_dbl_quot(cmnd, tk, is_set, env))
+		if (!check_dbl_quot(cmnd, tk, is_set))
 			return (0);
 	}
 	else
@@ -69,7 +57,7 @@ int	check_all(char **cmnd, char **env, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
+int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
 {
 	char	*tk;
 
@@ -77,7 +65,7 @@ int	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (!check_all(cmnd, env, &tk, is_set))
+		if (!check_all(cmnd, &tk, is_set))
 			return (0);
 	}
 	tmp->token = tk;
@@ -86,7 +74,7 @@ int	check_else(char **cmnd, t_tokens *tmp, char **env, int *is_set)
 	return (1);
 }
 
-t_tokens	*flexer(char *cmnd, char **env)
+t_tokens	*flexer(char *cmnd)
 {
 	t_tokens	*tkn;
 	t_tokens	*tmp;
@@ -105,7 +93,7 @@ t_tokens	*flexer(char *cmnd, char **env)
 			check_operator(tmp, &cmnd, &is_set);
 		else
 		{
-			if (!check_else(&cmnd, tmp, env, &is_set))
+			if (!check_else(&cmnd, tmp, &is_set))
 				return (0);
 		}
 		if (is_set)

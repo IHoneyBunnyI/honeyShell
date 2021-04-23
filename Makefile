@@ -1,23 +1,37 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/19 12:43:17 by mchaya           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 CC = gcc
 
-CFLAGS = -g -I$(LIBFT_D)includes/ -Iincludes/
+CFLAGS = -g -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/  
 
-FILES = arrow.c arrow_utils.c check_token.c check_utils.c pars_history.c \
-pars_utils.c env.c term_utils.c token_work.c main_utils.c
+FILES = main.c\
+		init_all.c\
+		error.c\
+		start.c\
+		env.c\
+		echo.c\
+		util.c\
+		pwd.c\
+		parser.c\
+		arrow.c\
+		av_env_copy.c\
+		export.c\
+		unset.c\
+		print_export.c\
+		count_dot.c\
+		cd.c\
+		ft_exit.c\
+		my_execve.c\
+		arrow_utils.c\
+		check_token.c\
+		check_utils.c\
+		pars_history.c\
+		pars_utils.c\
+		term_utils.c\
+		token_work.c\
+		main_utils.c\
+		work_command.c\
+
 
 LIBFT_D = libft/
 

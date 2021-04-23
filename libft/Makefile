@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rvernon <rvernon@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/30 13:32:12 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
 FILE = ft_memset.c\
 	   ft_bzero.c\
@@ -56,8 +44,6 @@ FILE = ft_memset.c\
 			   ft_lstclear.c\
 			   ft_lstiter.c\
 			   ft_lstmap.c\
-			gnl/get_next_line.c\
-			gnl/get_next_line_utils.c\
 
 SRCS = $(addprefix srcs/, $(FILE))
 HEADER = includes/ 

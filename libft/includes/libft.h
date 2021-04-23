@@ -1,22 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 12:41:56 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/20 12:14:18 by mchaya           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 
-# include "get_next_line.h"
 # include "libftprintf.h"
 
 typedef struct s_list
@@ -63,7 +50,7 @@ char				*ft_itoa(int n);
 char				*ft_itoa_base(unsigned long long value, unsigned long long base) \
 						;
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char *s1, char *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 /*

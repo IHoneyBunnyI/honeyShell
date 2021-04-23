@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 12:35:10 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/17 16:18:01 by mchaya           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	is_empty(char *s)
@@ -25,7 +13,7 @@ int	is_empty(char *s)
 		return (1);
 }
 
-int	env(char **s)
+int	env(char **s, int fd)
 {
 	int	i;
 
@@ -33,7 +21,7 @@ int	env(char **s)
 	while (s[++i])
 	{
 		if (!is_empty(s[i]))
-			printf("%s\n", s[i]);
+			ft_putendl_fd(s[i], fd);
 	}
 	return (0);
 }

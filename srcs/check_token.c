@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_token.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchaya <mchaya@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:35:15 by mchaya            #+#    #+#             */
-/*   Updated: 2021/04/19 15:27:46 by mchaya           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 char	*check_env(char *cmnd, char **env)
@@ -105,12 +93,11 @@ int	check_bs(char **cmnd, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
+int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 {
 	char	t[2];
 
 	*is_set = 1;
-	*tk = ft_strjoin(*tk, "\"");
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
