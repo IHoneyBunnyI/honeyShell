@@ -1,22 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:59:13 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 08:02:53 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	error(int id)
+void	error(int id, struct termios *old, char *buf)
 {
 	if (id == 0)
 		printf("OK\n");
 	else if (id == 1)
 		printf("\033[31mERROR: invalid argument\033[0m\n");
+	exit_term(old, buf);
 	exit(1);
 }

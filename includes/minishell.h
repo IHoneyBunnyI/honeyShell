@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 13:57:18 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/21 16:03:12 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -37,25 +25,73 @@ typedef struct s_all
 	int		dots;
 }	t_all;
 
-void	init_all(t_all *all);
-void	error(int id);
-void	start(t_all *all, char **av, char **env);
-void	av_env_copy(t_all *all, char **av, char **env);
-void	my_echo(char **s);
-void	write_start_line(char *line);
-void	pwd(int fd);
-void	parser(t_all *all, char *line);
-void	free_split(char **split);
-void	my_unset(t_all *all, char **args);
-int		is_empty(char *s);
-void	count_dot(t_all *all, char *line);
-void	cd(t_all *all, char **args);
-int		find_name(t_all *all, char *arg);
-void	ft_exit(char **args);
-int		is_echo(char *l);
-void	init_const(t_all *all);
-void	my_execve(t_all *all, char **args, int fd);
-void	export(t_all *all, char **args, int fd);
-void	print_export(char **env, int fd);
-int		env(char **s, int fd);
+typedef struct s_tokens
+{
+	int				is_oprt;
+	char			*token;
+	struct s_tokens	*next;
+}				t_tokens;
+
+typedef struct s_ar
+{
+	int			size;
+	int			i;
+	int			n;
+	int			r;
+}				t_ar;
+
+void		error(int id, struct termios *old, char *buf);
+//void		start(t_all *all, char **av, char **env);
+void		av_env_copy(t_all *all, char **av, char **env);
+void		my_echo(char **s);
+void		write_start_line(char *line);
+void		pwd(int fd);
+void		parser(t_all *all, char *line);
+void		free_split(char **split);
+void		my_unset(t_all *all, char **args);
+int			is_empty(char *s);
+void		count_dot(t_all *all, char *line);
+void		cd(t_all *all, char **args);
+int			find_name(t_all *all, char *arg);
+void		ft_exit(char **args);
+int			is_echo(char *l);
+void		init_const(t_all *all);
+void		my_execve(t_all *all, char **args, int fd);
+void		export(t_all *all, char **args, int fd);
+void		print_export(char **env, int fd);
+int			env(char **s, int fd);
+
+void		init_ar(t_ar *ar);
+void		init_all(t_ar *ar, struct termios *old, char **buf, t_all *all);
+void		write_buf(char *buf, t_ar *ar, char *c);
+int			make_keydown(char *buf, int size, int i);
+int			make_keyup(char *sbuf, char *ibuf);
+int			check_key(char *c);
+int			exit_term(struct termios *old, char *buf);
+void		make_key(char *c, t_ar *ar, char **buf);
+char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
+char		**convert_tkn(t_tokens *tkn);
+t_tokens	*flexer(char *cmnd);
+int			exit_error(char *str);
+void		check_operator(t_tokens *tmp, char **cmnd, int *is_set);
+void		exp_env(char **cmnd, int *is_set, char **env, char **tk);
+void		dbl_quot_bs(char **cmnd, char **tk);
+void		operator_utils(t_tokens *tmp, char **cmnd, int *is_set);
+int			check_sing_quot(char **cmnd, int *is_set, char **tk);
+int			check_bs(char **cmnd, char **tk, int *is_set);
+int			check_dbl_quot(char **cmnd, char **tk, int *is_set);
+char		*check_env(char *cmnd, char **env);
+char		*ft_angelina(char *p1, char *p2);
+void		add_elem(t_tokens **tkn, t_tokens *tmp);
+int			not_operator(char cmnd);
+char		*make_cpy(char *src);
+int			skip_env(char s);
+void		make_lr(char *c, int *n, char *buf, int size);
+int			ft_putstr(char *c);
+int			ft_putint(int c);
+void		make_bs(int *n);
+void		init_term(struct termios *old);
+void		start(t_ar *ar, char *buf, t_all *all);
+void		work_command(t_all *all, t_tokens *tkn);
+t_tokens	*next_command(char *buf, t_ar *ar);
 #endif

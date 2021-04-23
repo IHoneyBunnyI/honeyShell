@@ -1,24 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 14:04:46 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/16 15:07:25 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	main(int ac, char **av, char **env)
 {
 	t_all	all;
+	struct termios	old;
+	t_ar			ar;
+	char			*buf;
 
-	init_all(&all);
+	init_all(&ar, &old, &buf, &all);
 	if (ac == 1)
-		start(&all, av, env);
+	{
+		av_env_copy(&all, av, env);
+		start(&ar, buf, &all);
+	}
 	else
-		error(1);
+		error(1, &old, buf);
+	return (exit_term(&old, buf));
 }

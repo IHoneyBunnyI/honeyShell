@@ -1,19 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_all.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 19:37:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 13:44:03 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	init_all(t_all *all)
+void	init_all(t_ar *ar, struct termios *old, char **buf, t_all *all)
 {
+	init_ar(ar);
+	init_term(old);
+	*buf = malloc(4000 * 1000);
 	all->env = 0;
 	all->av = 0;
 	all->start_line = 0;

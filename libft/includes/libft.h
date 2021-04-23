@@ -1,22 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 12:41:56 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/14 16:54:46 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 
-# include "get_next_line.h"
 # include "libftprintf.h"
 
 typedef struct s_list

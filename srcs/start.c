@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 12:28:35 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/21 16:03:12 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	easy_parser(t_all *all, char *l, int fd)
@@ -46,7 +34,7 @@ void	loop(t_all *all)
 	while (read)
 	{
 		write_start_line(all->start_line);
-		read = get_next_line(0, &line);
+//		read = get_next_line(0, &line);
 		int fd = open("test", O_CREAT | O_RDWR, S_IREAD | S_IWRITE | S_IRGRP | S_IROTH);
 		if (fd < 0)
 			printf("ERR\n");
@@ -68,10 +56,31 @@ void	termcap(t_all *all)
 	term = getenv("TERM");
 }
 
-void	start(t_all *all, char **av, char **env)
+void	start(t_ar *ar, char *buf, t_all *all)
 {
-	av_env_copy(all, av, env);
-	init_const(all);
-	termcap(all);
-	loop(all);
+	char			c[5];
+	t_tokens		*tkn;
+
+	while (ft_strcmp(c, "\4"))
+	{
+		tputs(save_cursor, 1, ft_putint);
+		ft_putstr("🚀 $ ");
+		while (1)
+		{
+			ar->r = read(0, c, 10);
+			c[ar->r] = 0;
+			if (check_key(c))
+				make_key(c, ar, &buf);
+			else if (!ft_strcmp(c, "\4") && !ar->n)
+				break ;
+			else
+				write_buf(buf, ar, c);
+			if (!ft_strcmp(c, "\n"))
+			{
+				tkn = next_command(buf, ar);
+				work_command(all, tkn);
+				break ;
+			}
+		}
+	}
 }

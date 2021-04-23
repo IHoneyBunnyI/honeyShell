@@ -1,21 +1,19 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   arrow.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/31 17:46:24 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 07:59:10 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-void	arrow(void)
+t_tokens	*next_command(char *buf, t_ar *ar)
 {
-	int	i;
+	t_tokens	*tkn;
 
-	i = 0;
-	i++;
+	buf[ar->size * 4000 + ar->n] = 0;
+	tkn = flexer(buf + (ar->size * 4000));
+	if (buf[ar->size * 4000])
+	{
+		if (ar->size < 1000)
+			(ar->size)++;
+		ar->i = ar->size;
+		buf[ar->size * 4000] = 0;
+	}
+	ar->n = 0;
+	return (tkn);
 }
+

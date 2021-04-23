@@ -1,16 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: rvernon <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/03/09 14:01:16 by rvernon           #+#    #+#              #
-#    Updated: 2021/04/21 13:26:06 by rvernon          ###   ########.fr        #
-#    Updated: 2021/03/24 14:07:33 by rvernon          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 CC = gcc
@@ -35,6 +22,16 @@ FILES = main.c\
 		cd.c\
 		ft_exit.c\
 		my_execve.c\
+		arrow_utils.c\
+		check_token.c\
+		check_utils.c\
+		pars_history.c\
+		pars_utils.c\
+		term_utils.c\
+		token_work.c\
+		main_utils.c\
+		work_command.c\
+
 
 LIBFT_D = libft/
 

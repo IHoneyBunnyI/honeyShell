@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   av_env_copy.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rvernon <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/02 15:13:30 by rvernon           #+#    #+#             */
-/*   Updated: 2021/04/15 08:01:31 by rvernon          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	av_copy(t_all *all, char **av)
@@ -20,8 +8,6 @@ void	av_copy(t_all *all, char **av)
 	while (av[i])
 		i++;
 	all->av = malloc(sizeof(char *) * (i + 1));
-	 if (!all->av)
-		error(1);
 	all->av[i] = 0;
 	while (i--)
 		all->av[i] = ft_strdup(av[i]);
@@ -43,8 +29,6 @@ void	env_copy(t_all *all, char **env)
 	while (env[i])
 		i++;
 	all->env = malloc(sizeof(char *) * (i + 1));
-	if (!all->env)
-		error(1);
 	all->env[i] = 0;
 	while (i--)
 	{
