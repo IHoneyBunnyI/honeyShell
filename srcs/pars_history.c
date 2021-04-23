@@ -35,7 +35,7 @@ void	check_symb(char **cmnd, char **tk, int *is_set)
 	*is_set = 1;
 }
 
-int	check_all(char **cmnd, char **tk, int *is_set)
+int	check_all(char **cmnd, char **tk, int *is_set, char **env)
 {
 	if (**cmnd == '\'')
 	{
@@ -47,9 +47,11 @@ int	check_all(char **cmnd, char **tk, int *is_set)
 		if (!check_bs(cmnd, tk, is_set))
 			return (0);
 	}
+	else if (**cmnd == '$')
+		exp_env(cmnd, is_set, env, tk);
 	else if (**cmnd == '\"')
 	{
-		if (!check_dbl_quot(cmnd, tk, is_set))
+		if (!check_dbl_quot(cmnd, tk, is_set, env))
 			return (0);
 	}
 	else
@@ -57,7 +59,7 @@ int	check_all(char **cmnd, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
+int	check_else(char **cmnd, t_tokens *tmp, int *is_set, char **env)
 {
 	char	*tk;
 
@@ -65,7 +67,7 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (!check_all(cmnd, &tk, is_set))
+		if (!check_all(cmnd, &tk, is_set, env))
 			return (0);
 	}
 	tmp->token = tk;
@@ -74,7 +76,7 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
 	return (1);
 }
 
-t_tokens	*flexer(char *cmnd)
+t_tokens	*flexer(char *cmnd, char **env)
 {
 	t_tokens	*tkn;
 	t_tokens	*tmp;
@@ -93,7 +95,7 @@ t_tokens	*flexer(char *cmnd)
 			check_operator(tmp, &cmnd, &is_set);
 		else
 		{
-			if (!check_else(&cmnd, tmp, &is_set))
+			if (!check_else(&cmnd, tmp, &is_set, env))
 				return (0);
 		}
 		if (is_set)

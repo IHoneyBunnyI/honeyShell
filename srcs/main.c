@@ -11,7 +11,7 @@ int	main(int ac, char **av, char **env)
 	if (ac == 1)
 	{
 		av_env_copy(&all, av, env);
-		start(&ar, buf, &all);
+		start(&ar, buf, &all, env);
 	}
 	else
 		error(1, &old, buf);

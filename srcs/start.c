@@ -24,7 +24,7 @@ void	easy_parser(t_all *all, char *l, int fd)
 	free_split(all->args);
 }
 
-void	start(t_ar *ar, char *buf, t_all *all)
+void	start(t_ar *ar, char *buf, t_all *all, char **env)
 {
 	char			c[5];
 	t_tokens		*tkn;
@@ -45,7 +45,7 @@ void	start(t_ar *ar, char *buf, t_all *all)
 				write_buf(buf, ar, c);
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, ar);
+				tkn = next_command(buf, ar, env);
 				if (!tkn)
 					break ;
 				work_command(all, tkn);
