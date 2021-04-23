@@ -16,4 +16,3 @@ t_tokens	*next_command(char *buf, t_ar *ar)
 	ar->n = 0;
 	return (tkn);
 }
-

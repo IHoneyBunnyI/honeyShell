@@ -2,7 +2,7 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_all	all;
+	t_all			all;
 	struct termios	old;
 	t_ar			ar;
 	char			*buf;

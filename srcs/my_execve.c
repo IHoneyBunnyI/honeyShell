@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-char *get_env(t_all *all, char *line)
+char	*get_env(t_all *all, char *line)
 {
-	int index;
-	int i;
-	char *ret;
+	int		index;
+	int		i;
+	char	*ret;
 
 	i = -1;
 	index = find_name(all, line) - 1;
@@ -13,16 +13,16 @@ char *get_env(t_all *all, char *line)
 		ret = all->env[index];
 		while (all->env[index] && all->env[index][++i] != '=')
 			ret++;
-		return ++ret;
+		return (++ret);
 	}
 	return (0);
 }
 
-char *search_path(char **path)
+char	*search_path(char **path)
 {
-	int i;
-	struct stat buf;
-	char *ret;
+	int			i;
+	struct stat	buf;
+	char		*ret;
 
 	i = -1;
 	while (path[++i])
@@ -36,11 +36,11 @@ char *search_path(char **path)
 	return (0);
 }
 
-char *find_in_path(t_all *all, char *command)
+char	*find_in_path(t_all *all, char *command)
 {
-	char **path;
-	int i;
-	char *ret;
+	char	**path;
+	int		i;
+	char	*ret;
 
 	i = -1;
 	if (ft_strcmp(command, "./minishell") == 0)
@@ -56,14 +56,13 @@ char *find_in_path(t_all *all, char *command)
 		path[i] = ft_strjoin(path[i], "/");
 		path[i] = ft_strjoin(path[i], command);
 	}
-	ret = search_path(path);	
+	ret = search_path(path);
 	free_split(path);
 	return (ret);
 }
 
 void	my_execve(t_all *all, char **args, int fd)
 {
-	(void)fd;
 	char	*bin;
 	pid_t	pid;
 

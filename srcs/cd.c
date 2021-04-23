@@ -2,10 +2,10 @@
 
 void	update_oldpwd(t_all *all)
 {
-	int	i;
-	int	i_pwd;
-	int	i_oldpwd; 
-	char *pwd;
+	int		i;
+	int		i_pwd;
+	int		i_oldpwd;
+	char	*pwd;
 
 	i = -1;
 	i_pwd = find_name(all, "PWD") - 1;
@@ -20,8 +20,8 @@ void	update_oldpwd(t_all *all)
 
 void	update_pwd(t_all *all)
 {
-	char *pwd;
-	int	i_pwd;
+	char	*pwd;
+	int		i_pwd;
 
 	i_pwd = find_name(all, "PWD") - 1;
 	free(all->env[i_pwd]);

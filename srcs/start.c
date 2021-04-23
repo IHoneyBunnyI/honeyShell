@@ -24,38 +24,6 @@ void	easy_parser(t_all *all, char *l, int fd)
 	free_split(all->args);
 }
 
-void	loop(t_all *all)
-{
-	int		read;
-	char	*line;
-
-	line = 0;
-	read = 1;
-	while (read)
-	{
-		write_start_line(all->start_line);
-//		read = get_next_line(0, &line);
-		int fd = open("test", O_CREAT | O_RDWR, S_IREAD | S_IWRITE | S_IRGRP | S_IROTH);
-		if (fd < 0)
-			printf("ERR\n");
-		easy_parser(all, line, fd);
-		close(fd);
-		free(line);
-	}
-}
-
-void	termcap(t_all *all)
-{
-	char			*term;
-	struct termios	new;
-	struct termios	old;
-
-	(void)all;
-	(void)new;
-	(void)old;
-	term = getenv("TERM");
-}
-
 void	start(t_ar *ar, char *buf, t_all *all)
 {
 	char			c[5];

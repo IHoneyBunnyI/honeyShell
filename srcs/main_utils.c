@@ -7,7 +7,6 @@ void	init_ar(t_ar *ar)
 	ar->n = 0;
 }
 
-
 void	write_buf(char *buf, t_ar *ar, char *c)
 {
 	write(1, c, ar->r);
