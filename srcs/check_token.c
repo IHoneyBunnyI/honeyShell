@@ -98,7 +98,6 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 	char	t[2];
 
 	*is_set = 1;
-	*tk = ft_strjoin(*tk, "\"");
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
