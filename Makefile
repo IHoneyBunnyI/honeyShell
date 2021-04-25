@@ -32,6 +32,7 @@ FILES = main.c\
 		main_utils.c\
 		work_command.c\
 		parse_redirect.c\
+		get_args.c\
 
 
 LIBFT_D = libft/

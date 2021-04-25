@@ -15,17 +15,9 @@ int	find_dots(char **args)
 	return (res);
 }
 
-char	**parse_cmd(t_cmd *cmd, char **args)
+void	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 {
-	int	i;
-
-	i = 0;
-	parse_redirect(args, cmd);
-	while (args[i] && args[i][0] != ';')
-	{
-		i++;
-	}
-	return (&args[i]);
+	parse_redirect(all, args, cmd);
 }
 
 void	work_command(t_all *all, t_tokens *tkn)
@@ -36,11 +28,10 @@ void	work_command(t_all *all, t_tokens *tkn)
 	fd = 1;
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
-	/*for (int i = 0; all->all_args[i] != 0; i++)*/
-		/*printf("%s\n", all->all_args[i]);*/
 	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{
-		all->all_args = parse_cmd(&cmd, all->all_args) + 1;
+		parse_cmd(all, &cmd, all->all_args);
+		get_args(all->args, &cmd);
 	}
 }

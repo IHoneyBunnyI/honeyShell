@@ -105,5 +105,6 @@ void		start(t_ar *ar, char *buf, t_all *all, char **env);
 void		work_command(t_all *all, t_tokens *tkn);
 t_tokens	*next_command(char *buf, t_ar *ar, char **env);
 void		init_cmd(t_cmd *cmd);
-void		parse_redirect(char **args, t_cmd *cmd);
+void		parse_redirect(t_all *all, char **args, t_cmd *cmd);
+void		get_args(char **args, t_cmd *cmd);
 #endif
