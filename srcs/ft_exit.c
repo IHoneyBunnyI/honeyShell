@@ -1,7 +1,20 @@
 #include "minishell.h"
 
-void	ft_exit(char **args)
+void	ft_exit(t_all *all, char **args)
 {
-	(void)args;
-	exit(0);
+	int i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	if (i == 1)
+	{
+		all->exit_status = ft_atoi(args[0]);
+		exit(all->exit_status);
+	}
+	else
+	{
+		ft_putendl_fd("exit", 2);
+		ft_putendl_fd("🚀: exit: too many arguments", 2);
+	}
 }

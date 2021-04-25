@@ -4,7 +4,7 @@ void	easy_parser(t_all *all, char *l, int fd)
 {
 	all->args = ft_split(l, ' ');
 	if (is_echo(l))
-		my_echo(all->args + 1);
+		my_echo(all->args + 1, fd);
 	else if (l[0] == 'e' && l[1] == 'n' && l[2] == 'v')
 		env(all->env, fd);
 	else if (l[0] == 'p' && l[1] == 'w' && l[2] == 'd')
@@ -18,7 +18,7 @@ void	easy_parser(t_all *all, char *l, int fd)
 	else if (l[0] == 'c' && l[1] == 'd')
 		cd(all, all->args);
 	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'i' && l[3] == 't')
-		ft_exit(all->args);
+		ft_exit(all, all->args);
 	else if (ft_strcmp(l, "") != 0)
 		my_execve(all, all->args, fd);
 	free_split(all->args);

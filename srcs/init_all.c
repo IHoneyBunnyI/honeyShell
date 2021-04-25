@@ -13,6 +13,7 @@ void	init_all(t_ar *ar, struct termios *old, char **buf, t_all *all)
 	all->all_args = 0;
 	all->dots = 0;
 	all->files = 0;
+	all->exit_status = 0;
 }
 
 void	init_cmd(t_cmd *cmd)

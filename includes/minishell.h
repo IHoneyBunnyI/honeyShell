@@ -35,6 +35,7 @@ typedef struct s_all
 	char	**all_args;
 	char	*files;
 	int		dots;
+	int		exit_status;
 }	t_all;
 
 typedef struct s_tokens
@@ -64,7 +65,7 @@ int			is_empty(char *s);
 void		count_dot(t_all *all, char *line);
 void		cd(t_all *all, char **args);
 int			find_name(t_all *all, char *arg);
-void		ft_exit(char **args);
+void		ft_exit(t_all *all, char **args);
 int			is_echo(char *l);
 void		init_const(t_all *all);
 void		my_execve(t_all *all, char **args, int fd);

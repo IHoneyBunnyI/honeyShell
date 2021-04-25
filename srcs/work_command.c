@@ -49,7 +49,7 @@ void	find_cmd(t_all *all, t_cmd *cmd)
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
 		env(all->env, cmd->fd);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
-		ft_exit(cmd->args);
+		ft_exit(all, cmd->args + 1);
 }
 
 void	work_command(t_all *all, t_tokens *tkn)
