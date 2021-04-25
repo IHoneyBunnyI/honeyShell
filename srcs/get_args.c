@@ -23,7 +23,7 @@ void	get_args(char **args, t_cmd *cmd)
 			cmd->args[i] = ft_strdup(args[i]);
 		i++;
 	}
-	i = 0;
+	/*i = 0;*/
 	/*printf("cmd %s\n", cmd->cmd);*/
 	/*while (cmd->args[i])*/
 	/*{*/

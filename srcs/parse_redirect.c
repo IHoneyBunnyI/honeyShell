@@ -67,6 +67,11 @@ void	open_files(char **args, t_cmd *cmd)
 			cmd->fd = open(args[i + 1], O_WRONLY | O_CREAT | O_APPEND, S_IWUSR | S_IRUSR);
 		else if (ft_strcmp(args[i], ">") == 0 && args[i + 1] != 0)
 			cmd->fd = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
+		else if (ft_strcmp(args[i], "<") == 0 && args[i + 1] != 0)
+		{
+			cmd->fd = open(args[i + 1], O_WRONLY);
+			/*dup2(0, cmd->fd);*/
+		}
 		i++;
 	}
 }
@@ -81,7 +86,9 @@ void copy_args_without_redirect(t_all *all, char **args, int i)
 	j = 0;
 	while (args[i] && args[i][0] != ';')
 	{
-		if (ft_strcmp(args[i], ">>") == 0 || ft_strcmp(args[i], ">") == 0)
+		if (ft_strcmp(args[i], ">>") == 0 ||
+			ft_strcmp(args[i], ">") == 0 ||
+			ft_strcmp(args[i], "<") == 0)
 		{
 			i += 2;
 			continue ;

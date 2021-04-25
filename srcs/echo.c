@@ -18,7 +18,7 @@ int	is_n(char *line)
 	return (0);
 }
 
-void	my_echo(char **s)
+void	my_echo(char **s, int fd)
 {
 	int		i;
 	char	n;
@@ -33,10 +33,10 @@ void	my_echo(char **s)
 		n = '\0';
 	while (s[i])
 	{
-		write(1, s[i], ft_strlen(s[i]));
+		write(fd, s[i], ft_strlen(s[i]));
 		i++;
 		if (s[i])
-			write(1, " ", 1);
+			write(fd, " ", 1);
 	}
-	write(1, &n, 1);
+	write(fd, &n, 1);
 }

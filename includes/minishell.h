@@ -54,7 +54,7 @@ typedef struct s_ar
 
 void		error(int id, struct termios *old, char *buf);
 void		av_env_copy(t_all *all, char **av, char **env);
-void		my_echo(char **s);
+void		my_echo(char **s, int fd);
 void		write_start_line(char *line);
 void		pwd(int fd);
 void		parser(t_all *all, char *line);

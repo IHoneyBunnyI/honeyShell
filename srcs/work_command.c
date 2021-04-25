@@ -20,6 +20,38 @@ void	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 	parse_redirect(all, args, cmd);
 }
 
+int	is_builtin(t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd, "echo") == 0 ||
+		ft_strcmp(cmd->cmd, "cd") == 0 ||
+		ft_strcmp(cmd->cmd, "export") == 0 ||
+		ft_strcmp(cmd->cmd, "unset") == 0 ||
+		ft_strcmp(cmd->cmd, "exit") == 0 ||
+		ft_strcmp(cmd->cmd, "pwd") == 0 ||
+		ft_strcmp(cmd->cmd, "env") == 0)
+		return (1);
+	else
+		return (0);
+}
+
+void	find_cmd(t_all *all, t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
+		my_echo(cmd->args + 1, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "cd") == 0)
+		cd(all, cmd->args);
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
+		export(all, cmd->args, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+		my_unset(all, cmd->args + 1);
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		pwd(cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
+		env(all->env, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "exit") == 0)
+		ft_exit(cmd->args);
+}
+
 void	work_command(t_all *all, t_tokens *tkn)
 {
 	int	fd;
@@ -33,8 +65,9 @@ void	work_command(t_all *all, t_tokens *tkn)
 	{
 		parse_cmd(all, &cmd, all->all_args);
 		get_args(all->args, &cmd);
-		/*printf("cmd %s\n", cmd.cmd);*/
-		if (ft_strcmp(cmd.cmd, "ls") == 0)
+		if (is_builtin(&cmd))
+			find_cmd(all, &cmd);
+		else
 			my_execve(all, cmd.args, cmd.fd);
 	}
 }
