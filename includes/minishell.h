@@ -14,6 +14,7 @@
 # include "libft.h"
 # include <sys/errno.h>
 # include <fcntl.h>
+# include <signal.h>
 
 typedef struct s_all
 {
@@ -61,6 +62,7 @@ void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);
 
+void		func(int i);
 void		init_ar(t_ar *ar);
 void		init_all(t_ar *ar, struct termios *old, char **buf, t_all *all);
 void		write_buf(char *buf, t_ar *ar, char *c);

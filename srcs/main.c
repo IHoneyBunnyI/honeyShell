@@ -7,6 +7,7 @@ int	main(int ac, char **av, char **env)
 	t_ar			ar;
 	char			*buf;
 
+	signal(SIGQUIT, func);
 	init_all(&ar, &old, &buf, &all);
 	if (ac == 1)
 	{

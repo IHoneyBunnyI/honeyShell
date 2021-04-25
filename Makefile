@@ -31,6 +31,7 @@ FILES = main.c\
 		token_work.c\
 		main_utils.c\
 		work_command.c\
+		signal.c
 
 
 LIBFT_D = libft/
