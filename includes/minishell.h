@@ -15,6 +15,16 @@
 # include <sys/errno.h>
 # include <fcntl.h>
 
+
+typedef struct s_cmd
+{
+	char	**files;
+	char	*cmd;
+	char	*args;
+	int		pipe;
+	int		fd;
+}	t_cmd;
+
 typedef struct s_all
 {
 	char	**env;
@@ -22,6 +32,8 @@ typedef struct s_all
 	char	*start_line;
 	char	*command;
 	char	**args;
+	char	**all_args;
+	char	*files;
 	int		dots;
 }	t_all;
 
@@ -41,7 +53,6 @@ typedef struct s_ar
 }				t_ar;
 
 void		error(int id, struct termios *old, char *buf);
-//void		start(t_all *all, char **av, char **env);
 void		av_env_copy(t_all *all, char **av, char **env);
 void		my_echo(char **s);
 void		write_start_line(char *line);
@@ -60,7 +71,6 @@ void		my_execve(t_all *all, char **args, int fd);
 void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);
-
 void		init_ar(t_ar *ar);
 void		init_all(t_ar *ar, struct termios *old, char **buf, t_all *all);
 void		write_buf(char *buf, t_ar *ar, char *c);
@@ -94,4 +104,6 @@ void		init_term(struct termios *old);
 void		start(t_ar *ar, char *buf, t_all *all, char **env);
 void		work_command(t_all *all, t_tokens *tkn);
 t_tokens	*next_command(char *buf, t_ar *ar, char **env);
+void		init_cmd(t_cmd *cmd);
+void		parse_redirect(char **args, t_cmd *cmd);
 #endif

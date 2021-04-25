@@ -31,6 +31,7 @@ FILES = main.c\
 		token_work.c\
 		main_utils.c\
 		work_command.c\
+		parse_redirect.c\
 
 
 LIBFT_D = libft/

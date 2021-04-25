@@ -1,28 +1,46 @@
 #include "minishell.h"
 
+int	find_dots(char **args)
+{
+	int	res;
+	int	i;
+
+	i = -1;
+	res = 1;
+	while (args[++i])
+	{
+		if (args[i][0] == ';')
+			res++;
+	}
+	return (res);
+}
+
+char	**parse_cmd(t_cmd *cmd, char **args)
+{
+	int	i;
+
+	i = 0;
+	parse_redirect(args, cmd);
+	while (args[i] && args[i][0] != ';')
+	{
+		i++;
+	}
+	return (&args[i]);
+}
+
 void	work_command(t_all *all, t_tokens *tkn)
 {
 	int	fd;
+	t_cmd cmd;
 
 	fd = 1;
-	all->args = convert_tkn(tkn);
-	if (is_echo(all->args[0]))
-		my_echo(all->args + 1);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'n' && all->args[0][2] == 'v')
-		env(all->env, fd);
-	else if (all->args[0][0] == 'p' && all->args[0][1] == 'w' && all->args[0][2] == 'd')
-		pwd(fd);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'x' && all->args[0][2] == 'p' && \
-			 all->args[0][3] == 'o' && all->args[0][4] == 'r' && all->args[0][5] == 't' )
-		export(all, all->args, fd);
-	else if (all->args[0][0] == 'u' && all->args[0][1] == 'n' && all->args[0][2] == 's' && \
-			 all->args[0][3] == 'e' && all->args[0][4] == 't')
-		my_unset(all, all->args + 1);
-	else if (all->args[0][0] == 'c' && all->args[0][1] == 'd')
-		cd(all, all->args);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'x' && all->args[0][2] == 'i' && all->args[0][3] == 't')
-		ft_exit(all->args);
-	else if (ft_strcmp(all->args[0], "") != 0)
-		my_execve(all, all->args, fd);
-	free_split(all->args);
+	init_cmd(&cmd);
+	all->all_args = convert_tkn(tkn);
+	/*for (int i = 0; all->all_args[i] != 0; i++)*/
+		/*printf("%s\n", all->all_args[i]);*/
+	all->dots = find_dots(all->all_args);
+	while (all->dots--)
+	{
+		all->all_args = parse_cmd(&cmd, all->all_args) + 1;
+	}
 }
