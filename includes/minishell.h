@@ -20,7 +20,7 @@ typedef struct s_cmd
 {
 	char	**files;
 	char	*cmd;
-	char	*args;
+	char	**args;
 	int		pipe;
 	int		fd;
 }	t_cmd;

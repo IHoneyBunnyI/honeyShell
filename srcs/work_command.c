@@ -33,5 +33,8 @@ void	work_command(t_all *all, t_tokens *tkn)
 	{
 		parse_cmd(all, &cmd, all->all_args);
 		get_args(all->args, &cmd);
+		/*printf("cmd %s\n", cmd.cmd);*/
+		if (ft_strcmp(cmd.cmd, "ls") == 0)
+			my_execve(all, cmd.args, cmd.fd);
 	}
 }
