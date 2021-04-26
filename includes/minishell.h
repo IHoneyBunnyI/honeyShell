@@ -22,7 +22,8 @@ typedef struct s_cmd
 	char	*cmd;
 	char	**args;
 	int		pipe;
-	int		fd;
+	int		fd_in;
+	int		fd_out;
 }	t_cmd;
 
 typedef struct s_all
@@ -69,7 +70,7 @@ int			find_name(t_all *all, char *arg);
 void		ft_exit(t_all *all, char **args);
 int			is_echo(char *l);
 void		init_const(t_all *all);
-void		my_execve(t_all *all, char **args, int fd);
+void		my_execve(t_all *all, char **args, t_cmd *cmd);
 void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);

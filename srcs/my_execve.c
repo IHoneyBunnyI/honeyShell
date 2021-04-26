@@ -62,9 +62,8 @@ char	*find_in_path(t_all *all, char *command)
 	return (ret);
 }
 
-void	my_execve(t_all *all, char **args, int fd)
+void	my_execve(t_all *all, char **args, t_cmd *cmd)
 {
-	(void)fd;
 	char	*bin;
 	pid_t	pid;
 
@@ -79,15 +78,12 @@ void	my_execve(t_all *all, char **args, int fd)
 	pid = fork();
 	if (pid == 0)
 	{
-		/*if (fd != 0)*/
-			/*dup2(fd, 1);*/
-		/*printf("out %d\n",fileno(stdout));*/
-		/*printf("in %d\n",fileno(stdin));*/
-		/*printf("%s\n", bin);*/
-		/*printf("%s\n", all->args[0]);*/
+		if (cmd->fd_out != 0)
+			dup2(cmd->fd_out, 1);
+		dup2(cmd->fd_in, 0);
 		execve(bin, all->args, all->env);
 	}
 	waitpid(pid, 0, 0);
-	close(fd);
+	/*close(cmd->fd_in);*/
 	free(bin);
 }

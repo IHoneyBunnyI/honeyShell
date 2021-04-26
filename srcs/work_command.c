@@ -39,17 +39,17 @@ int	is_builtin(t_cmd *cmd)
 void	find_cmd(t_all *all, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		my_echo(cmd->args + 1, cmd->fd);
+		my_echo(cmd->args + 1, cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		cd(all, cmd->args);
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
-		export(all, cmd->args, cmd->fd);
+		export(all, cmd->args, cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "unset") == 0)
 		my_unset(all, cmd->args + 1);
 	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
-		pwd(cmd->fd);
+		pwd(cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
-		env(all->env, cmd->fd);
+		env(all->env, cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		ft_exit(all, cmd->args + 1);
 }
@@ -62,8 +62,7 @@ void	work_command(t_all *all, t_tokens *tkn)
 	fd = 1;
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
-	/*for (int i = 0; all->all_args != 0; i++)*/
-		/*printf("%s\n", all->all_args[i]);*/
+	all->dots = find_dots(all->all_args);
 	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{
@@ -74,8 +73,8 @@ void	work_command(t_all *all, t_tokens *tkn)
 			find_cmd(all, &cmd);
 		else
 		{
-			printf("fd: %d\n", cmd.fd);
-			my_execve(all, cmd.args, cmd.fd);
+			/*printf("fd: %d\n", cmd.fd_out);*/
+			my_execve(all, cmd.args, &cmd);
 		}
 	}
 }

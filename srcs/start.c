@@ -20,12 +20,13 @@ void	easy_parser(t_all *all, char *l, int fd)
 	else if (l[0] == 'e' && l[1] == 'x' && l[2] == 'i' && l[3] == 't')
 		ft_exit(all, all->args);
 	else if (ft_strcmp(l, "") != 0)
-		my_execve(all, all->args, fd);
+		/*my_execve(all, all->args, cmd);*/
 	free_split(all->args);
 }
 
 void	start(t_ar *ar, char *buf, t_all *all, char **env)
 {
+	(void)all;
 	char			c[5];
 	t_tokens		*tkn;
 
