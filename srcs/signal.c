@@ -1,5 +1,8 @@
+#include "minishell.h"
+
 void	func(int i)
 {
-	i = 0;
+	if (g_state == 1)
+		printf("Quit: %d\n", i);
 }
 

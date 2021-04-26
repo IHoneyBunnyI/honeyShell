@@ -8,7 +8,11 @@ void	exp_env(char **cmnd, int *is_set, char **env, char **tk, t_all *all)
 	if (ft_isdigit(**cmnd))
 		(*cmnd)++;
 	else if (**cmnd == '?')
-		tk = all.ex
+	{
+		(*cmnd)++;
+		*tk = ft_strjoin(*tk, ft_itoa(all->exit_status));
+		*is_set = 1;
+	}
 	else if (!ft_isalpha(**cmnd) || **cmnd == '_')
 	{
 		*tk = ft_strjoin(*tk, "$");
@@ -37,7 +41,7 @@ void	check_symb(char **cmnd, char **tk, int *is_set)
 	*is_set = 1;
 }
 
-int	check_all(char **cmnd, char **tk, int *is_set, char **env)
+int	check_all(char **cmnd, char **tk, int *is_set, char **env, t_all *all)
 {
 	if (**cmnd == '\'')
 	{
@@ -50,10 +54,10 @@ int	check_all(char **cmnd, char **tk, int *is_set, char **env)
 			return (0);
 	}
 	else if (**cmnd == '$')
-		exp_env(cmnd, is_set, env, tk);
+		exp_env(cmnd, is_set, env, tk, all);
 	else if (**cmnd == '\"')
 	{
-		if (!check_dbl_quot(cmnd, tk, is_set, env))
+		if (!check_dbl_quot(cmnd, tk, is_set, env, all))
 			return (0);
 	}
 	else
@@ -61,7 +65,7 @@ int	check_all(char **cmnd, char **tk, int *is_set, char **env)
 	return (1);
 }
 
-int	check_else(char **cmnd, t_tokens *tmp, int *is_set, char **env)
+int	check_else(char **cmnd, t_tokens *tmp, int *is_set, char **env, t_all *all)
 {
 	char	*tk;
 
@@ -69,8 +73,11 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set, char **env)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (!check_all(cmnd, &tk, is_set, env))
+		if (!check_all(cmnd, &tk, is_set, env, all))
+		{
+			free(tk);
 			return (0);
+		}
 	}
 	tmp->token = tk;
 	tmp->next = NULL;
@@ -78,7 +85,7 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set, char **env)
 	return (1);
 }
 
-t_tokens	*flexer(char *cmnd, char **env)
+t_tokens	*flexer(char *cmnd, char **env, t_all *all)
 {
 	t_tokens	*tkn;
 	t_tokens	*tmp;
@@ -92,16 +99,26 @@ t_tokens	*flexer(char *cmnd, char **env)
 		while (*cmnd == ' ' && *cmnd)
 			cmnd++;
 		if (*cmnd == '\0')
-			break ;
+		{
+//			free(tmp->token);
+//			free(tmp);
+			break;
+		}
 		if (!not_operator(*cmnd))
 			check_operator(tmp, &cmnd, &is_set);
 		else
 		{
-			if (!check_else(&cmnd, tmp, &is_set, env))
+			if (!check_else(&cmnd, tmp, &is_set, env, all))
+			{
+//				free(tmp->token);
+//				free(tmp);
 				return (0);
+			}
 		}
 		if (is_set)
 			add_elem(&tkn, tmp);
+//		free(tmp->token);
+//		free(tmp);
 	}
 	return (tkn);
 }

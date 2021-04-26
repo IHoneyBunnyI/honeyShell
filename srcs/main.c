@@ -8,7 +8,7 @@ int	main(int ac, char **av, char **env)
 	char			*buf;
 
 	signal(SIGQUIT, func);
-	init_all(&ar, &old, &buf, &all);
+	init_all(&ar, &buf, &all);
 	if (ac == 1)
 	{
 		av_env_copy(&all, av, env);
@@ -16,5 +16,5 @@ int	main(int ac, char **av, char **env)
 	}
 	else
 		error(1, &old, buf);
-	return (exit_term(&old, buf));
+	return (exit_term(buf));
 }

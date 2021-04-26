@@ -15,9 +15,10 @@ int	tkn_size(t_tokens *lst)
 
 char	**convert_tkn(t_tokens *tkn)
 {
-	int		n;
-	char	**conv;
-	int		i;
+	int			n;
+	char		**conv;
+	int			i;
+	t_tokens	*tmp;
 
 	i = 0;
 	n = tkn_size(tkn);
@@ -26,7 +27,10 @@ char	**convert_tkn(t_tokens *tkn)
 	while (tkn)
 	{
 		conv[i++] = make_cpy(tkn->token);
-		tkn = tkn->next;
+		tmp = tkn->next;
+		free(tkn->token);
+		free(tkn);
+		tkn = tmp;
 	}
 	return (conv);
 }

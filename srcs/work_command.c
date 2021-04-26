@@ -1,28 +1,75 @@
 #include "minishell.h"
 
-void	work_command(t_all *all, t_tokens *tkn)
+int	find_dots(char **args)
+{
+	int	res;
+	int	i;
+
+	i = -1;
+	res = 1;
+	while (args[++i])
+	{
+		if (args[i][0] == ';')
+			res++;
+	}
+	return (res);
+}
+
+void	parse_cmd(t_all *all, t_cmd *cmd, char **args)
+{
+	parse_redirect(all, args, cmd);
+}
+
+int	is_builtin(t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd, "echo") == 0 ||
+		ft_strcmp(cmd->cmd, "cd") == 0 ||
+		ft_strcmp(cmd->cmd, "export") == 0 ||
+		ft_strcmp(cmd->cmd, "unset") == 0 ||
+		ft_strcmp(cmd->cmd, "exit") == 0 ||
+		ft_strcmp(cmd->cmd, "pwd") == 0 ||
+		ft_strcmp(cmd->cmd, "env") == 0)
+		return (1);
+	else
+		return (0);
+}
+
+void	find_cmd(t_all *all, t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd, "echo") == 0)
+		my_echo(cmd->args + 1, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "cd") == 0)
+		cd(all, cmd->args);
+	else if (ft_strcmp(cmd->cmd, "export") == 0)
+		export(all, cmd->args, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "unset") == 0)
+		my_unset(all, cmd->args + 1);
+	else if (ft_strcmp(cmd->cmd, "pwd") == 0)
+		pwd(cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "env") == 0)
+		env(all->env, cmd->fd);
+	else if (ft_strcmp(cmd->cmd, "exit") == 0)
+		ft_exit(all, cmd->args + 1);
+}
+
+void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	int	fd;
+	t_cmd cmd;
 
 	fd = 1;
-	all->args = convert_tkn(tkn);
-	if (is_echo(all->args[0]))
-		my_echo(all->args + 1);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'n' && all->args[0][2] == 'v')
-		env(all->env, fd);
-	else if (all->args[0][0] == 'p' && all->args[0][1] == 'w' && all->args[0][2] == 'd')
-		pwd(fd);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'x' && all->args[0][2] == 'p' && \
-			 all->args[0][3] == 'o' && all->args[0][4] == 'r' && all->args[0][5] == 't' )
-		export(all, all->args, fd);
-	else if (all->args[0][0] == 'u' && all->args[0][1] == 'n' && all->args[0][2] == 's' && \
-			 all->args[0][3] == 'e' && all->args[0][4] == 't')
-		my_unset(all, all->args + 1);
-	else if (all->args[0][0] == 'c' && all->args[0][1] == 'd')
-		cd(all, all->args);
-	else if (all->args[0][0] == 'e' && all->args[0][1] == 'x' && all->args[0][2] == 'i' && all->args[0][3] == 't')
-		ft_exit(all->args);
-	else if (ft_strcmp(all->args[0], "") != 0)
-		my_execve(all, all->args, fd);
-	free_split(all->args);
+	ft_putstr(tgetstr("ke", 0));
+	tcsetattr(0, TCSANOW, old);
+	init_cmd(&cmd);
+	all->all_args = convert_tkn(tkn);
+	all->dots = find_dots(all->all_args);
+	while (all->dots--)
+	{
+		parse_cmd(all, &cmd, all->all_args);
+		get_args(all->args, &cmd);
+		if (is_builtin(&cmd))
+			find_cmd(all, &cmd);
+		else
+			my_execve(all, cmd.args, cmd.fd);
+	}
 }

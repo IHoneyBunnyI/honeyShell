@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/  
+CFLAGS = -g -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/
 
 FILES = main.c\
 		init_all.c\
@@ -31,6 +31,8 @@ FILES = main.c\
 		token_work.c\
 		main_utils.c\
 		work_command.c\
+		parse_redirect.c\
+		get_args.c\
 		signal.c
 
 
