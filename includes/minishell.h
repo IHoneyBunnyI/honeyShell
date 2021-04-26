@@ -75,6 +75,7 @@ void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);
 
+void		sig_c(int i);
 void		func(int i);
 void		init_ar(t_ar *ar);
 void		init_all(t_ar *ar, char **buf, t_all *all);

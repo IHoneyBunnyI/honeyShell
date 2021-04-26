@@ -8,6 +8,8 @@ int	main(int ac, char **av, char **env)
 	char			*buf;
 
 	signal(SIGQUIT, func);
+	signal(SIGINT, sig_c);
+	g_state = 0;
 	init_all(&ar, &buf, &all);
 	if (ac == 1)
 	{

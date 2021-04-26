@@ -6,3 +6,11 @@ void	func(int i)
 		printf("Quit: %d\n", i);
 }
 
+void	sig_c(int i)
+{
+	i = 0;
+	if (g_state != 1)
+		ft_putstr("\n🚀 $ ");
+	//g_state = 2;
+
+}

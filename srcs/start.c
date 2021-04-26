@@ -18,6 +18,12 @@ void	start(t_ar *ar, char *buf, t_all *all, char **env)
 			g_state = 0;
 			ar->r = read(0, c, 10);
 			c[ar->r] = 0;
+			if (g_state == 2)
+			{
+				ar->n = 0;
+				g_state = 0;
+				ft_putstr("\n");
+			}
 			if (check_key(c))
 				make_key(c, ar, &buf);
 			else if (!ft_strcmp(c, "\4") && !ar->n)
