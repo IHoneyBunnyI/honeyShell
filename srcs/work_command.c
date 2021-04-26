@@ -15,9 +15,11 @@ int	find_dots(char **args)
 	return (res);
 }
 
-void	parse_cmd(t_all *all, t_cmd *cmd, char **args)
+int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 {
-	parse_redirect(all, args, cmd);
+	if (!(parse_redirect(all, args, cmd)))
+		return (0);
+	return (1);
 }
 
 int	is_builtin(t_cmd *cmd)
@@ -60,14 +62,20 @@ void	work_command(t_all *all, t_tokens *tkn)
 	fd = 1;
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
+	/*for (int i = 0; all->all_args != 0; i++)*/
+		/*printf("%s\n", all->all_args[i]);*/
 	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{
-		parse_cmd(all, &cmd, all->all_args);
+		if (!(parse_cmd(all, &cmd, all->all_args)))
+			return ;
 		get_args(all->args, &cmd);
 		if (is_builtin(&cmd))
 			find_cmd(all, &cmd);
 		else
+		{
+			printf("fd: %d\n", cmd.fd);
 			my_execve(all, cmd.args, cmd.fd);
+		}
 	}
 }
