@@ -1,12 +1,14 @@
 #include "minishell.h"
 
-void	exp_env(char **cmnd, int *is_set, char **env, char **tk)
+void	exp_env(char **cmnd, int *is_set, char **env, char **tk, t_all *all)
 {
 	char	*res;
 
 	(*cmnd)++;
 	if (ft_isdigit(**cmnd))
 		(*cmnd)++;
+	else if (**cmnd == '?')
+		tk = all.ex
 	else if (!ft_isalpha(**cmnd) || **cmnd == '_')
 	{
 		*tk = ft_strjoin(*tk, "$");

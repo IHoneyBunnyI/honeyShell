@@ -45,7 +45,7 @@ void	start(t_ar *ar, char *buf, t_all *all, char **env)
 				write_buf(buf, ar, c);
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, ar, env);
+				tkn = next_command(buf, ar, env, );
 				if (!tkn)
 					break ;
 				work_command(all, tkn);
