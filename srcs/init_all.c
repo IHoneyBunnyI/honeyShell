@@ -2,8 +2,9 @@
 
 void	init_all(t_ar *ar, struct termios *old, char **buf, t_all *all)
 {
+	(void)old;
 	init_ar(ar);
-	init_term(old);
+	/*init_term(old);*/
 	*buf = malloc(4000 * 1000);
 	all->env = 0;
 	all->av = 0;

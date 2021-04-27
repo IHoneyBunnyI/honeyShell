@@ -29,9 +29,11 @@ void	start(t_ar *ar, char *buf, t_all *all, char **env)
 	(void)all;
 	char			c[5];
 	t_tokens		*tkn;
+	struct termios	old;
 
 	while (ft_strcmp(c, "\4"))
 	{
+		init_term(&old);
 		tputs(save_cursor, 1, ft_putint);
 		ft_putstr("🚀 $ ");
 		while (1)
@@ -49,7 +51,7 @@ void	start(t_ar *ar, char *buf, t_all *all, char **env)
 				tkn = next_command(buf, ar, env);
 				if (!tkn)
 					break ;
-				work_command(all, tkn);
+				work_command(all, tkn, &old);
 				break ;
 			}
 		}
