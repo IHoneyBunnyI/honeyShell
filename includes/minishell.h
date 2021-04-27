@@ -80,7 +80,7 @@ int			env(char **s, int fd);
 void		sig_c(int i);
 void		func(int i);
 void		init_ar(t_ar *ar);
-void		init_all(t_ar *ar, struct termios *old, char **buf, t_all *all);
+void		init_all(t_ar *ar, char **buf, t_all *all);
 void		write_buf(char *buf, t_ar *ar, char *c);
 int			make_keydown(char *buf, int size, int i);
 int			make_keyup(char *sbuf, char *ibuf);
