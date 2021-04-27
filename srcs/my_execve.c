@@ -83,7 +83,8 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 		dup2(cmd->fd_in, 0);
 		execve(bin, all->args, all->env);
 	}
-	waitpid(pid, 0, 0);
+	waitpid(pid, &all->exit_status, 0);
+	all->exit_status = WEXITSTATUS(all->exit_status);
 	/*close(cmd->fd_in);*/
 	free(bin);
 }

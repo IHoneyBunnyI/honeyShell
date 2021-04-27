@@ -9,6 +9,7 @@ void	ft_exit(t_all *all, char **args)
 		i++;
 	if (i == 1)
 	{
+		/*printf("%s\n", args[0]);*/
 		all->exit_status = ft_atoi(args[0]);
 		exit(all->exit_status);
 	}
