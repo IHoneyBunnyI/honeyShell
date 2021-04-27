@@ -67,6 +67,8 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	char	*bin;
 	pid_t	pid;
 
+	if (!cmd->cmd)
+		return ;
 	bin = find_in_path(all, args[0]);
 	if (!bin)
 	{
