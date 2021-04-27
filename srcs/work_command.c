@@ -22,13 +22,11 @@ void	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 
 int	is_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp(cmd->cmd, "echo") == 0 ||
-		ft_strcmp(cmd->cmd, "cd") == 0 ||
-		ft_strcmp(cmd->cmd, "export") == 0 ||
-		ft_strcmp(cmd->cmd, "unset") == 0 ||
-		ft_strcmp(cmd->cmd, "exit") == 0 ||
-		ft_strcmp(cmd->cmd, "pwd") == 0 ||
-		ft_strcmp(cmd->cmd, "env") == 0)
+	if (ft_strcmp(cmd->cmd, "echo") == 0 || ft_strcmp(cmd->cmd, "cd") == 0
+		|| ft_strcmp(cmd->cmd, "export") == 0
+		|| ft_strcmp(cmd->cmd, "unset") == 0
+		|| ft_strcmp(cmd->cmd, "exit") == 0 || ft_strcmp(cmd->cmd, "pwd") == 0
+		|| ft_strcmp(cmd->cmd, "env") == 0)
 		return (1);
 	else
 		return (0);
@@ -54,12 +52,18 @@ void	find_cmd(t_all *all, t_cmd *cmd)
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
-	int	fd;
-	t_cmd cmd;
+	int				fd;
+	t_cmd			cmd;
+	struct termios	old1;
+	struct termios	new;
 
 	fd = 1;
 	ft_putstr(tgetstr("ke", 0));
 	tcsetattr(0, TCSANOW, old);
+	tcgetattr(0, &old1);
+	new = old1;
+	new.c_lflag |= (ICANON | ECHO);
+	tcsetattr(0, TCSANOW, &new);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
 	all->dots = find_dots(all->all_args);

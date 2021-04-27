@@ -99,26 +99,16 @@ t_tokens	*flexer(char *cmnd, t_all *all)
 		while (*cmnd == ' ' && *cmnd)
 			cmnd++;
 		if (*cmnd == '\0')
-		{
-//			free(tmp->token);
-//			free(tmp);
-			break;
-		}
+			break ;
 		if (!not_operator(*cmnd))
 			check_operator(tmp, &cmnd, &is_set);
 		else
 		{
 			if (!check_else(&cmnd, tmp, &is_set, all))
-			{
-//				free(tmp->token);
-//				free(tmp);
 				return (0);
-			}
 		}
 		if (is_set)
 			add_elem(&tkn, tmp);
-//		free(tmp->token);
-//		free(tmp);
 	}
 	return (tkn);
 }

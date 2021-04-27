@@ -65,6 +65,8 @@ void	my_execve(t_all *all, char **args, int fd)
 {
 	char	*bin;
 	pid_t	pid;
+	int		angelina;
+
 
 	bin = find_in_path(all, args[0]);
 	if (!bin)
@@ -80,6 +82,15 @@ void	my_execve(t_all *all, char **args, int fd)
 		dup2(fd, 1);
 		execve(bin, all->args, all->env);
 	}
-	waitpid(pid, 0, 0);
+	signal(SIGQUIT, f);
+	signal(SIGINT, f);
+	waitpid(pid, &angelina, 0);
+	if (WIFSIGNALED(angelina))
+	{
+		if (WTERMSIG(angelina) == SIGQUIT)
+			ft_putstr("Ouit: 3\n");
+	}
+	signal(SIGQUIT, func);
+	signal(SIGINT, sig_c);
 	free(bin);
 }

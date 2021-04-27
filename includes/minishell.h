@@ -113,4 +113,5 @@ t_tokens	*next_command(char *buf, t_ar *ar, t_all *all);
 void		init_cmd(t_cmd *cmd);
 void		parse_redirect(t_all *all, char **args, t_cmd *cmd);
 void		get_args(char **args, t_cmd *cmd);
+void		f(int i);
 #endif

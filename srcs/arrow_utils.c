@@ -23,8 +23,7 @@ void	init_term(struct termios *old)
 
 	tcgetattr(0, old);
 	new = *old;
-	new.c_lflag &= ~(ECHO);
-	new.c_lflag &= ~(ICANON);
+	new.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, TCSANOW, &new);
 	tgetent(0, getenv("TERM"));
 	ft_putstr(tgetstr("ks", 0));

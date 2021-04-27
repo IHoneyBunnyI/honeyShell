@@ -80,12 +80,9 @@ void	make_key(char *c, t_ar *ar, char **buf)
 		make_lr(c, &ar->n, *buf, ar->size);
 }
 
-int	exit_term(/*struct termios *old,*/ char *buf)
+int	exit_term(char *buf)
 {
 	ft_putstr("exit\n");
-	//ft_putstr(tgetstr("ke", 0));
-	//tcsetattr(0, TCSANOW, old);
-	//printf("\n");
 	free(buf);
 	return (0);
 }
