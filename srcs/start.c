@@ -2,7 +2,7 @@
 
 int	g_state;
 
-void	start(t_ar *ar, char *buf, t_all *all, char **env)
+void	start(t_ar *ar, char *buf, t_all *all)
 {
 	(void)all;
 	char			c[5];
@@ -33,7 +33,7 @@ void	start(t_ar *ar, char *buf, t_all *all, char **env)
 				write_buf(buf, ar, c);
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, ar, env, all);
+				tkn = next_command(buf, ar, all);
 				if (!tkn)
 					break ;
 				g_state = 1;

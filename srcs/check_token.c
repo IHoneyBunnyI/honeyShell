@@ -92,7 +92,7 @@ int	check_bs(char **cmnd, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env, t_all *all)
+int	check_dbl_quot(char **cmnd, char **tk, int *is_set, t_all *all)
 {
 	char	t[2];
 
@@ -101,7 +101,7 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env, t_all *all)
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
 		if (**cmnd == '$')
-			exp_env(cmnd, is_set, env, tk, all);
+			exp_env(cmnd, is_set, tk, all);
 		if (**cmnd == '\\')
 			dbl_quot_bs(cmnd, tk);
 		if (**cmnd != '\"')
