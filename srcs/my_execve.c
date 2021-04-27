@@ -70,6 +70,15 @@ void	bin_error(char *arg)
 	return ;
 }
 
+void	check_dochka(int exit_status)
+{
+	if (WIFSIGNALED(exit_status))
+	{
+		if (WTERMSIG(exit_status) == SIGQUIT)
+			ft_putstr("Ouit: 3\n");
+	}
+}
+
 void	my_execve(t_all *all, char **args, t_cmd *cmd)
 {
 	char	*bin;
@@ -91,11 +100,7 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);
 	waitpid(pid, &all->exit_status, 0);
-	if (WIFSIGNALED(all->exit_status))
-	{
-		if (WTERMSIG(all->exit_status) == SIGQUIT)
-			ft_putstr("Ouit: 3\n");
-	}
+	check_dochka(all->exit_status);
 	signal(SIGQUIT, func);
 	signal(SIGINT, sig_c);
 	all->exit_status = WEXITSTATUS(all->exit_status);
