@@ -26,8 +26,27 @@ int	find_dots(char **args)
 	return (res);
 }
 
+int	check_dots(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == ';' && args[i + 1][0] == ';')
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `;;'", 2);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 {
+	if (check_dots(args) == 0)
+		return (0);
 	if (!(parse_redirect(all, args, cmd)))
 		return (0);
 	skip_args_before_dots(all, all->all_args);
