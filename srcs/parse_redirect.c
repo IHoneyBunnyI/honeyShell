@@ -26,8 +26,8 @@ int	count_files(char **args)
 
 void	fill_files(char **args, t_cmd *cmd)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -95,9 +95,9 @@ int	open_files(char **args, t_cmd *cmd)
 	return (1);
 }
 
-void copy_args_without_redirect(t_all *all, char **args, int i)
+void	copy_args_without_redirect(t_all *all, char **args, int i)
 {
-	int j;
+	int	j;
 
 	all->args = malloc(sizeof(char *) * (i + 1));
 	all->args[i] = 0;

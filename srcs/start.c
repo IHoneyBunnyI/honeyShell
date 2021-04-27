@@ -23,7 +23,6 @@ void	start(t_ar *ar, char *buf, t_all *all)
 			{
 				ar->n = 0;
 				g_state = 0;
-				ft_putstr("\n");
 			}
 			if (check_key(c))
 				make_key(c, ar, &buf);

@@ -119,12 +119,18 @@ void	free_cmd(t_cmd *cmd)
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
-	int	fd;
-	t_cmd cmd;
+	int				fd;
+	t_cmd			cmd;
+	struct termios	old1;
+	struct termios	new;
 
 	fd = 1;
 	ft_putstr(tgetstr("ke", 0));
 	tcsetattr(0, TCSANOW, old);
+	tcgetattr(0, &old1);
+	new = old1;
+	new.c_lflag |= (ICANON | ECHO);
+	tcsetattr(0, TCSANOW, &new);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
 	all->dots = find_dots(all->all_args);
