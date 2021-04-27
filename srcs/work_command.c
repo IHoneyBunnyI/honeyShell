@@ -54,7 +54,7 @@ void	find_cmd(t_all *all, t_cmd *cmd)
 		ft_exit(all, cmd->args + 1);
 }
 
-void	work_command(t_all *all, t_tokens *tkn, struct termios	*old)
+void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	int	fd;
 	t_cmd cmd;

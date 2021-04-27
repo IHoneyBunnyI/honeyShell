@@ -70,6 +70,7 @@ int	check_sing_quot(char **cmnd, int *is_set, char **tk)
 		return (exit_error("parse error: unclosed quotation"));
 	str = ft_angelina(p1, p2);
 	*tk = ft_strjoin(*tk, str);
+	free(str);
 	*cmnd = p2 + 1;
 	*is_set = 1;
 	return (1);
@@ -91,7 +92,7 @@ int	check_bs(char **cmnd, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
+int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env, t_all *all)
 {
 	char	t[2];
 
@@ -100,10 +101,10 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, char **env)
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
 		if (**cmnd == '$')
-			exp_env(cmnd, is_set, env, tk);
+			exp_env(cmnd, is_set, env, tk, all);
 		if (**cmnd == '\\')
 			dbl_quot_bs(cmnd, tk);
-		else
+		if (**cmnd != '\"')
 		{
 			t[0] = **cmnd;
 			t[1] = '\0';
