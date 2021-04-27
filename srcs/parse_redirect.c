@@ -63,7 +63,15 @@ int	check_files(char **files, int n)
 	return (1);
 }
 
-void	open_files(char **args, t_cmd *cmd)
+int	error_fd(char *arg)
+{
+	ft_putstr_fd("🚀: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putendl_fd(" : No such file or directory", 2);
+	return (0);
+}
+
+int	open_files(char **args, t_cmd *cmd)
 {
 	int	i;
 
@@ -77,9 +85,14 @@ void	open_files(char **args, t_cmd *cmd)
 		else if (ft_strcmp(args[i], "<") == 0 && args[i + 1] != 0)
 		{
 			cmd->fd_in = open(args[i + 1], O_RDONLY);
+			if (cmd->fd_in == -1)
+			{
+				return (error_fd(args[i + 1]));
+			}
 		}
 		i++;
 	}
+	return (1);
 }
 
 void copy_args_without_redirect(t_all *all, char **args, int i)
@@ -138,7 +151,8 @@ int	parse_redirect(t_all *all, char **args, t_cmd *cmd)
 		fill_files(args, cmd);
 		if (check_files(cmd->files, n) == 0)
 			return (redirect_error());
-		open_files(args, cmd);
+		if (open_files(args, cmd) == 0)
+			return (0);
 		free_split(cmd->files);
 	}
 	get_args_cmd(all, args);

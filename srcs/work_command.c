@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+void	skip_args_before_dots(t_all *all, char **args)
+{
+	int i;
+
+	i = 0;
+	while (args[i] && args[i][0] != ';')
+		i++;
+	/*printf("%s\n", args[i + 1]);*/
+	all->all_args = &args[i + 1];
+}
+
 int	find_dots(char **args)
 {
 	int	res;
@@ -9,7 +20,7 @@ int	find_dots(char **args)
 	res = 1;
 	while (args[++i])
 	{
-		if (args[i][0] == ';')
+		if (args[i][0] == ';' && args[i + 1] != 0)
 			res++;
 	}
 	return (res);
@@ -19,6 +30,13 @@ int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 {
 	if (!(parse_redirect(all, args, cmd)))
 		return (0);
+	skip_args_before_dots(all, all->all_args);
+	/*int i = 0;*/
+	/*while (args[i])*/
+	/*{*/
+		/*printf("%d, %s\n", all->dots, args[i]);*/
+		/*i++;*/
+	/*}*/
 	return (1);
 }
 
@@ -54,6 +72,21 @@ void	find_cmd(t_all *all, t_cmd *cmd)
 		ft_exit(all, cmd->args + 1);
 }
 
+void	free_cmd(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->args[i])
+	{
+		free(cmd->args[i]);
+		cmd->args[i] = 0;
+		i++;
+	}
+	free(cmd->cmd);
+	cmd->cmd = 0;
+}
+
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	int	fd;
@@ -65,7 +98,6 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
 	all->dots = find_dots(all->all_args);
-	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{
 		if (!(parse_cmd(all, &cmd, all->all_args)))
@@ -75,8 +107,8 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 			find_cmd(all, &cmd);
 		else
 		{
-			/*printf("fd: %d\n", cmd.fd_out);*/
 			my_execve(all, cmd.args, &cmd);
 		}
+		free_cmd(&cmd);
 	}
 }
