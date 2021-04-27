@@ -5,6 +5,8 @@ void	get_args(char **args, t_cmd *cmd)
 	int i;
 
 	i = 0;
+	if (!args)
+		return ;
 	while (args[i])
 		i++;
 	cmd->args = malloc(sizeof(char *) * (i + 1));
@@ -23,11 +25,4 @@ void	get_args(char **args, t_cmd *cmd)
 			cmd->args[i] = ft_strdup(args[i]);
 		i++;
 	}
-	/*i = 0;*/
-	/*printf("cmd %s\n", cmd->cmd);*/
-	/*while (cmd->args[i])*/
-	/*{*/
-		/*printf("%s\n", cmd->args[i]);*/
-		/*i++;*/
-	/*}*/
 }

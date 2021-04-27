@@ -24,7 +24,8 @@ typedef struct s_cmd
 	char	*cmd;
 	char	**args;
 	int		pipe;
-	int		fd;
+	int		fd_in;
+	int		fd_out;
 }	t_cmd;
 
 typedef struct s_all
@@ -38,6 +39,7 @@ typedef struct s_all
 	char	*files;
 	int		dots;
 	int		exit_status;
+	int			fds[2];
 }	t_all;
 
 typedef struct s_tokens
@@ -70,7 +72,7 @@ int			find_name(t_all *all, char *arg);
 void		ft_exit(t_all *all, char **args);
 int			is_echo(char *l);
 void		init_const(t_all *all);
-void		my_execve(t_all *all, char **args, int fd);
+void		my_execve(t_all *all, char **args, t_cmd *cmd);
 void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);
@@ -111,7 +113,7 @@ void		start(t_ar *ar, char *buf, t_all *all);
 void		work_command(t_all *all, t_tokens *tkn, struct termios *old);
 t_tokens	*next_command(char *buf, t_ar *ar, t_all *all);
 void		init_cmd(t_cmd *cmd);
-void		parse_redirect(t_all *all, char **args, t_cmd *cmd);
+int			parse_redirect(t_all *all, char **args, t_cmd *cmd);
 void		get_args(char **args, t_cmd *cmd);
 void		f(int i);
 #endif

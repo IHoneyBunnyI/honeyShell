@@ -85,6 +85,7 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 		dup2(cmd->fd_in, 0);
 		execve(bin, all->args, all->env);
 	}
+<<<<<<< HEAD
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);
 	waitpid(pid, &angelina, 0);
@@ -95,5 +96,10 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	}
 	signal(SIGQUIT, func);
 	signal(SIGINT, sig_c);
+=======
+	waitpid(pid, &all->exit_status, 0);
+	all->exit_status = WEXITSTATUS(all->exit_status);
+	/*close(cmd->fd_in);*/
+>>>>>>> 6dd0f0391af539b6641dc4c2f85b3608ee1ef902
 	free(bin);
 }

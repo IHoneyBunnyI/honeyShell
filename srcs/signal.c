@@ -12,6 +12,7 @@ void	sig_c(int i)
 
 	tcgetattr(0, &old);
 	new = old;
+	i = 0;
 	new.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, TCSANOW, &new);
 	if (g_state != 1)
