@@ -31,8 +31,15 @@ int	check_dots(char **args)
 	int	i;
 
 	i = 0;
+	if (args[0][0] == ';')
+	{
+		ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
+		return (0);
+	}
 	while (args[i])
 	{
+		if (args[i][0] == ';' && args[i + 1] == 0)
+			return (1);
 		if (args[i][0] == ';' && args[i + 1][0] == ';')
 		{
 			ft_putendl_fd("🚀: syntax error near unexpected token `;;'", 2);
