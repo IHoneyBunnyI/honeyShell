@@ -33,7 +33,8 @@ FILES = main.c\
 		work_command.c\
 		parse_redirect.c\
 		get_args.c\
-		signal.c
+		signal.c\
+		parse_pipes.c\
 
 
 LIBFT_D = libft/

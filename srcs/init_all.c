@@ -25,4 +25,6 @@ void	init_cmd(t_cmd *cmd)
 	cmd->pipe = 0;
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
+	cmd->fds[0] = -1;
+	cmd->fds[1] = -1;
 }

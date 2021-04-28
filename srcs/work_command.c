@@ -31,7 +31,7 @@ int	check_dots(char **args)
 	int	i;
 
 	i = 0;
-	if (args[0][0] == ';')
+	if (args[0][0] == ';' && args[1] == 0)
 	{
 		ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
 		return (0);
@@ -50,19 +50,30 @@ int	check_dots(char **args)
 	return (1);
 }
 
-int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
+int check_pipes(char **args)
 {
-	if (check_dots(args) == 0)
+	int	i;
+
+	i = 0;
+	if (args[0][0] == '|' && args[1] == 0)
+	{
+		ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
 		return (0);
-	if (!(parse_redirect(all, args, cmd)))
+	}
+	if (args[0][0] == '|' && args[1][0] == '|')
+	{
+		ft_putendl_fd("🚀: syntax error near unexpected token `||'", 2);
 		return (0);
-	skip_args_before_dots(all, all->all_args);
-	/*int i = 0;*/
-	/*while (args[i])*/
-	/*{*/
-		/*printf("%d, %s\n", all->dots, args[i]);*/
-		/*i++;*/
-	/*}*/
+	}
+	while (args[i])
+	{
+		if (args[i][0] == '|' && args[i + 1][0] == '|')
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
+			return (0);
+		}
+		i++;
+	}
 	return (1);
 }
 
@@ -115,6 +126,33 @@ void	free_cmd(t_cmd *cmd)
 	}
 	free(cmd->cmd);
 	cmd->cmd = 0;
+}
+
+int	parse_dollars(char **args)
+{
+	
+}
+
+int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
+{
+	if (check_dots(args) == 0)
+		return (0);
+	if (check_pipes(args) == 0)
+		return (0);
+	if (parse_dollars(args) == 0)
+		return (0);
+	if (!(parse_redirect(all, args, cmd)))
+		return (0);
+	if (!(parse_pipes(all, args, cmd)))
+		return (0);
+	skip_args_before_dots(all, all->all_args);
+	/*int i = 0;*/
+	/*while (args[i])*/
+	/*{*/
+		/*printf("%d, %s\n", all->dots, args[i]);*/
+		/*i++;*/
+	/*}*/
+	return (1);
 }
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)

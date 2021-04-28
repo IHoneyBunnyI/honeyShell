@@ -4,7 +4,6 @@ int	g_state;
 
 void	start(t_ar *ar, char *buf, t_all *all)
 {
-	(void)all;
 	char			c[5];
 	t_tokens		*tkn;
 	struct termios	old;

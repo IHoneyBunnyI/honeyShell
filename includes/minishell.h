@@ -26,6 +26,7 @@ typedef struct s_cmd
 	int		pipe;
 	int		fd_in;
 	int		fd_out;
+	int		fds[2];
 }	t_cmd;
 
 typedef struct s_all
@@ -39,7 +40,6 @@ typedef struct s_all
 	char	*files;
 	int		dots;
 	int		exit_status;
-	int			fds[2];
 }	t_all;
 
 typedef struct s_tokens
@@ -116,4 +116,5 @@ void		init_cmd(t_cmd *cmd);
 int			parse_redirect(t_all *all, char **args, t_cmd *cmd);
 void		get_args(char **args, t_cmd *cmd);
 void		f(int i);
+int			parse_pipes(t_all *all, char **args, t_cmd *cmd);
 #endif
