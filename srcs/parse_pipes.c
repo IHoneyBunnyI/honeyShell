@@ -36,8 +36,8 @@ int parse_pipes(t_all *all, char **args, t_cmd *cmd)
 	int n;
 
 	n = count_pipes(args);
-	for (int i = 0; all->args[i] != 0; i++)
-		printf("%s\n", all->args[i]);
+	/*for (int i = 0; all->args[i] != 0; i++)*/
+		/*printf("%s\n", all->args[i]);*/
 	/*printf("%d\n", n);*/
 	if (n > 0)
 	{

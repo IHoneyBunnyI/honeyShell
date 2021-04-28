@@ -26,29 +26,6 @@ int	find_dots(char **args)
 	return (res);
 }
 
-int	check_dots(char **args)
-{
-	int	i;
-
-	i = 0;
-	if (args[0][0] == ';' && args[1] == 0)
-	{
-		ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
-		return (0);
-	}
-	while (args[i])
-	{
-		if (args[i][0] == ';' && args[i + 1] == 0)
-			return (1);
-		if (args[i][0] == ';' && args[i + 1][0] == ';')
-		{
-			ft_putendl_fd("🚀: syntax error near unexpected token `;;'", 2);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
 
 int check_pipes(char **args)
 {
@@ -130,13 +107,14 @@ void	free_cmd(t_cmd *cmd)
 
 int	parse_dollars(char **args)
 {
-	
+	(void)args;
+	return (1);
 }
 
 int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 {
-	if (check_dots(args) == 0)
-		return (0);
+	/*if (check_dots(args) == 0)*/
+		/*return (0);*/
 	if (check_pipes(args) == 0)
 		return (0);
 	if (parse_dollars(args) == 0)
@@ -155,22 +133,64 @@ int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 	return (1);
 }
 
-void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
+int	check_dots(char **args)
 {
-	int				fd;
-	t_cmd			cmd;
+	int i;
+	int	dots;
+
+	i = 0;
+	dots = 0;
+	dots = count_dots(args);
+	if (dots == 1)
+	{
+		if (ft_strcmp(args[0], ";") == 0)
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
+			return (0);
+		}
+	}
+	if (dots > 1 && args[0][0] == ';' && args[1][0] != ';')
+	{
+		ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
+		return (0);
+	}
+	while (args[i])
+	{
+		if (args[i][0] == ';' && args[i + 1] == 0)
+			return (1);
+		if (args[i][0] == ';' && args[i + 1][0] == ';')
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `;;'", 2);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+			/*ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);*/
+void	kill_new_terminal(struct termios *old)
+{
 	struct termios	old1;
 	struct termios	new;
 
-	fd = 1;
 	ft_putstr(tgetstr("ke", 0));
 	tcsetattr(0, TCSANOW, old);
 	tcgetattr(0, &old1);
 	new = old1;
 	new.c_lflag |= (ICANON | ECHO);
 	tcsetattr(0, TCSANOW, &new);
+}
+
+void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
+{
+	t_cmd			cmd;
+
+	kill_new_terminal(old);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
+	if (check_dots(all->all_args) == 0)
+		return ;
 	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{

@@ -19,3 +19,19 @@ int	is_echo(char *l)
 		return (1);
 	return (0);
 }
+
+int	count_dots(char **args)
+{
+	int	dots;
+	int	i;
+
+	dots = 0;
+	i = 0;
+	while (args[i])
+	{
+		if (ft_strcmp(args[i], ";") == 0)
+			dots++;
+		i++;
+	}
+	return (dots);
+}

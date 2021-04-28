@@ -57,6 +57,7 @@ typedef struct s_ar
 	int			r;
 }				t_ar;
 
+int			count_dots(char **args);
 void		error(int id, struct termios *old, char *buf);
 void		av_env_copy(t_all *all, char **av, char **env);
 void		my_echo(char **s, int fd);
