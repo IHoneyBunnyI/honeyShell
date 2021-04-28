@@ -35,6 +35,8 @@ FILES = main.c\
 		get_args.c\
 		signal.c\
 		parse_pipes.c\
+		parse_dollars.c\
+		check_find_dots.c\
 
 
 LIBFT_D = libft/

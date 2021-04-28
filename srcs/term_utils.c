@@ -86,3 +86,16 @@ int	exit_term(char *buf)
 	free(buf);
 	return (0);
 }
+
+void	kill_new_terminal(struct termios *old)
+{
+	struct termios	old1;
+	struct termios	new;
+
+	ft_putstr(tgetstr("ke", 0));
+	tcsetattr(0, TCSANOW, old);
+	tcgetattr(0, &old1);
+	new = old1;
+	new.c_lflag |= (ICANON | ECHO);
+	tcsetattr(0, TCSANOW, &new);
+}

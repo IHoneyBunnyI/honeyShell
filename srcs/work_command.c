@@ -11,22 +11,6 @@ void	skip_args_before_dots(t_all *all, char **args)
 	all->all_args = &args[i + 1];
 }
 
-int	find_dots(char **args)
-{
-	int	res;
-	int	i;
-
-	i = -1;
-	res = 1;
-	while (args[++i])
-	{
-		if (args[i][0] == ';' && args[i + 1] != 0)
-			res++;
-	}
-	return (res);
-}
-
-
 int check_pipes(char **args)
 {
 	int	i;
@@ -105,19 +89,14 @@ void	free_cmd(t_cmd *cmd)
 	cmd->cmd = 0;
 }
 
-int	parse_dollars(char **args)
+int	parse_args(t_all *all, t_cmd *cmd, char **args)
 {
+	(void)cmd;
 	(void)args;
-	return (1);
-}
-
-int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
-{
-	/*if (check_dots(args) == 0)*/
+	/*if (check_pipes(args) == 0)*/
 		/*return (0);*/
-	if (check_pipes(args) == 0)
-		return (0);
-	if (parse_dollars(args) == 0)
+	all->args = parse_dollars(all->all_args, all->env);
+	if (!all->args)
 		return (0);
 	if (!(parse_redirect(all, args, cmd)))
 		return (0);
@@ -133,55 +112,6 @@ int	parse_cmd(t_all *all, t_cmd *cmd, char **args)
 	return (1);
 }
 
-int	check_dots(char **args)
-{
-	int i;
-	int	dots;
-
-	i = 0;
-	dots = 0;
-	dots = count_dots(args);
-	if (dots == 1)
-	{
-		if (ft_strcmp(args[0], ";") == 0)
-		{
-			ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
-			return (0);
-		}
-	}
-	if (dots > 1 && args[0][0] == ';' && args[1][0] != ';')
-	{
-		ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);
-		return (0);
-	}
-	while (args[i])
-	{
-		if (args[i][0] == ';' && args[i + 1] == 0)
-			return (1);
-		if (args[i][0] == ';' && args[i + 1][0] == ';')
-		{
-			ft_putendl_fd("🚀: syntax error near unexpected token `;;'", 2);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-			/*ft_putendl_fd("🚀: syntax error near unexpected token `;'", 2);*/
-void	kill_new_terminal(struct termios *old)
-{
-	struct termios	old1;
-	struct termios	new;
-
-	ft_putstr(tgetstr("ke", 0));
-	tcsetattr(0, TCSANOW, old);
-	tcgetattr(0, &old1);
-	new = old1;
-	new.c_lflag |= (ICANON | ECHO);
-	tcsetattr(0, TCSANOW, &new);
-}
-
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	t_cmd			cmd;
@@ -194,7 +124,7 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 	all->dots = find_dots(all->all_args);
 	while (all->dots--)
 	{
-		if (!(parse_cmd(all, &cmd, all->all_args)))
+		if (!(parse_args(all, &cmd, all->all_args)))
 			return ;
 		get_args(all->args, &cmd);
 		if (is_builtin(&cmd))
@@ -203,6 +133,6 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		{
 			my_execve(all, cmd.args, &cmd);
 		}
-		free_cmd(&cmd);
+		/*free_cmd(&cmd);*/
 	}
 }
