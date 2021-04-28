@@ -102,7 +102,6 @@ char		*check_env(char *cmnd, char **env);
 char		*ft_angelina(char *p1, char *p2);
 void		add_elem(t_tokens **tkn, t_tokens *tmp);
 int			not_operator(char cmnd);
-char		*make_cpy(char *src);
 int			skip_env(char s);
 void		make_lr(char *c, int *n, char *buf, int size);
 int			ft_putstr(char *c);

@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/
+CFLAGS = -fsanitize=address -Wall -Wextra -Werror -Iincludes/ -I$(LIBFT_D)includes/
 
 FILES = main.c\
 		init_all.c\

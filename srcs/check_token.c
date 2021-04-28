@@ -8,7 +8,7 @@ char	*check_env(char *cmnd, char **env)
 	int		k;
 
 	i = 0;
-	cmnd_cpy = make_cpy(cmnd);
+	cmnd_cpy = ft_strdup(cmnd);
 	while (skip_env(cmnd_cpy[i]))
 		i++;
 	cmnd_cpy[i] = '\0';
@@ -16,7 +16,7 @@ char	*check_env(char *cmnd, char **env)
 	while (env[i])
 	{
 		k = 0;
-		env_cpy = make_cpy(env[i]);
+		env_cpy = ft_strdup(env[i]);
 		while (env_cpy[k] != '=')
 			k++;
 		env_cpy[k] = '\0';

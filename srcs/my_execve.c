@@ -62,21 +62,33 @@ char	*find_in_path(t_all *all, char *command)
 	return (ret);
 }
 
+void	bin_error(char *arg)
+{
+	ft_putstr_fd("🚀: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putendl_fd(" : command not found", 2);
+	return ;
+}
+
+void	check_dochka(int exit_status)
+{
+	if (WIFSIGNALED(exit_status))
+	{
+		if (WTERMSIG(exit_status) == SIGQUIT)
+			ft_putstr("Ouit: 3\n");
+	}
+}
+
 void	my_execve(t_all *all, char **args, t_cmd *cmd)
 {
 	char	*bin;
 	pid_t	pid;
-	int		angelina;
 
-
+	if (!cmd->cmd)
+		return ;
 	bin = find_in_path(all, args[0]);
 	if (!bin)
-	{
-		ft_putstr_fd("🚀: ", 2);
-		ft_putstr_fd(args[0], 2);
-		ft_putendl_fd(" : command not found", 2);
-		return ;
-	}
+		return (bin_error(args[0]));
 	pid = fork();
 	if (pid == 0)
 	{
@@ -87,13 +99,10 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	}
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);
-	waitpid(pid, &angelina, 0);
-	if (WIFSIGNALED(angelina))
-	{
-		if (WTERMSIG(angelina) == SIGQUIT)
-			ft_putstr("Ouit: 3\n");
-	}
+	waitpid(pid, &all->exit_status, 0);
+	check_dochka(all->exit_status);
 	signal(SIGQUIT, func);
 	signal(SIGINT, sig_c);
+	all->exit_status = WEXITSTATUS(all->exit_status);
 	free(bin);
 }

@@ -11,7 +11,7 @@ char	*exit_env(char *cmnd_cpy, char *env_cpy, int k)
 	char	*res;
 
 	free(cmnd_cpy);
-	res = make_cpy(env_cpy + (++k));
+	res = ft_strdup(env_cpy + (++k));
 	free(env_cpy);
 	return (res);
 }
