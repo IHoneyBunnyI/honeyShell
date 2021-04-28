@@ -6,7 +6,7 @@ char	*ft_angelina(char *p1, char *p2)
 	int		i;
 
 	i = 0;
-	res = malloc(p2 - p1 - 1);
+	res = malloc(p2 - p1);
 	p1++;
 	while (p1 != p2)
 	{
@@ -42,26 +42,6 @@ int	not_operator(char cmnd)
 	if (cmnd == ';' || cmnd == '|' || cmnd == '<' || cmnd == '>')
 		return (0);
 	return (1);
-}
-
-char	*make_cpy(char *src)
-{
-	char	*res;
-	int		len;
-	int		i;
-
-	i = 0;
-	len = ft_strlen(src);
-	res = malloc(len + 1);
-	if (!res)
-		return (0);
-	while (src[i])
-	{
-		res[i] = src[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
 }
 
 int	skip_env(char s)

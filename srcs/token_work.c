@@ -26,7 +26,7 @@ char	**convert_tkn(t_tokens *tkn)
 	conv[n] = 0;
 	while (tkn)
 	{
-		conv[i++] = make_cpy(tkn->token);
+		conv[i++] = ft_strdup(tkn->token);
 		tmp = tkn->next;
 		free(tkn->token);
 		free(tkn);

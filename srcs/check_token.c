@@ -8,7 +8,7 @@ char	*check_env(char *cmnd, char **env)
 	int		k;
 
 	i = 0;
-	cmnd_cpy = make_cpy(cmnd);
+	cmnd_cpy = ft_strdup(cmnd);
 	while (skip_env(cmnd_cpy[i]))
 		i++;
 	cmnd_cpy[i] = '\0';
@@ -16,7 +16,7 @@ char	*check_env(char *cmnd, char **env)
 	while (env[i])
 	{
 		k = 0;
-		env_cpy = make_cpy(env[i]);
+		env_cpy = ft_strdup(env[i]);
 		while (env_cpy[k] != '=')
 			k++;
 		env_cpy[k] = '\0';
@@ -92,7 +92,7 @@ int	check_bs(char **cmnd, char **tk, int *is_set)
 	return (1);
 }
 
-int	check_dbl_quot(char **cmnd, char **tk, int *is_set, t_all *all)
+int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 {
 	char	t[2];
 
@@ -100,8 +100,8 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set, t_all *all)
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
-		if (**cmnd == '$')
-			exp_env(cmnd, is_set, tk, all);
+//		if (**cmnd == '$')
+//			exp_env(cmnd, is_set, tk, all);
 		if (**cmnd == '\\')
 			dbl_quot_bs(cmnd, tk);
 		if (**cmnd != '\"')

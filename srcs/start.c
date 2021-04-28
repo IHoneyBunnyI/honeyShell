@@ -31,7 +31,7 @@ void	start(t_ar *ar, char *buf, t_all *all)
 				write_buf(buf, ar, c);
 			if (!ft_strcmp(c, "\n"))
 			{
-				tkn = next_command(buf, ar, all);
+				tkn = next_command(buf, ar);
 				if (!tkn)
 					break ;
 				g_state = 1;
