@@ -1,33 +1,33 @@
 #include "minishell.h"
 
-void	skip_args_before_dots(t_all *all, char **args)
-{
-	int i;
-
-	i = 0;
-	while (args[i] && args[i][0] != ';')
-		i++;
-	/*printf("%s\n", args[i + 1]);*/
-	all->all_args = &args[i + 1];
-}
-
 int check_pipes(char **args)
 {
-	int	i;
+	int i;
+	int	pipes;
 
 	i = 0;
-	if (args[0][0] == '|' && args[1] == 0)
+	pipes = 0;
+	pipes = count_pipes(args);
+	if (pipes == 1)
+	{
+		if (ft_strcmp(args[0], "|") == 0)
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
+			return (0);
+		}
+	}
+	if (pipes > 1 && args[0][0] == '|' && args[1][0] != '|')
 	{
 		ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
 		return (0);
 	}
-	if (args[0][0] == '|' && args[1][0] == '|')
-	{
-		ft_putendl_fd("🚀: syntax error near unexpected token `||'", 2);
-		return (0);
-	}
 	while (args[i])
 	{
+		if (args[i][0] == '|' && args[i + 1] == 0)
+		{
+			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
+			return (0);
+		}
 		if (args[i][0] == '|' && args[i + 1][0] == '|')
 		{
 			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
@@ -72,6 +72,16 @@ void	find_cmd(t_all *all, t_cmd *cmd)
 		env(all->env, cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		ft_exit(all, cmd->args + 1);
+	if (cmd->fd_out != 1)
+	{
+		close(cmd->fd_out);
+		cmd->fd_out = 1;
+	}
+	if (cmd->fd_in != 0)
+	{
+		close(cmd->fd_in);
+		cmd->fd_in = 0;
+	}
 }
 
 void	free_cmd(t_cmd *cmd)
@@ -93,46 +103,98 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args)
 {
 	(void)cmd;
 	(void)args;
-	/*if (check_pipes(args) == 0)*/
-		/*return (0);*/
-	all->args = parse_dollars(all->all_args, all->env);
+	all->args = parse_dollars(all->args, all->env);
 	if (!all->args)
 		return (0);
-	if (!(parse_redirect(all, args, cmd)))
+	if (!(parse_redirect(all, all->args, cmd)))
 		return (0);
-	if (!(parse_pipes(all, args, cmd)))
+	if (!(parse_pipes(all, all->args, cmd)))
 		return (0);
-	skip_args_before_dots(all, all->all_args);
-	/*int i = 0;*/
-	/*while (args[i])*/
-	/*{*/
-		/*printf("%d, %s\n", all->dots, args[i]);*/
-		/*i++;*/
-	/*}*/
 	return (1);
+}
+
+char	**set_args(char ***pos, t_cmd *cmd)
+{
+	int i;
+	char **ret;
+	char **position;
+
+
+	i = 0;
+	position = *pos;
+	while (position[i] && position[i][0] != ';' && position[i][0] != '|')
+	{
+		i++;
+	}
+	if (position[i] && position[i][0] == '|')
+	{
+		cmd->pipe = 1;
+	}
+	ret = malloc(sizeof(char *) * (i + 1));
+	ret[i] = 0;
+	i = 0;
+	while (position[i] && position[i][0] != ';' && position[i][0] != '|')
+	{
+		ret[i] = ft_strdup(position[i]);
+		i++;
+	}
+	*pos += i + 1;
+	return (ret);
 }
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	t_cmd			cmd;
+	char **position;
+	pid_t pid;
 
 	kill_new_terminal(old);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
-	if (check_dots(all->all_args) == 0)
+	if (check_dots(all->all_args) == 0 || check_pipes(all->all_args) == 0)
 		return ;
 	all->dots = find_dots(all->all_args);
+	position = all->all_args;
+	/*int ko = 0;*/
 	while (all->dots--)
 	{
-		if (!(parse_args(all, &cmd, all->all_args)))
+		all->args = set_args(&position, &cmd);
+		/*for (int i = 0; all->args[i]; i++)*/
+			/*printf("%d %s\n", ko, all->args[i]);*/
+		/*printf("%d %s\n", ko, cmd.cmd);*/
+		/*ko++;*/
+		if (!(parse_args(all, &cmd, all->args)))
 			return ;
 		get_args(all->args, &cmd);
+		if (cmd.pipe)
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				cmd.pipe = 0;
+				dup2(cmd.fds[0], 0);
+				close(cmd.fds[1]);
+				continue ;
+			}
+		}
 		if (is_builtin(&cmd))
 			find_cmd(all, &cmd);
 		else
 		{
 			my_execve(all, cmd.args, &cmd);
 		}
-		/*free_cmd(&cmd);*/
+		if (cmd.pipe)
+		{
+			/*close(cmd.fds[1]);*/
+			close(cmd.fds[0]);
+			waitpid(pid, &all->exit_status, 0);
+			break;
+		}
+		/*free_split(all->args);*/
+		free_cmd(&cmd);
+	}
+	if (pid == 0)
+	{
+		exit(all->exit_status);
 	}
 }

@@ -9,7 +9,9 @@ int	find_dots(char **args)
 	res = 1;
 	while (args[++i])
 	{
-		if (args[i][0] == ';' && args[i + 1] != 0)
+		if (args[i][0] == '|')
+			res++;
+		else if (args[i][0] == ';' && args[i + 1] != 0)
 			res++;
 	}
 	return (res);

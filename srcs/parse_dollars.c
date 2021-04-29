@@ -9,7 +9,6 @@ char	*find_in_env(char *comand, char **env)
 
 char	**parse_dollars(char **args, char **env)
 {
-	(void)env;
 	char **ret;
 	int i;
 
@@ -19,15 +18,14 @@ char	**parse_dollars(char **args, char **env)
 	ret = malloc(sizeof(char *) * (i + 1));
 	ret[i] = 0;
 	i = 0;
-	/*for (int i = 0; args[i]; i++)*/
-		/*printf("%s\n", args[i]);*/
 	while (args[i])
 	{
 		if (args[i][0] == '$')
 		{
-			/*printf("%s\n", args[i]);*/
-			ret[i] = check_env(&args[i][1], env);
-			/*printf("%s\n", ret[i]);*/
+			if (args[i][1] == 0)
+				ret[i] = ft_strdup("$");
+			else
+				ret[i] = check_env(&args[i][1], env);
 		}
 		else
 		{
@@ -35,8 +33,6 @@ char	**parse_dollars(char **args, char **env)
 		}
 		i++;
 	}
-	/*for (int i = 0; ret[i]; i++)*/
-		/*printf("%s\n", ret[i]);*/
 	free_split(args);
 	return (ret);
 }

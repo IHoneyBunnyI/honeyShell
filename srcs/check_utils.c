@@ -2,7 +2,8 @@
 
 int	exit_error(char *str)
 {
-	printf("%s\n", str);
+	(void)str;
+	/*printf("%s\n", str);*/
 	return (0);
 }
 

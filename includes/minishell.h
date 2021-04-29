@@ -60,6 +60,7 @@ typedef struct s_ar
 int	find_dots(char **args);
 int	check_dots(char **args);
 void	kill_new_terminal(struct termios *old);
+int			count_pipes(char **args);
 
 char		**parse_dollars(char **args, char **env);
 int			count_dots(char **args);
