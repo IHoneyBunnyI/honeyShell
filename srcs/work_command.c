@@ -195,6 +195,7 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 	}
 	if (pid == 0)
 	{
+		/*close(cmd.fds[0]);*/
 		exit(all->exit_status);
 	}
 }

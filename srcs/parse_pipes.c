@@ -29,6 +29,5 @@ int parse_pipes(t_all *all, char **args, t_cmd *cmd)
 	return (1);
 }
 
-
 //в родителе ls должен перенаправить на fd[1] 
 // а дочка читает из fd[0]

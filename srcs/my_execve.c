@@ -94,16 +94,17 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	{
 		if (cmd->pipe)
 			dup2(cmd->fds[1] , 1);
-		if (cmd->fd_out != 0)
+		if (cmd->fd_out != 1)
 			dup2(cmd->fd_out, 1);
-		/*dup2(cmd->fd_in, 0);*/
+		if (cmd->fd_in != 0)
+			dup2(cmd->fd_in, 0);
 		close(cmd->fds[0]);
 		execve(bin, all->args, all->env);
-		/*if (cmd->pipe)*/
-			/*close(cmd->fds[1]);*/
+		if (cmd->pipe)
+			close(cmd->fds[1]);
 	}
-	/*if (cmd->pipe)*/
-		/*close(cmd->fds[1]);*/
+	if (cmd->pipe)
+		close(cmd->fds[1]);
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);
 	waitpid(pid, &all->exit_status, 0);
