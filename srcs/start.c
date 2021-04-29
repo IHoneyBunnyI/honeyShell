@@ -36,6 +36,7 @@ void	start(t_ar *ar, char *buf, t_all *all)
 					break ;
 				g_state = 1;
 				work_command(all, tkn, &old);
+				free_split(all->all_args);
 				break ;
 			}
 		}

@@ -2,7 +2,7 @@
 
 void	get_args(char **args, t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!args)

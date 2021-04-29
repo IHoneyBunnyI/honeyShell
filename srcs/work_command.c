@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int check_pipes(char **args)
+int	check_pipes(char **args)
 {
-	int i;
+	int	i;
 	int	pipes;
 
 	i = 0;
@@ -42,13 +42,12 @@ int	is_builtin(t_cmd *cmd)
 {
 	if (cmd->cmd != 0)
 	{
-		if (ft_strcmp(cmd->cmd, "echo") == 0 ||
-			ft_strcmp(cmd->cmd, "cd") == 0 ||
-			ft_strcmp(cmd->cmd, "export") == 0 ||
-			ft_strcmp(cmd->cmd, "unset") == 0 ||
-			ft_strcmp(cmd->cmd, "exit") == 0 ||
-			ft_strcmp(cmd->cmd, "pwd") == 0 ||
-			ft_strcmp(cmd->cmd, "env") == 0)
+		if (ft_strcmp(cmd->cmd, "echo") == 0 || ft_strcmp(cmd->cmd, "cd") == 0
+			|| ft_strcmp(cmd->cmd, "export") == 0
+			|| ft_strcmp(cmd->cmd, "unset") == 0
+			|| ft_strcmp(cmd->cmd, "exit") == 0
+			|| ft_strcmp(cmd->cmd, "pwd") == 0
+			|| ft_strcmp(cmd->cmd, "env") == 0)
 			return (1);
 		else
 			return (0);
@@ -115,10 +114,9 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args)
 
 char	**set_args(char ***pos, t_cmd *cmd)
 {
-	int i;
-	char **ret;
-	char **position;
-
+	int		i;
+	char	**ret;
+	char	**position;
 
 	i = 0;
 	position = *pos;
@@ -144,9 +142,9 @@ char	**set_args(char ***pos, t_cmd *cmd)
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
-	t_cmd			cmd;
-	char **position;
-	pid_t pid;
+	t_cmd	cmd;
+	char	**position;
+	pid_t	pid;
 
 	kill_new_terminal(old);
 	init_cmd(&cmd);
@@ -188,7 +186,7 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 			/*close(cmd.fds[1]);*/
 			close(cmd.fds[0]);
 			waitpid(pid, &all->exit_status, 0);
-			break;
+			break ;
 		}
 		/*free_split(all->args);*/
 		free_cmd(&cmd);

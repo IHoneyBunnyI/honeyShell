@@ -12,4 +12,3 @@ void	count_dot(t_all *all, char *line)
 		i++;
 	}
 }
-

@@ -93,7 +93,7 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	if (pid == 0)
 	{
 		if (cmd->pipe)
-			dup2(cmd->fds[1] , 1);
+			dup2(cmd->fds[1], 1);
 		if (cmd->fd_out != 0)
 			dup2(cmd->fd_out, 1);
 		/*dup2(cmd->fd_in, 0);*/

@@ -84,6 +84,7 @@ void		export(t_all *all, char **args, int fd);
 void		print_export(char **env, int fd);
 int			env(char **s, int fd);
 
+int			exit_zero(char *str);
 void		sig_c(int i);
 void		func(int i);
 void		init_ar(t_ar *ar);
@@ -97,7 +98,6 @@ void		make_key(char *c, t_ar *ar, char **buf);
 char		*exit_env(char *cmnd_cpy, char *env_cpy, int k);
 char		**convert_tkn(t_tokens *tkn);
 t_tokens	*flexer(char *cmnd);
-int			exit_error(char *str);
 void		check_operator(t_tokens *tmp, char **cmnd, int *is_set);
 void		exp_env(char **cmnd, int *is_set, char **tk, t_all *al);
 void		dbl_quot_bs(char **cmnd, char **tk);
