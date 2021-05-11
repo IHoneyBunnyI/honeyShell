@@ -155,14 +155,14 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		return ;
 	all->dots = find_dots(all->all_args);
 	position = all->all_args;
-	/*int ko = 0;*/
+	int ko = 0;
 	while (all->dots--)
 	{
 		all->args = set_args(&position, &cmd);
-		/*for (int i = 0; all->args[i]; i++)*/
-			/*printf("%d %s\n", ko, all->args[i]);*/
-		/*printf("%d %s\n", ko, cmd.cmd);*/
-		/*ko++;*/
+		for (int i = 0; all->args[i]; i++)
+			printf("%d %s\n", ko, all->args[i]);
+		printf("%d %s\n", ko, cmd.cmd);
+		ko++;
 		if (!(parse_args(all, &cmd, all->args)))
 			return ;
 		get_args(all->args, &cmd);
@@ -198,4 +198,5 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		/*close(cmd.fds[0]);*/
 		exit(all->exit_status);
 	}
+	/*free_split(all->args);*/
 }
