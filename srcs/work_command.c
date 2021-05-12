@@ -102,7 +102,7 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args)
 {
 	(void)cmd;
 	(void)args;
-	all->args = parse_dollars(all->args, all->env);
+	all->args = parse_dollars(all, all->args, all->env);
 	if (!all->args)
 		return (0);
 	if (!(parse_redirect(all, all->args, cmd)))
@@ -134,7 +134,7 @@ char	**set_args(char ***pos, t_cmd *cmd)
 	i = 0;
 	while (position[i] && position[i][0] != ';' && position[i][0] != '|')
 	{
-		printf("---%s\n", position[i]);
+		/*printf("---%s\n", position[i]);*/
 		ret[i] = ft_strdup(position[i]);
 		i++;
 	}
@@ -155,13 +155,14 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		return ;
 	all->dots = find_dots(all->all_args);
 	position = all->all_args;
-	/*int ko = 0;*/
+	int ko = 0;
 	while (all->dots--)
 	{
 		all->args = set_args(&position, &cmd);
 		/*for (int i = 0; all->args[i]; i++)*/
 			/*printf("%d %s\n", ko, all->args[i]);*/
-		/*printf("%d %s\n", ko++, cmd.cmd);*/
+		/*printf("%d %s\n", ko, cmd.cmd);*/
+		ko++;
 		if (!(parse_args(all, &cmd, all->args)))
 			return ;
 		get_args(all->args, &cmd);

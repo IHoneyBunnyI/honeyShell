@@ -7,7 +7,7 @@ char	*find_in_env(char *comand, char **env)
 	return (0);
 }
 
-char	**parse_dollars(char **args, char **env)
+char	**parse_dollars(t_all *all, char **args, char **env)
 {
 	char	**ret;
 	int		i;
@@ -24,6 +24,8 @@ char	**parse_dollars(char **args, char **env)
 		{
 			if (args[i][1] == 0)
 				ret[i] = ft_strdup("$");
+			else if (args[i][1] == '?')
+				ret[i] = ft_strdup(ft_itoa(all->exit_status));
 			else
 				ret[i] = check_env(&args[i][1], env);
 		}

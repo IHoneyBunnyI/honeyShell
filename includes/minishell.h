@@ -62,7 +62,7 @@ int	check_dots(char **args);
 void	kill_new_terminal(struct termios *old);
 int			count_pipes(char **args);
 
-char		**parse_dollars(char **args, char **env);
+char		**parse_dollars(t_all *all, char **args, char **env);
 int			count_dots(char **args);
 void		error(int id, struct termios *old, char *buf);
 void		av_env_copy(t_all *all, char **av, char **env);
