@@ -100,8 +100,8 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 	(*cmnd)++;
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
-		if (**cmnd == '\\')
-			dbl_quot_bs(cmnd, tk);
+/*		if (**cmnd == '\\')
+			dbl_quot_bs(cmnd, tk);*/
 		if (**cmnd != '\"')
 		{
 			t[0] = **cmnd;

@@ -39,5 +39,5 @@ void	dbl_quot_bs(char **cmnd, char **tk)
 		t[2] = '\0';
 	}
 	*tk = ft_strjoin(*tk, t);
-	(*cmnd)++;
+	//(*cmnd)++;
 }

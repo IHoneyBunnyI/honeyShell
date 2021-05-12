@@ -22,22 +22,18 @@ char	**parse_dollars(t_all *all, char **args, char **env)
 	j = 0;
 	while (args[i])
 	{
-		while (args[i][j])
+		if (args[i][j] == '$')
 		{
-			if (args[i][j] == '$')
-			{
-				if (args[i][j + 1] == 0)
-					ret[i] = ft_strdup("$");
-				else if (args[i][j + 1] == '?')
-					ret[i] = ft_strdup(ft_itoa(all->exit_status));
-				else
-					ret[i] = check_env(&args[i][j + 1], env);
-			}
+			if (args[i][j + 1] == 0)
+				ret[i] = ft_strdup("$");
+			else if (args[i][j + 1] == '?')
+				ret[i] = ft_strdup(ft_itoa(all->exit_status));
 			else
-			{
-				ret[i] = ft_strdup(args[i]);
-			}
-			j++;
+				ret[i] = check_env(&args[i][j + 1], env);
+		}
+		else
+		{
+			ret[i] = ft_strdup(args[i]);
 		}
 		i++;
 	}

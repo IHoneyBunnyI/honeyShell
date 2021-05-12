@@ -48,11 +48,11 @@ int	check_all(char **cmnd, char **tk, int *is_set)
 		if (!check_sing_quot(cmnd, is_set, tk))
 			return (0);
 	}
-	else if (**cmnd == '\\')
+/*	else if (**cmnd == '\\')
 	{
 		if (!check_bs(cmnd, tk, is_set))
 			return (0);
-	}
+	}*/
 	else if (**cmnd == '\"')
 	{
 		if (!check_dbl_quot(cmnd, tk, is_set))
