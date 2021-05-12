@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int check_pipes(char **args)
+int	check_pipes(char **args)
 {
-	int i;
+	int	i;
 	int	pipes;
 
 	i = 0;
@@ -42,13 +42,12 @@ int	is_builtin(t_cmd *cmd)
 {
 	if (cmd->cmd != 0)
 	{
-		if (ft_strcmp(cmd->cmd, "echo") == 0 ||
-			ft_strcmp(cmd->cmd, "cd") == 0 ||
-			ft_strcmp(cmd->cmd, "export") == 0 ||
-			ft_strcmp(cmd->cmd, "unset") == 0 ||
-			ft_strcmp(cmd->cmd, "exit") == 0 ||
-			ft_strcmp(cmd->cmd, "pwd") == 0 ||
-			ft_strcmp(cmd->cmd, "env") == 0)
+		if (ft_strcmp(cmd->cmd, "echo") == 0 || ft_strcmp(cmd->cmd, "cd") == 0
+			|| ft_strcmp(cmd->cmd, "export") == 0
+			|| ft_strcmp(cmd->cmd, "unset") == 0
+			|| ft_strcmp(cmd->cmd, "exit") == 0
+			|| ft_strcmp(cmd->cmd, "pwd") == 0
+			|| ft_strcmp(cmd->cmd, "env") == 0)
 			return (1);
 		else
 			return (0);
@@ -115,13 +114,13 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args)
 
 char	**set_args(char ***pos, t_cmd *cmd)
 {
-	int i;
-	char **ret;
-	char **position;
-
+	int		i;
+	char	**ret;
+	char	**position;
 
 	i = 0;
 	position = *pos;
+	/*printf("---%s\n", *position);*/
 	while (position[i] && position[i][0] != ';' && position[i][0] != '|')
 	{
 		i++;
@@ -135,6 +134,7 @@ char	**set_args(char ***pos, t_cmd *cmd)
 	i = 0;
 	while (position[i] && position[i][0] != ';' && position[i][0] != '|')
 	{
+		printf("---%s\n", position[i]);
 		ret[i] = ft_strdup(position[i]);
 		i++;
 	}
@@ -144,9 +144,9 @@ char	**set_args(char ***pos, t_cmd *cmd)
 
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
-	t_cmd			cmd;
-	char **position;
-	pid_t pid;
+	t_cmd	cmd;
+	char	**position;
+	pid_t	pid;
 
 	kill_new_terminal(old);
 	init_cmd(&cmd);
@@ -155,14 +155,13 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		return ;
 	all->dots = find_dots(all->all_args);
 	position = all->all_args;
-	int ko = 0;
+	/*int ko = 0;*/
 	while (all->dots--)
 	{
 		all->args = set_args(&position, &cmd);
-		for (int i = 0; all->args[i]; i++)
-			printf("%d %s\n", ko, all->args[i]);
-		printf("%d %s\n", ko, cmd.cmd);
-		ko++;
+		/*for (int i = 0; all->args[i]; i++)*/
+			/*printf("%d %s\n", ko, all->args[i]);*/
+		/*printf("%d %s\n", ko++, cmd.cmd);*/
 		if (!(parse_args(all, &cmd, all->args)))
 			return ;
 		get_args(all->args, &cmd);
@@ -188,9 +187,9 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 			/*close(cmd.fds[1]);*/
 			close(cmd.fds[0]);
 			waitpid(pid, &all->exit_status, 0);
-			break;
+			break ;
 		}
-		/*free_split(all->args);*/
+		free_split(all->args);
 		free_cmd(&cmd);
 	}
 	if (pid == 0)
@@ -198,5 +197,4 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		/*close(cmd.fds[0]);*/
 		exit(all->exit_status);
 	}
-	/*free_split(all->args);*/
 }

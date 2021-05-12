@@ -15,9 +15,8 @@ int	count_files(char **args)
 	res = 0;
 	while (args[i] && args[i][0] != ';')
 	{
-		if (ft_strcmp(args[i], ">>") == 0 ||
-			ft_strcmp(args[i], ">") == 0 ||
-			ft_strcmp(args[i], "<") == 0)
+		if (ft_strcmp(args[i], ">>") == 0 || ft_strcmp(args[i], ">") == 0
+			|| ft_strcmp(args[i], "<") == 0)
 			res++;
 		i++;
 	}
@@ -79,9 +78,11 @@ int	open_files(char **args, t_cmd *cmd)
 	while (args[i] && args[i][0] != ';')
 	{
 		if (ft_strcmp(args[i], ">>") == 0 && args[i + 1] != 0)
-			cmd->fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_APPEND, S_IWUSR | S_IRUSR);
+			cmd->fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_APPEND,
+					S_IWUSR | S_IRUSR);
 		else if (ft_strcmp(args[i], ">") == 0 && args[i + 1] != 0)
-			cmd->fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR | S_IRUSR);
+			cmd->fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC,
+					S_IWUSR | S_IRUSR);
 		else if (ft_strcmp(args[i], "<") == 0 && args[i + 1] != 0)
 		{
 			cmd->fd_in = open(args[i + 1], O_RDONLY);
@@ -105,9 +106,8 @@ void	copy_args_without_redirect(t_all *all, char **args, int i)
 	j = 0;
 	while (args[i] && args[i][0] != ';')
 	{
-		if (ft_strcmp(args[i], ">>") == 0 ||
-			ft_strcmp(args[i], ">") == 0 ||
-			ft_strcmp(args[i], "<") == 0)
+		if (ft_strcmp(args[i], ">>") == 0 || ft_strcmp(args[i], ">") == 0
+			|| ft_strcmp(args[i], "<") == 0)
 		{
 			i += 2;
 			continue ;
@@ -128,9 +128,8 @@ void	get_args_cmd(t_all *all, char **args)
 		i++;
 	while (args[j] && args[j][0] != ';')
 	{
-		if (ft_strcmp(args[j], ">>") == 0 ||
-			ft_strcmp(args[j], ">") == 0 ||
-			ft_strcmp(args[j], "<") == 0)
+		if (ft_strcmp(args[j], ">>") == 0 || ft_strcmp(args[j], ">") == 0
+			|| ft_strcmp(args[j], "<") == 0)
 			i -= 2;
 		j++;
 	}

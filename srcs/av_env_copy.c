@@ -33,13 +33,9 @@ void	env_copy(t_all *all, char **env)
 	while (i--)
 	{
 		if (find_oldpwd(env[i]))
-		{
 			all->env[i] = ft_strdup("OLDPWD=");
-		}
 		else
-		{
 			all->env[i] = ft_strdup(env[i]);
-		}
 	}
 }
 

@@ -1,12 +1,5 @@
 #include "minishell.h"
 
-int	exit_error(char *str)
-{
-	(void)str;
-	/*printf("%s\n", str);*/
-	return (0);
-}
-
 char	*exit_env(char *cmnd_cpy, char *env_cpy, int k)
 {
 	char	*res;

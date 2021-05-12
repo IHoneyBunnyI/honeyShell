@@ -4,13 +4,13 @@ char	*find_in_env(char *comand, char **env)
 {
 	(void)comand;
 	(void)env;
-	return 0;
+	return (0);
 }
 
 char	**parse_dollars(char **args, char **env)
 {
-	char **ret;
-	int i;
+	char	**ret;
+	int		i;
 
 	i = 0;
 	while (args[i])
@@ -36,4 +36,3 @@ char	**parse_dollars(char **args, char **env)
 	free_split(args);
 	return (ret);
 }
-
