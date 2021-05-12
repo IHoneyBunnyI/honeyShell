@@ -41,13 +41,19 @@ void	cd_error(char *line)
 
 void	cd(t_all *all, char **args)
 {
-	if (chdir(args[1]) != -1)
+	char *path;
+
+	if (args[1] == 0)
+		path = check_env("HOME", all->env);
+	else
+		path = args[1];
+	if (chdir(path) != -1)
 	{
 		update_oldpwd(all);
 		update_pwd(all);
 	}
 	else
 	{
-		cd_error(args[1]);
+		cd_error(path);
 	}
 }
