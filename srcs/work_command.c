@@ -151,6 +151,8 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 	kill_new_terminal(old);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
+	for(int i = 0; all->all_args[i]; i++)
+		printf("------------%s\n", all->all_args[i]);
 	if (check_dots(all->all_args) == 0 || check_pipes(all->all_args) == 0)
 		return ;
 	all->dots = find_dots(all->all_args);
