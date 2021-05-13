@@ -36,6 +36,19 @@ char	*search_path(char **path)
 	return (0);
 }
 
+int	find_slesh(char *command)
+{
+	int i;
+
+	i = -1;
+	while (command[++i])
+	{
+		if (command[i] == '/')
+			return (1);
+	}
+	return (0);
+}
+
 char	*find_in_path(t_all *all, char *command)
 {
 	char	**path;
@@ -43,9 +56,9 @@ char	*find_in_path(t_all *all, char *command)
 	char	*ret;
 
 	i = -1;
-	if (ft_strcmp(command, "./minishell") == 0)
+	if (find_slesh(command))
 	{
-		ret = ft_strdup("./minishell");
+		ret = ft_strdup(command);
 		return (ret);
 	}
 	path = ft_split(get_env(all, "PATH"), ':');
@@ -68,6 +81,15 @@ void	bin_error(char *arg)
 	ft_putstr_fd(arg, 2);
 	ft_putendl_fd(" : command not found", 2);
 	return ;
+}
+
+void	exec_error(t_all *all, char *bin)
+{
+	ft_putstr_fd("🚀: ", 2);
+	ft_putstr_fd(bin, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+	all->exit_status = WEXITSTATUS(all->exit_status);
+	exit(all->exit_status);
 }
 
 void	check_dochka(int exit_status)
@@ -100,7 +122,8 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 			dup2(cmd->fd_out, 1);
 		if (cmd->fd_in != 0)
 			dup2(cmd->fd_in, 0);
-		execve(bin, all->args, all->env);
+		if (execve(bin, all->args, all->env) == -1)
+			exec_error(all, bin);
 	}
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);

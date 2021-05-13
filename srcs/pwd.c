@@ -6,6 +6,11 @@ void	pwd(int fd)
 	int		len;
 
 	pwd = getcwd(0, 0);
+	if (!pwd)
+	{
+		write(fd, "\n", 1);
+		return;
+	}
 	len = ft_strlen(pwd);
 	write(fd, pwd, len);
 	write(fd, "\n", 1);
