@@ -24,6 +24,7 @@ typedef struct s_cmd
 	char	*cmd;
 	char	**args;
 	int		pipe;
+	int		pipe_in;
 	int		fd_in;
 	int		fd_out;
 	int		fds[2];

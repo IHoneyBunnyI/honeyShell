@@ -111,65 +111,44 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 	kill_new_terminal(old);
 	init_cmd(&cmd);
 	all->all_args = convert_tkn(tkn);
-	/*for(int i = 0; all->all_args[i]; i++)*/
-		/*printf("------------%s\n", all->all_args[i]);*/
 	if (check_dots(all->all_args) == 0 || check_pipes(all->all_args) == 0)
 		return ;
 	all->dots = find_dots(all->all_args);
 	position = all->all_args;
-	/*int ko = 0;*/
 	while (all->dots--)
 	{
 		all->args = set_args(&position, &cmd);
-		/*for (int i = 0; all->args[i]; i++)*/
-			/*printf("%d %s\n", ko, all->args[i]);*/
-		/*printf("%d %s\n", ko, cmd.cmd);*/
-		/*ko++;*/
 		if (!(parse_args(all, &cmd, all->args)))
 			return ;
 		get_args(all->args, &cmd);
-		/*for (int i = 0; all->args[i]; i++)*/
-			/*printf("---------->%d %s\n", ko, all->args[i]);*/
-		/*ko++;*/
 		if (cmd.pipe)
 		{
 			pid = fork();
 			if (pid == 0)
 			{
 				cmd.pipe = 0;
+				cmd.pipe_in = 1;
 				dup2(cmd.fds[0], 0);
 				close(cmd.fds[1]);
 				continue ;
 			}
 		}
-		/*[>for (int i = 0; cmd.args[i]; i++)<]*/
-			/*[>printf("---------->%d %s\n", ko, cmd.args[i]);<]*/
-		/*[>ko++;<]*/
 		if (is_builtin(&cmd))
 			find_cmd(all, &cmd);
 		else
-		{
 			my_execve(all, cmd.args, &cmd);
-		}
-		/*if (pid > 0)<]*/
-		/*[>{<]*/
-			/*[>close(cmd.fds[0]);<]*/
-			/*[>waitpid(pid, &all->exit_status, 0);<]*/
-			/*[>break;<]*/
-		/*[>}<]*/
 		if (cmd.pipe)
 		{
-			/*close(cmd.fds[1]);*/
 			close(cmd.fds[0]);
+			close(cmd.fds[1]);
 			waitpid(pid, &all->exit_status, 0);
 			break ;
 		}
 		free_split(all->args);
 		free_cmd(&cmd);
 	}
-	if (pid == 0)
+	if (cmd.pipe_in)
 	{
-		/*close(cmd.fds[0]);*/
 		exit(all->exit_status);
 	}
 }

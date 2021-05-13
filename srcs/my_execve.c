@@ -100,8 +100,6 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 			dup2(cmd->fd_in, 0);
 		close(cmd->fds[0]);
 		execve(bin, all->args, all->env);
-		if (cmd->pipe)
-			close(cmd->fds[1]);
 	}
 	if (cmd->pipe)
 		close(cmd->fds[1]);

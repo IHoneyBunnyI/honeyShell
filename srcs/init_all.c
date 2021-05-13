@@ -23,6 +23,7 @@ void	init_cmd(t_cmd *cmd)
 	cmd->cmd = 0;
 	cmd->args = 0;
 	cmd->pipe = 0;
+	cmd->pipe_in = 0;
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
 	cmd->fds[0] = -1;
