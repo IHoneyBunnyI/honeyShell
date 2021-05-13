@@ -142,9 +142,8 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 				continue ;
 			}
 		}
-		/*[>for (int i = 0; cmd.args[i]; i++)<]*/
-			/*[>printf("---------->%d %s\n", ko, cmd.args[i]);<]*/
-		/*[>ko++;<]*/
+		for (int i = 0; all->args[i]; i++)
+			printf("----------> %s\n", all->args[i]);
 		if (is_builtin(&cmd))
 			find_cmd(all, &cmd);
 		else
