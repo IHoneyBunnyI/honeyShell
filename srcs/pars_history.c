@@ -1,31 +1,31 @@
 #include "minishell.h"
 
-void	exp_env(char **cmnd, int *is_set, char **tk, t_all *all)
+void	exp_env(char *cmnd,/* int *is_set,*/ char *tk, t_all *all)
 {
 	char	*res;
 
-	(*cmnd)++;
-	if (ft_isdigit(**cmnd))
-		(*cmnd)++;
-	else if (**cmnd == '?')
+	cmnd++;
+	if (ft_isdigit(*cmnd))
+		cmnd++;
+	else if (*cmnd == '?')
 	{
-		(*cmnd)++;
-		*tk = ft_strjoin(*tk, ft_itoa(all->exit_status));
-		*is_set = 1;
+		cmnd++;
+		tk = ft_strjoin(tk, ft_itoa(all->exit_status));
+		//*is_set = 1;
 	}
-	else if (!ft_isalpha(**cmnd) || **cmnd == '_')
+	else if (!ft_isalpha(*cmnd) || *cmnd == '_')
 	{
-		*tk = ft_strjoin(*tk, "$");
-		*is_set = 1;
+		tk = ft_strjoin(tk, "$");
+		//*is_set = 1;
 	}
 	else
 	{
-		res = check_env(*cmnd, all->env);
-		*tk = ft_strjoin(*tk, res);
-		while (skip_env(**cmnd))
-			(*cmnd)++;
-		if (ft_strcmp(res, ""))
-			*is_set = 1;
+		res = check_env(cmnd, all->env);
+		tk = ft_strjoin(tk, res);
+		while (skip_env(*cmnd))
+			cmnd++;
+		//if (ft_strcmp(res, ""))
+		//	*is_set = 1;
 	}
 }
 
@@ -48,11 +48,11 @@ int	check_all(char **cmnd, char **tk, int *is_set)
 		if (!check_sing_quot(cmnd, is_set, tk))
 			return (0);
 	}
-/*	else if (**cmnd == '\\')
+	else if (**cmnd == '\\')
 	{
 		if (!check_bs(cmnd, tk, is_set))
 			return (0);
-	}*/
+	}
 	else if (**cmnd == '\"')
 	{
 		if (!check_dbl_quot(cmnd, tk, is_set))
@@ -71,11 +71,12 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		if (!check_all(cmnd, &tk, is_set))
+		check_symb(cmnd, &tk, is_set);
+/*		if (!check_all(cmnd, &tk, is_set))
 		{
 			free(tk);
 			return (0);
-		}
+		}*/
 	}
 	tmp->token = tk;
 	tmp->next = NULL;
