@@ -90,19 +90,20 @@ void	my_execve(t_all *all, char **args, t_cmd *cmd)
 	if (!bin)
 		return (bin_error(args[0]));
 	pid = fork();
+	if (cmd->pipe)
+		close(cmd->fds[0]);
 	if (pid == 0)
 	{
 		if (cmd->pipe)
+		{
 			dup2(cmd->fds[1] , 1);
+		}
 		if (cmd->fd_out != 1)
 			dup2(cmd->fd_out, 1);
 		if (cmd->fd_in != 0)
 			dup2(cmd->fd_in, 0);
-		close(cmd->fds[0]);
 		execve(bin, all->args, all->env);
 	}
-	if (cmd->pipe)
-		close(cmd->fds[1]);
 	signal(SIGQUIT, f);
 	signal(SIGINT, f);
 	waitpid(pid, &all->exit_status, 0);
