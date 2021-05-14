@@ -179,17 +179,12 @@ void	copy_args(char **new_env, char **args, char **old_env)
 				char *tmp = new_env[index];
 				new_env[index] = ft_strdup(s);
 				free(tmp);
-				printf("%s == %s\n", s, old_env[index]);
-				printf("NASHEL = Zamenyau\n");
 			}
 			else
-				printf("NE DELAU\n");
+				;
 		}
 		else
-		{
 			new_env[j++] = ft_strdup(args[i]);
-			printf("dobavlyau\n");
-		}
 	}
 
 }
@@ -205,7 +200,6 @@ void	add_sort_env(t_all *all, char **args)
 	new_env = malloc(sizeof(char *) * (old + new + 1));
 	new_env[old + new] = 0;
 	copy_args(new_env, args, all->env);
-	printf("%d\n", old+new);
 	free(all->env);
 	all->env = new_env;
 }

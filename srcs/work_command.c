@@ -148,7 +148,5 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		free_cmd(&cmd);
 	}
 	if (cmd.pipe_in)
-	{
 		exit(all->exit_status);
-	}
 }
