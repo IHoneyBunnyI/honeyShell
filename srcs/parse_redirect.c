@@ -99,9 +99,10 @@ int	open_files(char **args, t_cmd *cmd)
 void	copy_args_without_redirect(t_all *all, char **args, int i)
 {
 	int	j;
+	char **p;
 
-	all->args = malloc(sizeof(char *) * (i + 1));
-	all->args[i] = 0;
+	p = malloc(sizeof(char *) * (i + 1));
+	p[i] = 0;
 	i = 0;
 	j = 0;
 	while (args[i] && args[i][0] != ';')
@@ -112,9 +113,11 @@ void	copy_args_without_redirect(t_all *all, char **args, int i)
 			i += 2;
 			continue ;
 		}
-		all->args[j++] = ft_strdup(args[i]);
+		p[j++] = ft_strdup(args[i]);
 		i++;
 	}
+	free_split(all->args);
+	all->args = p;
 }
 
 void	get_args_cmd(t_all *all, char **args)

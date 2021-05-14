@@ -71,7 +71,6 @@ char	*find_in_path(t_all *all, char *command)
 	}
 	ret = search_path(path);
 	free_split(path);
-	/*free(command);*/
 	return (ret);
 }
 

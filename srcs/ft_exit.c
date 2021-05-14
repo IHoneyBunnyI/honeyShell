@@ -7,6 +7,8 @@ void	ft_exit(t_all *all, char **args)
 	i = 0;
 	while (args[i])
 		i++;
+	if (i == 0)
+		exit(all->exit_status);
 	if (i == 1)
 	{
 		all->exit_status = ft_atoi(args[0]);

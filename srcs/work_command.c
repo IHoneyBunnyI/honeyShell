@@ -56,6 +56,7 @@ void	free_cmd(t_cmd *cmd)
 		cmd->args[i] = 0;
 		i++;
 	}
+	free(cmd->args);
 	free(cmd->cmd);
 	cmd->cmd = 0;
 }
@@ -137,6 +138,8 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 			find_cmd(all, &cmd);
 		else
 			my_execve(all, cmd.args, &cmd);
+		free_split(all->args);
+		free_cmd(&cmd);
 		if (cmd.pipe)
 		{
 			close(cmd.fds[0]);
@@ -144,8 +147,6 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 			waitpid(pid, &all->exit_status, 0);
 			break ;
 		}
-		free_split(all->args);
-		free_cmd(&cmd);
 	}
 	if (cmd.pipe_in)
 		exit(all->exit_status);
