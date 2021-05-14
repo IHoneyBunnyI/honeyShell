@@ -4,8 +4,8 @@ int	find_equal(char *line)
 {
 	int	i;
 
-	i = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
 		if (line[i] == '=')
 			return (1);
@@ -45,26 +45,42 @@ int	ft_strstr(char *s1, char *s2)
 		else
 			return (0);
 	}
-	if (s1[i] == '=')
+	if (s1[i] == '=' || !s1[i])
 		return (1);
 	return (0);
+}
+
+char *ft_only_arg(char *s)
+{
+	char *copy;
+	int i;
+
+	i = 0;
+	copy = ft_strdup(s);
+	while (copy[i] && copy[i] != '=')
+		i++;
+	if (copy[i] == '=')
+		copy[i] = 0;
+	return (copy);
 }
 
 int	find_arg_in_env(char *arg, char **args)
 {
 	int i;
-	int	arg_len;
+	char *only_arg;
 
-	(void)arg;
+	only_arg = ft_only_arg(arg);
 	i = 0;
-	arg_len = 0;
 	while (args[i])
 	{
-		arg_len = arg_lenth(args[i]);
-		if (ft_strstr(args[i], arg))
+		if (ft_strstr(args[i], only_arg))
+		{
+			free(only_arg);
 			return (1);
+		}
 		i++;
 	}
+	free(only_arg);
 	return (0);
 }
 
@@ -95,8 +111,10 @@ int	check_args(t_all *all, char **args)
 {
 	int i;
 	char *s;
+	int ret;
 
 	i = -1;
+	ret = 0;
 	while (args[++i])
 	{
 		s = args[i];
@@ -106,21 +124,62 @@ int	check_args(t_all *all, char **args)
 			continue ;
 		}
 		if (find_arg_in_env(s, all->env))
-			printf("NASHEL\n");
+			;
+		else
+			ret++;
 	}
-	return (0);
+	return (ret);
+}
+
+void	copy_args(char **new_env, char **args, char **old_env)
+{
+	int i;
+	int j;
+	char *s;
+
+	j = 0;
+	i = -1;
+	while(old_env[++i])
+		new_env[j++] = old_env[i];
+	i = -1;
+	while (args[++i])
+	{
+		s = args[i];
+		if (!valid_arg(s))
+		{
+			error_export(s);
+			continue ;
+		}
+		if (find_arg_in_env(s, old_env))
+		{
+			if (find_equal(s))
+				printf("NASHEL = Zamenyau\n");
+			else
+				printf("NE DELAU\n");
+		}
+		else
+		{
+			new_env[j++] = ft_strdup(args[i]);
+			printf("dobavlyau\n");
+		}
+	}
+
 }
 
 void	add_sort_env(t_all *all, char **args)
 {
 	int		old;
 	int		new;
-	/*char	**new_env;*/
+	char	**new_env;
 
 	old = num_of_split(all->env);
 	new = check_args(all, args);
-	/*free(all->env);*/
-	/*all->env = new_env;*/
+	new_env = malloc(sizeof(char *) * (old + new + 1));
+	new_env[old + new] = 0;
+	copy_args(new_env, args, all->env);
+	printf("%d\n", old+new);
+	free(all->env);
+	all->env = new_env;
 }
 
 void	export(t_all *all, char **args, int fd)
