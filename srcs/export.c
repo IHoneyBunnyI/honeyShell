@@ -131,10 +131,31 @@ int	check_args(t_all *all, char **args)
 	return (ret);
 }
 
+int	find_index_env(char *arg, char **env)
+{
+	int i;
+	char *only_arg;
+
+	only_arg = ft_only_arg(arg);
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strstr(env[i], only_arg))
+		{
+			free(only_arg);
+			return (i);
+		}
+		i++;
+	}
+	free(only_arg);
+	return (0);
+}
+
 void	copy_args(char **new_env, char **args, char **old_env)
 {
 	int i;
 	int j;
+	int index;
 	char *s;
 
 	j = 0;
@@ -153,7 +174,11 @@ void	copy_args(char **new_env, char **args, char **old_env)
 		if (find_arg_in_env(s, old_env))
 		{
 			if (find_equal(s))
+			{
+				index = find_index_env(s, old_env);
+				printf("%s == %s\n", s, old_env[index]);
 				printf("NASHEL = Zamenyau\n");
+			}
 			else
 				printf("NE DELAU\n");
 		}
