@@ -175,7 +175,10 @@ void	copy_args(char **new_env, char **args, char **old_env)
 		{
 			if (find_equal(s))
 			{
-				index = find_index_env(s, old_env);
+				index = find_index_env(s, new_env);
+				char *tmp = new_env[index];
+				new_env[index] = ft_strdup(s);
+				free(tmp);
 				printf("%s == %s\n", s, old_env[index]);
 				printf("NASHEL = Zamenyau\n");
 			}
