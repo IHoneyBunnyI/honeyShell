@@ -63,6 +63,7 @@ int	check_sing_quot(char **cmnd, int *is_set, char **tk)
 
 	p1 = *cmnd;
 	p2 = *cmnd;
+	*tk = ft_strjoin(*tk, "\'");
 	p2++;
 	while (*p2 && *p2 != '\'')
 		p2++;
@@ -70,6 +71,7 @@ int	check_sing_quot(char **cmnd, int *is_set, char **tk)
 		return (exit_zero("parse error: unclosed quotation"));
 	str = ft_angelina(p1, p2);
 	*tk = ft_strjoin(*tk, str);
+	*tk = ft_strjoin(*tk, "\'");
 	free(str);
 	*cmnd = p2 + 1;
 	*is_set = 1;
@@ -84,6 +86,7 @@ int	check_bs(char **cmnd, char **tk, int *is_set)
 	(*cmnd)++;
 	if (!(**cmnd))
 		return (exit_zero("parse error: escaped newline"));
+	*tk = ft_strjoin(*tk, "\\");
 	t[0] = **cmnd;
 	*tk = ft_strjoin(*tk, t);
 	if (*cmnd)
@@ -98,20 +101,22 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 
 	*is_set = 1;
 	(*cmnd)++;
+	*tk = ft_strjoin(*tk, "\"");
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
 /*		if (**cmnd == '\\')
-			dbl_quot_bs(cmnd, tk);*/
+			dbl_quot_bs(cmnd, tk);
 		if (**cmnd != '\"')
-		{
+		{*/
 			t[0] = **cmnd;
 			t[1] = '\0';
 			*tk = ft_strjoin(*tk, t);
 			(*cmnd)++;
-		}
+//		}
 	}
 	if (!(**cmnd))
 		return (exit_zero("parse error: unclosed quotation"));
 	(*cmnd)++;
+	*tk = ft_strjoin(*tk, "\"");
 	return (1);
 }

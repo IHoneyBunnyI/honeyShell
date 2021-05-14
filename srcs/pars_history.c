@@ -71,12 +71,11 @@ int	check_else(char **cmnd, t_tokens *tmp, int *is_set)
 	tk[0] = '\0';
 	while (not_operator(**cmnd) && **cmnd != ' ' && **cmnd != '\0')
 	{
-		check_symb(cmnd, &tk, is_set);
-/*		if (!check_all(cmnd, &tk, is_set))
+		if (!check_all(cmnd, &tk, is_set))
 		{
 			free(tk);
 			return (0);
-		}*/
+		}
 	}
 	tmp->token = tk;
 	tmp->next = NULL;
