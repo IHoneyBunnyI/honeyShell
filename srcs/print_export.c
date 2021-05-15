@@ -44,6 +44,32 @@ char	**copy_env(char **env)
 	return (for_sort);
 }
 
+void	putstr_before_equal(char *s, int fd)
+{
+	int i;
+
+	i = 0;
+	while (s[i] && s[i] != '=')
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+	if (s[i] == '=')
+		ft_putchar_fd(s[i], fd);
+}
+
+void	putstr_after_equal(char *s, int fd)
+{
+	int i;
+
+	i = 0;
+	while (s[i] && s[i] != '=')
+		i++;
+	if (s[i] == '=')
+		i++;
+	ft_putstr_fd(&s[i], fd);
+}
+
 void	print_export(char **env, int fd)
 {
 	int		i;
@@ -55,8 +81,13 @@ void	print_export(char **env, int fd)
 	while (print_env[i])
 	{
 		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(print_env[i], fd);
-		ft_putendl_fd("\"", fd);
+		putstr_before_equal(print_env[i], fd);
+		if (find_equal(print_env[i]))
+			ft_putstr_fd("\"", fd);
+		putstr_after_equal(print_env[i], fd);
+		if (find_equal(print_env[i]))
+			ft_putstr_fd("\"", fd);
+		ft_putstr_fd("\n", fd);
 		i++;
 	}
 	free_split(print_env);
