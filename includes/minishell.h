@@ -63,6 +63,7 @@ int	check_dots(char **args);
 int	check_pipes(char **args);
 void	kill_new_terminal(struct termios *old);
 int			count_pipes(char **args);
+int			find_equal(char *line);
 
 char		**parse_dollars(t_all *all, char **args, char **env);
 int			count_dots(char **args);
