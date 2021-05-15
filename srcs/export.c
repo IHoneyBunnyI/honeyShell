@@ -157,6 +157,7 @@ void	copy_args(char **new_env, char **args, char **old_env)
 	int j;
 	int index;
 	char *s;
+	char *tmp;
 
 	j = 0;
 	i = -1;
@@ -167,16 +168,13 @@ void	copy_args(char **new_env, char **args, char **old_env)
 	{
 		s = args[i];
 		if (!valid_arg(s))
-		{
-			error_export(s);
 			continue ;
-		}
 		if (find_arg_in_env(s, old_env))
 		{
 			if (find_equal(s))
 			{
 				index = find_index_env(s, new_env);
-				char *tmp = new_env[index];
+				tmp = new_env[index];
 				new_env[index] = ft_strdup(s);
 				free(tmp);
 			}
@@ -186,7 +184,6 @@ void	copy_args(char **new_env, char **args, char **old_env)
 		else
 			new_env[j++] = ft_strdup(args[i]);
 	}
-
 }
 
 void	add_sort_env(t_all *all, char **args)
