@@ -23,6 +23,8 @@ void	skip_quot(char **ret, int *j, char *args)
 
 void	skip_else(char **ret, int *j, char *args, t_all *all)
 {
+	char	*buf;
+
 	if (args[*j] == '\"')
 		(*j)++;
 	if (args[*j] == '$' && args[*j])
@@ -37,7 +39,10 @@ void	skip_else(char **ret, int *j, char *args, t_all *all)
 		}
 		else
 		{
-			*ret = ft_strjoin(*ret, check_env(&args[*j], all->env));
+			buf = check_env(&args[*j], all->env);
+			*ret = ft_strjoin(*ret, buf);
+			if (buf)
+				free(buf);
 			while (skip_env(args[*j]))
 				(*j)++;
 		}
