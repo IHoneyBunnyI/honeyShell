@@ -65,7 +65,7 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args)
 {
 	(void)cmd;
 	(void)args;
-	all->args = parse_dollars(all, all->args, all->env);
+	all->args = parse_dollars(all, all->args);
 	if (!all->args)
 		return (0);
 	if (!(parse_redirect(all, all->args, cmd)))
