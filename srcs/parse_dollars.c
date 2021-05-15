@@ -40,9 +40,12 @@ void	skip_else(char **ret, int *j, char *args, t_all *all)
 		else
 		{
 			buf = check_env(&args[*j], all->env);
-			*ret = ft_strjoin(*ret, buf);
 			if (buf)
+			{
+				*ret = ft_strjoin(*ret, buf);
 				free(buf);
+
+			}
 			while (skip_env(args[*j]))
 				(*j)++;
 		}
