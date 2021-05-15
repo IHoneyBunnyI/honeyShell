@@ -17,7 +17,7 @@ char	*check_env(char *cmnd, char **env)
 	{
 		k = 0;
 		env_cpy = ft_strdup(env[i]);
-		while (env_cpy[k] != '=')
+		while (env_cpy[k] && env_cpy[k] != '=')
 			k++;
 		env_cpy[k] = '\0';
 		if (!ft_strcmp(env_cpy, cmnd_cpy))
