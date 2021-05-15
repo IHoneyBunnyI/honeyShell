@@ -26,7 +26,7 @@ char	*check_env(char *cmnd, char **env)
 		i++;
 	}
 	free(cmnd_cpy);
-	return ("");
+	return (0);
 }
 
 void	check_operator(t_tokens *tmp, char **cmnd, int *is_set)
