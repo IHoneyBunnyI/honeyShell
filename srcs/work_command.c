@@ -19,8 +19,15 @@ int	is_builtin(t_cmd *cmd)
 
 void	find_cmd(t_all *all, t_cmd *cmd)
 {
+	int fd;
+
+	fd = 1;
+	if (cmd->pipe)
+	{
+		cmd->fd_out = cmd->fds[1];
+	}
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		my_execve(all, cmd->args, cmd);
+		my_echo(cmd->args + 1, cmd->fd_out);
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		cd(all, cmd->args);
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
@@ -129,6 +136,7 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 				cmd.pipe_in = 1;
 				dup2(cmd.fds[0], 0);
 				close(cmd.fds[1]);
+				free_cmd(&cmd);
 				continue ;
 			}
 		}
