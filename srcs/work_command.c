@@ -20,7 +20,7 @@ int	is_builtin(t_cmd *cmd)
 void	find_cmd(t_all *all, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->cmd, "echo") == 0)
-		my_echo(cmd->args + 1, cmd->fd_out);
+		my_execve(all, cmd->args, cmd);
 	else if (ft_strcmp(cmd->cmd, "cd") == 0)
 		cd(all, cmd->args);
 	else if (ft_strcmp(cmd->cmd, "export") == 0)
@@ -88,9 +88,7 @@ char	**set_args(char ***pos, t_cmd *cmd)
 		i++;
 	}
 	if (position[i] && position[i][0] == '|')
-	{
 		cmd->pipe = 1;
-	}
 	ret = malloc(sizeof(char *) * (i + 1));
 	ret[i] = 0;
 	i = 0;

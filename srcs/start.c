@@ -16,7 +16,7 @@ void	start(t_ar *ar, char *buf, t_all *all)
 		while (1)
 		{
 			g_state = 0;
-			ar->r = read(0, c, 10);
+			ar->r = read(0, c, 5);
 			c[ar->r] = 0;
 			if (g_state == 2)
 			{
