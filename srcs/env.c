@@ -5,8 +5,10 @@ int	is_empty(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] != '=' && s[i])
+	while (s[i] && s[i] != '=')
 		i++;
+	if (!s[i])
+		return (1);
 	if (s[i + 1] != '\0')
 		return (0);
 	else

@@ -3,9 +3,6 @@
 int	exit_term_main(struct termios *old, char *buf)
 {
 	(void)old;
-	/*ft_putstr(tgetstr("ke", 0));*/
-	/*tcsetattr(0, TCSANOW, old);*/
-	/*printf("\n");*/
 	free(buf);
 	return (0);
 }

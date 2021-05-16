@@ -16,22 +16,28 @@ FILES = main.c\
 		arrow.c\
 		av_env_copy.c\
 		export.c\
+		export_util.c\
+		export_util2.c\
 		unset.c\
 		print_export.c\
 		count_dot.c\
 		cd.c\
 		ft_exit.c\
 		my_execve.c\
+		my_execve_util.c\
 		arrow_utils.c\
 		check_token.c\
 		check_utils.c\
 		pars_history.c\
 		pars_utils.c\
 		term_utils.c\
+		term_utils2.c\
 		token_work.c\
 		main_utils.c\
 		work_command.c\
+		work_command_util.c\
 		parse_redirect.c\
+		parse_redirect_util.c\
 		get_args.c\
 		signal.c\
 		parse_pipes.c\
