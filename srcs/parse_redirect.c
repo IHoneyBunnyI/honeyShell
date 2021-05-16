@@ -98,8 +98,8 @@ int	open_files(char **args, t_cmd *cmd)
 
 void	copy_args_without_redirect(t_all *all, char **args, int i)
 {
-	int	j;
-	char **p;
+	int		j;
+	char	**p;
 
 	p = malloc(sizeof(char *) * (i + 1));
 	p[i] = 0;

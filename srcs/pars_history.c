@@ -1,34 +1,5 @@
 #include "minishell.h"
 
-void	exp_env(char *cmnd,/* int *is_set,*/ char *tk, t_all *all)
-{
-	char	*res;
-
-	cmnd++;
-	if (ft_isdigit(*cmnd))
-		cmnd++;
-	else if (*cmnd == '?')
-	{
-		cmnd++;
-		tk = ft_strjoin(tk, ft_itoa(all->exit_status));
-		//*is_set = 1;
-	}
-	else if (!ft_isalpha(*cmnd) || *cmnd == '_')
-	{
-		tk = ft_strjoin(tk, "$");
-		//*is_set = 1;
-	}
-	else
-	{
-		res = check_env(cmnd, all->env);
-		tk = ft_strjoin(tk, res);
-		while (skip_env(*cmnd))
-			cmnd++;
-		//if (ft_strcmp(res, ""))
-		//	*is_set = 1;
-	}
-}
-
 void	check_symb(char **cmnd, char **tk, int *is_set)
 {
 	char	t[2];

@@ -25,7 +25,7 @@ int	num_of_split(char **split)
 
 int	arg_lenth(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] != '=')
@@ -35,7 +35,7 @@ int	arg_lenth(char *s)
 
 int	ft_strstr(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s2[i])
@@ -50,10 +50,10 @@ int	ft_strstr(char *s1, char *s2)
 	return (0);
 }
 
-char *ft_only_arg(char *s)
+char	*ft_only_arg(char *s)
 {
-	char *copy;
-	int i;
+	char	*copy;
+	int		i;
 
 	i = 0;
 	copy = ft_strdup(s);
@@ -66,8 +66,8 @@ char *ft_only_arg(char *s)
 
 int	find_arg_in_env(char *arg, char **args)
 {
-	int i;
-	char *only_arg;
+	int		i;
+	char	*only_arg;
 
 	only_arg = ft_only_arg(arg);
 	i = 0;
@@ -109,9 +109,9 @@ void	error_export(char *s)
 
 int	check_args(t_all *all, char **args)
 {
-	int i;
-	char *s;
-	int ret;
+	int		i;
+	char	*s;
+	int		ret;
 
 	i = -1;
 	ret = 0;
@@ -133,8 +133,8 @@ int	check_args(t_all *all, char **args)
 
 int	find_index_env(char *arg, char **env)
 {
-	int i;
-	char *only_arg;
+	int		i;
+	char	*only_arg;
 
 	only_arg = ft_only_arg(arg);
 	i = 0;
@@ -153,15 +153,15 @@ int	find_index_env(char *arg, char **env)
 
 void	copy_args(char **new_env, char **args, char **old_env)
 {
-	int i;
-	int j;
-	int index;
-	char *s;
-	char *tmp;
+	int		i;
+	int		j;
+	int		index;
+	char	*s;
+	char	*tmp;
 
 	j = 0;
 	i = -1;
-	while(old_env[++i])
+	while (old_env[++i])
 		new_env[j++] = old_env[i];
 	i = -1;
 	while (args[++i])

@@ -38,7 +38,7 @@ char	*search_path(char **path)
 
 int	find_slesh(char *command)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (command[++i])

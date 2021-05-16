@@ -25,20 +25,9 @@ void	dbl_quot_bs(char **cmnd, char **tk)
 {
 	char	t[3];
 
-
 	(*cmnd)++;
-/*	if (**cmnd == '$' || **cmnd == '`' || **cmnd == '\\'
-		|| **cmnd == '\"')
-	{
-		t[0] = **cmnd;
-		t[1] = '\0';
-	}
-	else
-	{*/
-		t[0] = '\\';
-		t[1] = **cmnd;
-		t[2] = '\0';
-//	}
+	t[0] = '\\';
+	t[1] = **cmnd;
+	t[2] = '\0';
 	*tk = ft_strjoin(*tk, t);
-	//(*cmnd)++;
 }

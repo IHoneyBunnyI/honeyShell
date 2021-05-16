@@ -46,7 +46,7 @@ char	**copy_env(char **env)
 
 void	putstr_before_equal(char *s, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] != '=')
@@ -60,7 +60,7 @@ void	putstr_before_equal(char *s, int fd)
 
 void	putstr_after_equal(char *s, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] != '=')

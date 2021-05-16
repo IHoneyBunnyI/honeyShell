@@ -20,11 +20,8 @@ void	skip_quot(char **ret, int *j, char *args)
 	(*j)++;
 }
 
-
 void	skip_else(char **ret, int *j, char *args, t_all *all)
 {
-	char	*buf;
-
 	if (args[*j] == '\"')
 		(*j)++;
 	if (args[*j] == '$' && args[*j])
@@ -38,22 +35,22 @@ void	skip_else(char **ret, int *j, char *args, t_all *all)
 			(*j)++;
 		}
 		else
-		{
-			buf = check_env(&args[*j], all->env);
-			if (buf)
-			{
-				*ret = ft_strjoin(*ret, buf);
-				free(buf);
-
-			}
-			while (skip_env(args[*j]))
-				(*j)++;
-		}
+			else_else(ret, j, args, all);
 	}
 	else if (args[*j] == '\\' && args[*j])
 		next_char(ret, j, args[++*j]);
 	else if (args[*j] && args[*j] != '\"' && args[*j] != '\'')
 		next_char(ret, j, args[*j]);
+}
+
+int	len_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
 }
 
 char	**parse_dollars(t_all *all, char **args)
@@ -62,9 +59,7 @@ char	**parse_dollars(t_all *all, char **args)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (args[i])
-		i++;
+	i = len_args(args);
 	ret = malloc(sizeof(char *) * (i + 1));
 	ret[i] = 0;
 	i = 0;

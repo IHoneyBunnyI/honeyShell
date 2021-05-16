@@ -50,3 +50,17 @@ int	skip_env(char s)
 		return (1);
 	return (0);
 }
+
+void	else_else(char **ret, int *j, char *args, t_all *all)
+{
+	char	*buf;
+
+	buf = check_env(&args[*j], all->env);
+	if (buf)
+	{
+		*ret = ft_strjoin(*ret, buf);
+		free(buf);
+	}
+	while (skip_env(args[*j]))
+		(*j)++;
+}

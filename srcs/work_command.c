@@ -19,7 +19,7 @@ int	is_builtin(t_cmd *cmd)
 
 void	find_cmd(t_all *all, t_cmd *cmd)
 {
-	int fd;
+	int	fd;
 
 	fd = 1;
 	if (cmd->pipe)

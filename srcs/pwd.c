@@ -9,7 +9,7 @@ void	pwd(int fd)
 	if (!pwd)
 	{
 		write(fd, "\n", 1);
-		return;
+		return ;
 	}
 	len = ft_strlen(pwd);
 	write(fd, pwd, len);
