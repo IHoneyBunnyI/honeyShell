@@ -26,11 +26,55 @@ char	**set_args(char ***pos, t_cmd *cmd)
 	return (ret);
 }
 
+void	close_wait_if_pid(t_all *all, t_cmd *cmd, pid_t pid)
+{
+	close(cmd->fds[0]);
+	close(cmd->fds[1]);
+	waitpid(pid, &all->exit_status, 0);
+}
+
+void	exec_or_built(t_all *all, t_cmd *cmd)
+{
+	if (is_builtin(cmd))
+		find_cmd(all, cmd);
+	else
+		my_execve(all, cmd->args, cmd);
+	free_split(all->args);
+	free_cmd(cmd);
+}
+
+void	work_next_command(t_all *all, t_cmd *cmd, char **position)
+{
+	pid_t	pid;
+
+	while (all->dots--)
+	{
+		all->args = set_args(&position, cmd);
+		if (!(parse_args(all, cmd, all->args)))
+			return ;
+		get_args(all->args, cmd);
+		if (cmd->pipe)
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				if_pid_o(cmd);
+				continue ;
+			}
+		}
+		exec_or_built(all, cmd);
+		if (cmd->pipe)
+		{
+			close_wait_if_pid(all, cmd, pid);
+			break ;
+		}
+	}
+}
+
 void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 {
 	t_cmd	cmd;
 	char	**position;
-	pid_t	pid;
 
 	kill_new_terminal(old);
 	init_cmd(&cmd);
@@ -39,39 +83,7 @@ void	work_command(t_all *all, t_tokens *tkn, struct termios *old)
 		return ;
 	all->dots = find_dots(all->all_args);
 	position = all->all_args;
-	while (all->dots--)
-	{
-		all->args = set_args(&position, &cmd);
-		if (!(parse_args(all, &cmd, all->args)))
-			return ;
-		get_args(all->args, &cmd);
-		if (cmd.pipe)
-		{
-			pid = fork();
-			if (pid == 0)
-			{
-				cmd.pipe = 0;
-				cmd.pipe_in = 1;
-				dup2(cmd.fds[0], 0);
-				close(cmd.fds[1]);
-				free_cmd(&cmd);
-				continue ;
-			}
-		}
-		if (is_builtin(&cmd))
-			find_cmd(all, &cmd);
-		else
-			my_execve(all, cmd.args, &cmd);
-		free_split(all->args);
-		free_cmd(&cmd);
-		if (cmd.pipe)
-		{
-			close(cmd.fds[0]);
-			close(cmd.fds[1]);
-			waitpid(pid, &all->exit_status, 0);
-			break ;
-		}
-	}
+	work_next_command(all, &cmd, position);
 	if (cmd.pipe_in)
 		exit(all->exit_status);
 }

@@ -86,6 +86,7 @@ int	parse_args(t_all *all, t_cmd *cmd, char **args);
 void	free_cmd(t_cmd *cmd);
 int	is_builtin(t_cmd *cmd);
 void	find_cmd(t_all *all, t_cmd *cmd);
+void	if_pid_o(t_cmd *cmd);
 
 char		**parse_dollars(t_all *all, char **args);
 int			count_dots(char **args);

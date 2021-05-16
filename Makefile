@@ -36,6 +36,7 @@ FILES = main.c\
 		main_utils.c\
 		work_command.c\
 		work_command_util.c\
+		work_command_util_2.c\
 		parse_redirect.c\
 		parse_redirect_util.c\
 		get_args.c\
