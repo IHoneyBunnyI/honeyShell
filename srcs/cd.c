@@ -12,8 +12,6 @@ void	update_oldpwd(t_all *all)
 	i_oldpwd = find_name(all, "OLDPWD") - 1;
 	free(all->env[i_oldpwd]);
 	pwd = all->env[i_pwd];
-	/*if (!all->env[i_pwd])*/
-		/*return;*/
 	while (all->env[i_pwd][++i] && all->env[i_pwd][i] != '=')
 		pwd++;
 	all->env[i_oldpwd] = ft_strdup("OLDPWD=");
@@ -31,8 +29,9 @@ void	update_pwd(t_all *all)
 	pwd = getcwd(0, 0);
 	if (!pwd)
 	{
-		ft_putendl_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory", 2);
-		return;
+		ft_putendl_fd("cd: error retrieving current directory: getcwd: cannot \
+access parent directories: No such file or directory", 2);
+		return ;
 	}
 	all->env[i_pwd] = ft_strjoin(all->env[i_pwd], pwd);
 	free(pwd);
@@ -48,7 +47,7 @@ void	cd_error(char *line)
 
 void	cd(t_all *all, char **args)
 {
-	char *path;
+	char	*path;
 
 	if (args[1] == 0)
 		path = check_env("HOME", all->env);

@@ -49,6 +49,12 @@ int	check_dots(char **args)
 	return (1);
 }
 
+int	error_pipe(void)
+{
+	ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
+	return (0);
+}
+
 int	check_pipes(char **args)
 {
 	int	i;
@@ -58,25 +64,14 @@ int	check_pipes(char **args)
 	pipes = 0;
 	pipes = count_pipes(args);
 	if (pipes == 1)
-	{
 		if (ft_strcmp(args[0], "|") == 0)
-		{
-			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
-			return (0);
-		}
-	}
+			return (error_pipe());
 	if (pipes > 1 && args[0][0] == '|' && args[1][0] != '|')
-	{
-		ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
-		return (0);
-	}
+		return (error_pipe());
 	while (args[i])
 	{
 		if (args[i][0] == '|' && args[i + 1] == 0)
-		{
-			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
-			return (0);
-		}
+			return (error_pipe());
 		if (args[i][0] == '|' && args[i + 1][0] == '|')
 		{
 			ft_putendl_fd("🚀: syntax error near unexpected token `|'", 2);
