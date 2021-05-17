@@ -104,10 +104,15 @@ int	check_dbl_quot(char **cmnd, char **tk, int *is_set)
 	*tk = ft_strjoin(*tk, "\"");
 	while (**cmnd != '\"' && **cmnd != '\0')
 	{
-		t[0] = **cmnd;
-		t[1] = '\0';
-		*tk = ft_strjoin(*tk, t);
-		(*cmnd)++;
+		if (**cmnd == '\\')
+			dbl_quot_bs(cmnd, tk);
+		if (**cmnd != '\"' && **cmnd != '\\')
+		{
+			t[0] = **cmnd;
+			t[1] = '\0';
+			*tk = ft_strjoin(*tk, t);
+			(*cmnd)++;
+		}
 	}
 	if (!(**cmnd))
 		return (exit_zero("parse error: unclosed quotation"));
