@@ -1,4 +1,4 @@
-NAME = minishell
+NAME = honeyshell
 
 CC = gcc
 
